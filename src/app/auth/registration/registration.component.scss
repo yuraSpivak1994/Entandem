@@ -1,0 +1,184 @@
+.square label {
+  border: 2px solid #737d80;
+}
+
+header a.logo {
+  left: 30px;
+}
+
+.group {
+  padding-top: 0;
+}
+
+.group label {
+  top: 0;
+}
+
+form .text-establish {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  display: block;
+  color: #3E4254;
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+}
+
+form .padding {
+  padding: 40px 0;
+}
+
+form .padding-personal {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+form .padding-field {
+  padding: 20px 0;
+}
+
+form .text-label-check {
+  color: #6F7886;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+}
+
+form .square {
+  display: flex;
+  justify-content: center;
+}
+
+form .include-container {
+  width: 100%;
+  display: flex;
+  position: relative;
+  background-color: #F3F5F7;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+}
+
+form .include-container .space {
+  height: 20px;
+  width: 100%;
+}
+
+form .include-container span {
+  background-color: #F3F5F7;
+  color: #9B9B9B;
+}
+
+form .title-include {
+  position: absolute;
+  top: 4px;
+  left: 20px;
+}
+
+form .include-container .left,
+form .include-container .right {
+  display: flex;
+  flex-direction: column;
+}
+
+form .include-container .left .item,
+form .include-container .right .item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+}
+
+form .include-container .left .item .mark,
+form .include-container .right .item .mark {
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+
+form .registr-btn-bpx {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+form .registr-btn-bpx button.registration {
+  max-width: 222px;
+  color: #FFFFFF;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #404DDC;
+  transition: 0.3s;
+}
+
+form .registr-btn-bpx button.registration:hover {
+  background-color: rgba(64, 77, 220, 0.8);
+}
+
+.to-login-box {
+  position: fixed;
+  z-index: 22;
+  cursor: pointer;
+  top: 23px;
+  right: 42%;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px;
+}
+
+@media screen and (max-width: 880px) {
+  .to-login-box {
+    display: flex;
+    max-width: 170px;
+    margin: 0 auto;
+    justify-content: space-between;
+    position: relative;
+    right: auto;
+    top: auto;
+    padding: 20px 0;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  form .padding-mobile {
+    padding-top: 40px;
+  }
+
+  form .text-label-check {
+    padding-left: 15px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .for-mobile {
+    padding-top: 20px;
+  }
+}
+.field-material > * {
+  width: 100%;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+  color: #9B9B9B;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 23px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 2px!important;
+}
+::ng-deep .mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple {
+  height: 2px!important;
+}
+::ng-deep input.mat-input-element {
+  z-index: 1;
+}
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color: #C9C9C9 !important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #C9C9C9 !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color: #C9C9C9 !important;
+}

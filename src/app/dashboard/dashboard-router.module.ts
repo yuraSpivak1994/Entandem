@@ -9,6 +9,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRouterModule {
-
-}
+export class DashboardRouterModule {}

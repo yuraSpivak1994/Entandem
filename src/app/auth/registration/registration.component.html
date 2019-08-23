@@ -1,1 +1,279 @@
-<p>registration works!</p>
+<div class="content">
+  <div class="left-part">
+    <div class="border-left"></div>
+    <div class="vertical-help">
+      <div class="content-inside">
+        <div class="open-titles-box">
+          <h1 class="title">Register Now</h1>
+          <span class="description">Please provide the following information to register as:</span>
+        </div>
+        <form  [formGroup]="form">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="first-choose">
+                <input type="radio" id="test1" name="radio-group" checked class="radio-input">
+                <label for="test1" class="radio-label">New Licensee</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="second-choose">
+                <input type="radio" id="test2" name="radio-group"  class="radio-input">
+                <label for="test2" class="radio-label">SOCAN / Re:Sound Licensee</label>
+              </div>
+            </div>
+          </div>
+          <div class="padding">
+            <div class="row">
+              <div class="col">
+                <span class="text-establish">Establishment Information</span>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="Business Name">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="Street Address">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="field-material">
+                  <mat-form-field>
+                    <mat-select placeholder="Province">
+                      <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="padding-mobile">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             placeholder="City">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="Postal Code">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="square">
+                  <input type="checkbox" id="checkbox-square" />
+                  <label for="checkbox-square"></label>
+                  <div>
+                    <span class="text-label-check">My mailing address is different from establishment information </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-personal">
+            <div class="row">
+              <div class="col">
+                <span class="text-establish">Personal Information</span>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="First Name">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="padding-mobile">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             placeholder="Last Name">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="Email Address">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="Phone Number">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="padding-mobile">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             placeholder="Fax Number (Optional)">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding">
+            <div class="row">
+              <div class="col">
+                <span class="text-establish">Create Password</span>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           type="password"
+                           placeholder="Password">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           placeholder="Repeat Password">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="include-container">
+                  <span class="title-include">Password must include:</span>
+                  <div class="space"></div>
+                  <div class="left">
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input type="checkbox" id="checkbox1"/>
+                          <label for="checkbox1"></label>
+                        </div>
+                      </span>
+                      <span class="mark">8-20 Characters</span>
+                    </div>
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input type="checkbox" id="checkbox2"/>
+                          <label for="checkbox2"></label>
+                        </div>
+                      </span>
+                      <span class="mark">At least one capital letter</span>
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input type="checkbox" id="checkbox3"/>
+                          <label for="checkbox3"></label></div>
+                      </span>
+                      <span class="mark">At least one number</span>
+                    </div>
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input type="checkbox" id="checkbox4"/>
+                          <label for="checkbox4"></label>
+                        </div>
+                      </span>
+                      <span class="mark">No spaces</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="padding-field">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <mat-select placeholder="How did you hear about Entandem?">
+                      <mat-option value="option">Option2</mat-option>
+                      <mat-option value="option">Option3</mat-option>
+                      <mat-option value="option">Option4</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="registr-btn-bpx">
+            <button class="registration">Register Now</button>
+          </div>
+        </form>
+        <div class="to-login-box">
+          <span>Already registered?</span>
+          <a href="http://localhost:63342/Entandem-Test/templates/login.html?_ijt=4kr26qtc934qinan50s128nq74" class="text-helper">login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right-part">
+    <video type="video/mp4" autoplay loop>
+      <source src="/assets/image/login.mp4">
+    </video>
+  </div>
+</div>

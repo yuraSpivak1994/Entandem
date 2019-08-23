@@ -1,2 +1,66 @@
-<p>login works!</p>
-<button [routerLink]="['/dashboard']">wer</button>
+<div class="content">
+  <div class="left-part">
+    <div class="vertical-help">
+      <div class="content-inside">
+        <div class="open-titles-box">
+          <h1 class="title">Login</h1>
+          <span class="description">Please enter your credentials below.</span>
+        </div>
+        <form [formGroup]="form">
+          <div class="fields-box">
+            <div class="field-material">
+              <img *ngIf="validateEmail()" src="/assets/image/error-triangle.svg" alt="error" class="error-triangle">
+              <mat-form-field>
+                <input matInput
+                       placeholder="Email Address"
+                       formControlName="email">
+                <mat-error *ngIf="validateEmail()">
+                  The email you entered did not match our records.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="field-material">
+              <img *ngIf="validatePassword()" src="/assets/image/error-triangle.svg" alt="error" class="error-triangle">
+              <mat-form-field>
+                <input matInput
+                       placeholder="Password"
+                       formControlName="password">
+                <mat-error *ngIf="validatePassword()">
+                  The password you entered did not match our records.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="agree-box">
+              <div class="left">
+                <div class="square">
+                  <input type="checkbox" id="checkbox-square"/>
+                  <label for="checkbox-square"></label>
+                </div>
+                <label for="checkbox-square" class="keep-me">Keep me logged in</label>
+              </div>
+              <div class="right">
+                <a href="#" class="text-helper ">Forgot Your Password?</a>
+              </div>
+            </div>
+          </div>
+          <div class="btn-box">
+            <button
+              [disabled]="form.invalid"
+              [ngClass]="{'btn-disabled' : form.invalid}"
+              class="login">Login</button>
+          </div>
+          <div class="not-register-box">
+            <span>Not registered yet?</span>
+            <a [routerLink]="['/auth/registration']"
+               class="text-helper">Register Now</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="right-part">
+    <video type="video/mp4" autoplay loop>
+      <source src="/assets/image/login.mp4">
+    </video>
+  </div>
+</div>

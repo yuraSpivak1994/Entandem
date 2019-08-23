@@ -1,0 +1,120 @@
+header a.logo {
+  left: 15px;
+}
+
+.agree-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 50px;
+  padding-top: 20px;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.left label {
+  padding-left: 15px;
+  margin-bottom: 0;
+}
+
+.left .keep-me {
+  color: #6F7886;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button.login {
+  background-color: #404DDC;
+  height: 48px;
+  max-width: 210px;
+  color: #e8f0fe;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 15px;
+  text-align: center;
+  margin: 50px auto;
+  transition: 0.3s;
+}
+
+button.login:hover {
+  background-color: rgba(64, 77, 220, 0.8);
+}
+
+.btn-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.not-register-box {
+  font-family: 'Rubik', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 50px;
+  font-size: 13px;
+}
+
+.not-register-box span:first-child {
+  color: #6F7886;
+}
+
+.not-register-box span {
+  padding-right: 5px;
+}
+.field-material {
+  position: relative;
+}
+.field-material:last-child {
+  margin-bottom: 10px;
+}
+.field-material > * {
+  width: 100%;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+  color: #9B9B9B;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 23px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 2px!important;
+}
+::ng-deep .mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple {
+  height: 2px!important;
+}
+::ng-deep input.mat-input-element {
+  z-index: 1;
+}
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color: #C9C9C9 !important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #C9C9C9 !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color: #C9C9C9 !important;
+}
+mat-error {
+  position: relative;
+  color: #B00020;
+  font-family: "Rubik", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
