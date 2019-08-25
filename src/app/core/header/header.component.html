@@ -1,1 +1,66 @@
-<p>header works!</p>
+<header>
+  <div class="hamburger-menu cross" (click)="toggleMenu()" [ngClass]="{'cross' : hamburgerMenu}">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <a class="logo">
+    <img src="/assets/image/entandem_tagline_logo.svg" alt="logo">
+  </a>
+  <div class="description-portal">
+    Licensing Portal
+  </div>
+  <div class="toggle-language">
+    <span class="text-helper hover-text">EN</span>
+    <div class="rectangle"></div>
+    <span class="hover-text">FR</span>
+  </div>
+  <div class="btn-logout">
+    <div mat-button [matMenuTriggerFor]="menu" class="info-user">YS</div>
+    <mat-menu #menu="matMenu">
+      <div mat-menu-item>My Account</div>
+      <div mat-menu-item>Assign Tariff</div>
+      <div mat-menu-item class="last-item"><img src="../../../assets/image/sign-out.svg" alt="">Sign Out</div>
+    </mat-menu>
+  </div>
+</header>
+<div *ngIf="!hamburgerMenu"  [@slideAnimation] class="menu-container">
+  <nav class="menu-bar">
+    <div class="menu-item dash-item"><img src="/assets/image/user.svg" alt="img"><span>Dashboard</span>
+    </div>
+    <div class="menu-item">
+      <div class="background-hover hide-background">
+        <img src="/assets/image/closed-envelope.svg" alt="img">
+      </div>
+      <span>Reports</span>
+      <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon"></div>
+    <div>
+      <div class="menu-item">
+        <div class="background-hover">
+          <img src="/assets/image/closed-envelope.svg" alt="img">
+        </div>
+        <span>Payments</span>
+        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow">
+      </div>
+      <div class="sub-menu">Make a Payment</div>
+      <div class="sub-menu">Payment History</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="background-hover hide-background">
+        <img src="/assets/image/closed-envelope.svg" alt="img">
+      </div>
+      <span>Invoices</span>
+    </div>
+    <div class="menu-item">
+      <div class="background-hover hide-background">
+        <img src="/assets/image/closed-envelope.svg" alt="img">
+      </div>
+      <span>Statements</span>
+    </div>
+    <div class="menu-item"> <div class="background-hover hide-background">
+      <img src="/assets/image/closed-envelope.svg" alt="img">
+    </div><span>Support</span>
+    </div>
+  </nav>
+</div>

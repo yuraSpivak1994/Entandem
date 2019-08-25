@@ -1,0 +1,369 @@
+
+.center-part {
+  background: linear-gradient(180deg, #FAF9F9 0%, #F4F4F4 100%);
+  padding-left: 200px;
+  position: relative;
+  min-height: 100vh;
+  padding-top: 90px;
+}
+
+.hide-part {
+  padding-left: 0;
+}
+
+.padding-help {
+  padding: 0 30px;
+}
+
+.contact-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid rgba(155, 155, 155, 0.28);
+  margin-bottom: 30px;
+}
+
+.contact-card .left {
+  max-width: 100%;
+  padding: 50px 10px 10px 50px;
+}
+
+.info-items {
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.info-items-col {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.info-items .left-items, .info-items .right-items,
+.info-items-col .left-items-col, .info-items-col .right-items-col {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.info-items .left-items span, .info-items .right-items span {
+  padding: 5px 0;
+}
+
+.contact-card .right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contact-card .right img {
+  width: 100%
+}
+
+.description-card {
+  color: #6F7886;
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.description-card-large {
+  color: #3E4254;
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.contact-card .right {
+  position: relative;
+}
+
+.contact-card .right .user-amount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 40px;
+}
+
+.contact-card .right .user-amount .text-amount {
+  color: #FFFFFF;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  font-size: 0.4em;
+}
+
+.contact-card .right .user-amount .total {
+  color: #FFFFFF;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 31px;
+  padding-bottom: 20px;
+}
+
+.contact-card button.play-now {
+  color: #404DDC;
+  text-transform: uppercase;
+  max-width: 100px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  height: 36px;
+  transition: 0.3s ease-in-out;
+}
+
+.contact-card button.play-now:hover {
+  background: #b6b2ff;
+}
+
+.padding-card {
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+
+.small-card {
+  flex-direction: column;
+}
+
+.small-title {
+  color: #000000;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 40px;
+}
+
+.small-description {
+  color: #3E4254;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 20px 0;
+}
+
+.small-card button.report-now {
+  height: 42px;
+  max-width: 172px;
+  color: #FFFFFF;
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 28px auto;
+  background-color: #404DDC;
+  transition: 0.3s ease-in-out;
+}
+
+.small-card button.report-now:hover {
+  background: #3397ff;
+}
+
+.table-block {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 1px solid rgba(155, 155, 155, 0.28);
+}
+.hover-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  transition: 0.3s;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.hover-icon:hover {
+  background-color: rgba(115, 125, 128, 0.27);
+}
+table td, table th {
+  border-bottom: 1px solid rgba(155, 155, 155, 0.22) !important;
+}
+
+table .th-top {
+  font-weight: 400;
+  color: #9B9B9B;
+}
+
+table .th-bottom {
+  font-weight: 400;
+  color: #3E4254;
+  font-size: 14px;
+}
+
+table td {
+  color: #3E4254;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+}
+
+table .blue-mark {
+  color: #404DDC;
+}
+
+table .confirmed-mark {
+  color: #00B274;
+}
+
+table .failed-mark {
+  color: #B00020;
+}
+
+.all-payments {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 13px;
+}
+
+.padding-left-title {
+  padding-left: 10px;
+}
+
+.for-flex {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.second-block {
+  width: 65%;
+}
+
+.little-card-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 34%;
+  padding: 0 0 0 15px;
+}
+
+.little-card-box {
+  display: flex;
+}
+
+.little-card-box .latest-card, .little-card-box .statements-card {
+  width: 100%;
+  padding: 18px;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 1px solid rgba(155, 155, 155, 0.28);
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.table-block-bottom {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.max-width-card {
+  max-width: 350px;
+}
+
+.max-width-first {
+  max-width: 199px;
+}
+
+.padding-small-card {
+  flex-wrap: wrap;
+}
+
+.title-img-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1460px) {
+
+  .contact-card {
+    padding: 30px;
+  }
+
+  .contact-card .left {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .center-part {
+    padding-left: 0;
+  }
+
+  .second-block {
+    width: 100%;
+  }
+
+  .little-card-box {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .padding-help {
+    padding: 0 15px;
+  }
+
+  .menu-container {
+    display: none;
+  }
+
+  table tr {
+    border-bottom: 0 solid #ddd;
+    display: block;
+    margin-bottom: 80px;
+  }
+
+  table th,
+  table td {
+    display: block;
+    text-align: right;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tr {
+
+  }
+
+  table td {
+    display: block;
+    text-align: right;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    color: #6F7886;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    padding-right: 5px;
+    padding-bottom: 20px;
+  }
+
+  table tr:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .contact-card .right .user-amount {
+    font-size: 20px;
+  }
+}
+

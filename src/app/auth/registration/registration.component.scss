@@ -6,14 +6,6 @@ header a.logo {
   left: 30px;
 }
 
-.group {
-  padding-top: 0;
-}
-
-.group label {
-  top: 0;
-}
-
 form .text-establish {
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   display: block;
@@ -53,6 +45,7 @@ form .include-container {
   background-color: #F3F5F7;
   flex-wrap: wrap;
   padding: 10px 20px;
+  margin-bottom: 20px;
 }
 
 form .include-container .space {
@@ -136,11 +129,10 @@ form .registr-btn-bpx button.registration:hover {
     align-items: center;
   }
 }
-
+.to-login-box span{
+  padding-right: 5px;
+}
 @media screen and (max-width: 765px) {
-  form .padding-mobile {
-    padding-top: 40px;
-  }
 
   form .text-label-check {
     padding-left: 15px;
@@ -154,6 +146,7 @@ form .registr-btn-bpx button.registration:hover {
 }
 .field-material > * {
   width: 100%;
+  margin-bottom: 20px;
 }
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
   color: #9B9B9B;

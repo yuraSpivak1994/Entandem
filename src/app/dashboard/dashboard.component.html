@@ -1,2 +1,209 @@
 <app-header></app-header>
-<p>dashboard works!</p>
+<div class="content">
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <div class="first-block">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="contact-card">
+                <div class="left">
+                  <h1 class="title">Welcome Back!</h1>
+                  <span class="description-card">Welcome back, here is a overview of your reports, payments and current balance.</span>
+                  <div class="info-items">
+                    <div class="left-items">
+                      <span class="description-card">Business Name:</span>
+                      <span class="description-large">ABC Business</span>
+                    </div>
+                    <div class="right-items">
+                      <span class="description-card">Contact Name:</span>
+                      <span class="description-card-large">Smith ReSound UX</span>
+                    </div>
+                  </div>
+                  <div class="info-items">
+                    <div class="left-items">
+                      <span class="description-card">Email Address:</span>
+                      <span class="description-large">johnsmith@emailsample.ca</span>
+                    </div>
+                    <div class="right-items">
+                      <span class="description-card">Account #:</span>
+                      <span class="description-card-large">10-02-00000464</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="right">
+                  <img src="../assets/image/illustrations.svg" alt="round">
+                  <div class="user-amount">
+                    <div class="text-amount">Amount</div>
+                    <div class="total">$ 1.560,67</div>
+                    <button type="button" class="play-now">play now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="contact-card padding-card small-card">
+                <h2 class="small-title">Reminders</h2>
+                <span class="small-description">Quarterly Reporting (Oct - Dec)</span>
+                <span>Just a reminder that the quarter is almost over and it is time to report and
+                                       pay for your venue’s use of recorded music to accompany events such as receptions
+                                       (including weddings), conventions, assemblies, and fashion shows.
+                                   </span>
+                <button class="report-now">Report Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col md-12">
+            <div class="table-block">
+              <h2 class="small-title padding-left-title">My Payments</h2>
+              <div class="table-responsive-md">
+                <table class="table table-borderless">
+                  <thead>
+                  <tr>
+                    <th scope="col" class="th-top description-card">Date</th>
+                    <th scope="col" class="th-top description-card">Time</th>
+                    <th scope="col" class="th-top description-card">Pay #</th>
+                    <th scope="col" class="th-top description-card">Paid by</th>
+                    <th scope="col" class="th-top description-card">Type</th>
+                    <th scope="col" class="th-top description-card">Amount (CAD$)</th>
+                    <th scope="col" class="th-top description-card">Status</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td data-label="Date" scope="row" class="th-bottom">Mar 20, 2019</td>
+                    <td data-label="Time">10:05 AM</td>
+                    <td data-label="Pay  #" class="blue-mark">87649589</td>
+                    <td data-label="Paid by">@Elizabeth Blackburn</td>
+                    <td data-label="Type">Credit Card</td>
+                    <td data-label="Amount (CAD$)">1,032.05</td>
+                    <td data-label="Status" class="confirmed-mark">Confirmed</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Date" scope="row" class="th-bottom">Mar 20, 2019</td>
+                    <td data-label="Time">10:05 AM</td>
+                    <td data-label="Pay  #" class="blue-mark">87649589</td>
+                    <td data-label="Paid by">@Elizabeth Blackburn</td>
+                    <td data-label="Type">Credit Card</td>
+                    <td data-label="Amount (CAD$)">1,032.05</td>
+                    <td data-label="Status" class="confirmed-mark">Confirmed</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Date" scope="row" class="th-bottom">Mar 20, 2019</td>
+                    <td data-label="Time">10:05 AM</td>
+                    <td data-label="Pay  #" class="blue-mark">87649589</td>
+                    <td data-label="Paid by">@Elizabeth Blackburn</td>
+                    <td data-label="Type">Credit Card</td>
+                    <td data-label="Amount (CAD$)">1,032.05</td>
+                    <td data-label="Status" class="failed-mark">Failed</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Date" scope="row" class="th-bottom">Mar 20, 2019</td>
+                    <td data-label="Time">10:05 AM</td>
+                    <td data-label="Pay  #" class="blue-mark">87649589</td>
+                    <td data-label="Paid by">@Elizabeth Blackburn</td>
+                    <td data-label="Type">Credit Card</td>
+                    <td data-label="Amount (CAD$)">1,032.05</td>
+                    <td data-label="Status" class="confirmed-mark">Confirmed</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="text-helper all-payments"><span class="hover-text">See All Past Payments</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="for-flex">
+          <div class="second-block">
+            <div class="table-block table-block-bottom">
+              <h2 class="small-title padding-left-title">Recent Drafts</h2>
+              <div class="table-responsive-md">
+                <table class="table table-borderless">
+                  <thead>
+                  <tr>
+                    <th scope="col" class="th-top description-card">Report</th>
+                    <th scope="col" class="th-top description-card">Submitter</th>
+                    <th scope="col" class="th-top description-card">Music Usage</th>
+                    <th scope="col" class="th-top description-card">Amount (CAD$)</th>
+                    <th scope="col" class="th-top description-card">Last Update</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td data-label="Report" scope="row" class="th-bottom blue-mark">[Draft]</td>
+                    <td data-label="Period">Jonh Smith</td>
+                    <td data-label="Music Usage">Buskers; Recorded Music in Parks, Streets and
+                      Public Areas
+                    </td>
+                    <td data-label="Amount (CAD$)">32.05</td>
+                    <td data-label="Last Update">Mar 20, 2019</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Report" scope="row" class="th-bottom blue-mark">[Draft]</td>
+                    <td data-label="Period">Jonh Smith</td>
+                    <td data-label="Music Usage">Buskers; Recorded Music in Parks, Streets and
+                      Public Areas
+                    </td>
+                    <td data-label="Amount (CAD$)">32.05</td>
+                    <td data-label="Last Update">Mar 20, 2019</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Report" scope="row" class="th-bottom blue-mark">[Draft]</td>
+                    <td data-label="Period">Jonh Smith</td>
+                    <td data-label="Music Usage">Buskers; Recorded Music in Parks, Streets and
+                      Public Areas
+                    </td>
+                    <td data-label="Amount (CAD$)">32.05</td>
+                    <td data-label="Last Update">Mar 20, 2019</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="text-helper all-payments"><span class="hover-text">See All Reports Drafts</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="little-card-box">
+            <div class="latest-card">
+              <div class="title-img-box">
+                <h2 class="small-title">Latest Invoice</h2>
+                <div class="hover-icon">
+                  <img src="../assets/image/pencil.svg" alt="pen" class="hover-text">
+                </div>
+              </div>
+              <div class="info-items max-width-first padding-small-card">
+                <div class="left-items">
+                  <span class="description-card">Invoice Number:</span>
+                  <span class="description-large">20976459253</span>
+                </div>
+                <div class="right-items">
+                  <span class="description-card">Amount</span>
+                  <span class="description-card-large">$ 303,76</span>
+                </div>
+              </div>
+            </div>
+            <div class="statements-card">
+              <div class="title-img-box">
+                <h2 class="small-title">Statements</h2>
+                <div class="hover-icon">
+                  <img src="../assets/image/pencil.svg" alt="pen" class="hover-text">
+                </div>
+              </div>
+              <div class="info-items max-width-card padding-small-card">
+                <div class="left-items">
+                  <span class="description-card">Statement Number:</span>
+                  <span class="description-large">88846459253</span>
+                </div>
+                <div class="right-items">
+                  <span class="description-card">Period:</span>
+                  <span class="description-card-large">Dec 31, 2018 to Mar 30, 2019</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

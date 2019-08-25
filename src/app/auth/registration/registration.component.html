@@ -29,19 +29,17 @@
               </div>
             </div>
           </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="password"
                            placeholder="Business Name">
                   </mat-form-field>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
@@ -52,8 +50,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-5">
                 <div class="field-material">
@@ -75,8 +71,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-5">
                 <div class="field-material">
@@ -87,20 +81,17 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="square">
-                  <input type="checkbox" id="checkbox-square" />
-                  <label for="checkbox-square"></label>
+                  <input type="checkbox" id="checkboxSquare" />
+                  <label for="checkboxSquare"></label>
                   <div>
                     <span class="text-label-check">My mailing address is different from establishment information </span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           <div class="padding-personal">
             <div class="row">
               <div class="col">
@@ -108,7 +99,6 @@
               </div>
             </div>
           </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-6">
                 <div class="field-material">
@@ -129,8 +119,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
@@ -141,8 +129,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-6">
                 <div class="field-material">
@@ -163,7 +149,6 @@
                 </div>
               </div>
             </div>
-          </div>
           <div class="padding">
             <div class="row">
               <div class="col">
@@ -171,7 +156,6 @@
               </div>
             </div>
           </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
@@ -183,8 +167,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
@@ -195,8 +177,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="include-container">
@@ -244,8 +224,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="padding-field">
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
@@ -259,14 +237,13 @@
                 </div>
               </div>
             </div>
-          </div>
           <div class="registr-btn-bpx">
             <button class="registration">Register Now</button>
           </div>
         </form>
         <div class="to-login-box">
           <span>Already registered?</span>
-          <a href="http://localhost:63342/Entandem-Test/templates/login.html?_ijt=4kr26qtc934qinan50s128nq74" class="text-helper">login</a>
+          <a [routerLink]="['/auth/login']" class="text-helper">login</a>
         </div>
       </div>
     </div>
