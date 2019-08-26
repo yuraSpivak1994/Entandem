@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { CoreComponent } from './core.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [HeaderComponent, CoreComponent],
@@ -11,7 +12,8 @@ import { CoreComponent } from './core.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class CoreModule { }

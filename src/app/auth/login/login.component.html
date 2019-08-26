@@ -45,9 +45,12 @@
           </div>
           <div class="btn-box">
             <button
+              type="button"
+              (click)="onSubmit()"
               [disabled]="form.invalid"
               [ngClass]="{'btn-disabled' : form.invalid}"
-              class="login">Login</button>
+              class="login"
+              [routerLink]="['/dashboard']">Login</button>
           </div>
           <div class="not-register-box">
             <span>Not registered yet?</span>

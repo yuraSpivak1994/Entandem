@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" [@simpleFadeAnimation]="'in'">
   <div class="left-part">
     <div class="border-left"></div>
     <div class="vertical-help">
@@ -34,7 +34,7 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
-                           formControlName="password"
+                           formControlName="establishmentName"
                            placeholder="Business Name">
                   </mat-form-field>
                 </div>
@@ -45,6 +45,7 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="establishmentStreet"
                            placeholder="Street Address">
                   </mat-form-field>
                 </div>
@@ -54,7 +55,9 @@
               <div class="col-md-5">
                 <div class="field-material">
                   <mat-form-field>
-                    <mat-select placeholder="Province">
+                    <mat-select
+                      formControlName="establishmentProvince"
+                      placeholder="Province">
                       <mat-option value="option">Option</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -65,6 +68,7 @@
                   <div class="field-material">
                     <mat-form-field>
                       <input matInput
+                             formControlName="establishmentCity"
                              placeholder="City">
                     </mat-form-field>
                   </div>
@@ -76,6 +80,7 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="establishmentPostalCode"
                            placeholder="Postal Code">
                   </mat-form-field>
                 </div>
@@ -85,13 +90,63 @@
               <div class="col-md-12">
                 <div class="square">
                   <input type="checkbox" id="checkboxSquare" />
-                  <label for="checkboxSquare"></label>
+                  <label for="checkboxSquare" (click)="toggleMailingInfo()"></label>
                   <div>
                     <span class="text-label-check">My mailing address is different from establishment information </span>
                   </div>
                 </div>
               </div>
             </div>
+<!--          <div *ngIf="mailingInfo">-->
+<!--            <div class="padding">-->
+<!--              <div class="row">-->
+<!--                <div class="col">-->
+<!--                  <span class="text-establish">Mailing Information</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-5">-->
+<!--                <div class="field-material">-->
+<!--                  <mat-form-field>-->
+<!--                    <mat-select placeholder="Province">-->
+<!--                      <mat-option value="option">Option</mat-option>-->
+<!--                    </mat-select>-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-7">-->
+<!--                <div class="padding-mobile">-->
+<!--                  <div class="field-material">-->
+<!--                    <mat-form-field>-->
+<!--                      <input matInput-->
+<!--                             placeholder="City">-->
+<!--                    </mat-form-field>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-12">-->
+<!--                <div class="field-material">-->
+<!--                  <mat-form-field>-->
+<!--                    <input matInput-->
+<!--                           placeholder="Street Address">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-5">-->
+<!--                <div class="field-material">-->
+<!--                  <mat-form-field>-->
+<!--                    <input matInput-->
+<!--                           placeholder="Postal Code">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="padding-personal">
             <div class="row">
               <div class="col">
@@ -104,6 +159,7 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="firstName"
                            placeholder="First Name">
                   </mat-form-field>
                 </div>
@@ -113,6 +169,7 @@
                   <div class="field-material">
                     <mat-form-field>
                       <input matInput
+                             formControlName="lastName"
                              placeholder="Last Name">
                     </mat-form-field>
                   </div>
@@ -124,6 +181,7 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="email"
                            placeholder="Email Address">
                   </mat-form-field>
                 </div>
@@ -134,6 +192,7 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="phone"
                            placeholder="Phone Number">
                   </mat-form-field>
                 </div>
@@ -161,6 +220,8 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="password"
+                           maxlength="20"
                            type="password"
                            placeholder="Password">
                   </mat-form-field>
@@ -186,7 +247,10 @@
                     <div class="item">
                       <span>
                         <div class="round">
-                          <input type="checkbox" id="checkbox1"/>
+                          <input
+                            type="checkbox"
+                            [checked]="checkLengthPassword()"
+                            id="checkbox1"/>
                           <label for="checkbox1"></label>
                         </div>
                       </span>
@@ -195,7 +259,10 @@
                     <div class="item">
                       <span>
                         <div class="round">
-                          <input type="checkbox" id="checkbox2"/>
+                          <input
+                            type="checkbox"
+                            [checked]="passwordHasLetter(form.get('password').value)"
+                            id="checkbox2"/>
                           <label for="checkbox2"></label>
                         </div>
                       </span>
@@ -206,7 +273,10 @@
                     <div class="item">
                       <span>
                         <div class="round">
-                          <input type="checkbox" id="checkbox3"/>
+                          <input
+                            type="checkbox"
+                            [checked]="passwordHasNumber(form.get('password').value)"
+                            id="checkbox3"/>
                           <label for="checkbox3"></label></div>
                       </span>
                       <span class="mark">At least one number</span>
@@ -214,7 +284,10 @@
                     <div class="item">
                       <span>
                         <div class="round">
-                          <input type="checkbox" id="checkbox4"/>
+                          <input
+                            type="checkbox"
+                            [checked]="passworHasntSpace(form.get('password').value)"
+                            id="checkbox4"/>
                           <label for="checkbox4"></label>
                         </div>
                       </span>
@@ -228,17 +301,40 @@
               <div class="col-md-12">
                 <div class="field-material">
                   <mat-form-field>
-                    <mat-select placeholder="How did you hear about Entandem?">
-                      <mat-option value="option">Option2</mat-option>
-                      <mat-option value="option">Option3</mat-option>
-                      <mat-option value="option">Option4</mat-option>
-                    </mat-select>
+                    <mat-label>How did you hear about Entandem?</mat-label>
+                    <select
+                      formControlName="hearAbout"
+                      matNativeControl
+                      (click)="checkHearAboutOther(form.get('hearAbout').value)">
+                      <option value="Advertisement">Advertisement</option>
+                      <option value="Advertisement">Brochure / Flyer</option>
+                      <option value="Advertisement">News / Mediar</option>
+                      <option value="Advertisement">Referral</option>
+                      <option value="O">Other</option>
+                    </select>
                   </mat-form-field>
                 </div>
               </div>
             </div>
+          <div *ngIf="otherValue"  class="row">
+            <div class="col-md-12">
+              <div class="field-material">
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         formControlName="hearAboutOther"
+                         placeholder="Please provide additional information (optional)">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
           <div class="registr-btn-bpx">
-            <button class="registration">Register Now</button>
+            <button
+              type="button"
+              (click)="onSubmit()"
+              [disabled]="form.invalid"
+              [ngClass]="{'btn-disabled' : form.invalid}"
+              class="registration">Register Now</button>
           </div>
         </form>
         <div class="to-login-box">

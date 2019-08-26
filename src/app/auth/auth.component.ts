@@ -5,9 +5,6 @@ import { fadeInAnimation } from '../shared/animation';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  animations: [
-    fadeInAnimation
-]
 })
 export class AuthComponent implements OnInit {
 

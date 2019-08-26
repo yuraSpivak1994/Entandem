@@ -66,6 +66,7 @@ nav .hide-background {
 
 nav .active-arrow {
   transform: rotate(180deg);
+  transition: 0.3s;
 }
 
 nav .sub-menu {
@@ -114,6 +115,14 @@ nav.menu-bar .menu-item .arrow-icon {
   margin-right: 0;
   position: absolute;
   right: 10px;
+}
+.showPanel {
+  height: 70px;
+  overflow-y: hidden;
+}
+.transform {
+  transition: 0.3s;
+  transform: rotate(360deg)!important;
 }
 @media screen and (max-width: 767px){
   .menu-container {

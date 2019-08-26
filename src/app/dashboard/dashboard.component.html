@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="content">
+<div class="content" [@simpleFadeAnimation]="'in'">
   <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
     <div class="padding-help">
       <div class="content-inside-page">
@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="right">
-                  <img src="../assets/image/illustrations.svg" alt="round">
+                  <img src="/assets/image/illustrations.svg" alt="round">
                   <div class="user-amount">
                     <div class="text-amount">Amount</div>
                     <div class="total">$ 1.560,67</div>
@@ -49,7 +49,7 @@
                                        pay for your venue’s use of recorded music to accompany events such as receptions
                                        (including weddings), conventions, assemblies, and fashion shows.
                                    </span>
-                <button class="report-now">Report Now</button>
+                <button type="button" class="report-now">Report Now</button>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
               <div class="title-img-box">
                 <h2 class="small-title">Latest Invoice</h2>
                 <div class="hover-icon">
-                  <img src="../assets/image/pencil.svg" alt="pen" class="hover-text">
+                  <img src="/assets/image/pencil.svg" alt="pen" class="hover-text">
                 </div>
               </div>
               <div class="info-items max-width-first padding-small-card">
@@ -187,7 +187,7 @@
               <div class="title-img-box">
                 <h2 class="small-title">Statements</h2>
                 <div class="hover-icon">
-                  <img src="../assets/image/pencil.svg" alt="pen" class="hover-text">
+                  <img src="/assets/image/pencil.svg" alt="pen" class="hover-text">
                 </div>
               </div>
               <div class="info-items max-width-card padding-small-card">

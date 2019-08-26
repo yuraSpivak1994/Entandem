@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { fadeInAnimation } from '../../shared/animation';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,14 @@ import { fadeInAnimation } from '../../shared/animation';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  constructor() { }
+  cookieKey = 'user';
+  constructor(private userService: UserService) { }
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
   ngOnInit() {
     this.initLoginForm();
+    this.userService.getToken(this.cookieKey)
   }
 
   initLoginForm() {
@@ -31,5 +34,10 @@ export class LoginComponent implements OnInit {
   }
   validateEmail() {
     return this.form.get('email').invalid && this.form.get('email').touched;
+  }
+
+  onSubmit() {
+    const req = this.form.controls.email.value;
+    this.userService.saveUser(this.cookieKey, req, 60)
   }
 }
