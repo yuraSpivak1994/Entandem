@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
@@ -13,7 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule
   ],
   imports: [
     CommonModule

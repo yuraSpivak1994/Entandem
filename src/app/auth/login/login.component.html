@@ -1,4 +1,7 @@
 <div class="content">
+  <div *ngIf="showSpinner" class="spinner-box">
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
+  </div>
   <div class="left-part"  [@simpleFadeAnimation]="'in'">
     <div class="vertical-help">
       <div class="content-inside">
@@ -33,7 +36,12 @@
             <div class="agree-box">
               <div class="left">
                 <div class="square">
-                  <input type="checkbox" id="checkbox-square"/>
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="isChecked"
+                    (click)="checkCookie()"
+                    [ngModelOptions]="{standalone: true}"
+                    id="checkbox-square"/>
                   <label for="checkbox-square"></label>
                 </div>
                 <label for="checkbox-square" class="keep-me">Keep me logged in</label>

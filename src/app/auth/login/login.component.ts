@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { fadeInAnimation } from '../../shared/animation';
 import { UserService } from '../../shared/services/user.service';
+import { User } from '../../shared/interfaces/user';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +16,13 @@ import { UserService } from '../../shared/services/user.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  isChecked =  true;
+  private expirateDay = 2;
+  constructor(private userService: UserService,
+              private authService: AuthService,
+              private router: Router) { }
   cookieKey = 'user';
-  constructor(private userService: UserService) { }
-
-  email = new FormControl('', [Validators.required, Validators.email]);
+  showSpinner = false;
 
   ngOnInit() {
     this.initLoginForm();
@@ -29,6 +36,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  checkCookie() {
+    if (this.isChecked) {
+      this.expirateDay = 14
+    } else {
+    this.expirateDay = 2
+  }
+  }
   validatePassword() {
     return this.form.get('password').invalid && this.form.get('password').touched;
   }
@@ -37,7 +51,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const req = this.form.controls.email.value;
-    this.userService.saveUser(this.cookieKey, req, 60)
+    if(!this.form.invalid) {
+      this.showSpinner = true;
+      const req: User = {};
+       req.email = this.form.controls.email.value;
+       req.password = this.form.controls.password.value;
+       this.authService.login(req)
+         .subscribe((data) => {
+           const token = data.headers.get('authorization');
+           console.log(token);
+           this.userService.saveUser(this.cookieKey, token, this.expirateDay );
+           console.log(data);
+           this.showSpinner = false;
+           this.router.navigate(['/dashboard']);
+         },(err: HttpErrorResponse) => {
+           this.showSpinner = false;
+           console.log(err);
+         });
+    }
   }
 }

@@ -107,9 +107,16 @@ button.login:hover {
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
   color: #C9C9C9 !important;
 }
-
 ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
   background-color: #C9C9C9 !important;
+}
+::ng-deep .mat-progress-spinner svg {
+  width: 50px!important;
+  height: 50px!important;
+}
+::ng-deep .mat-progress-spinner {
+  width: 50px!important;
+  height: 50px!important;
 }
 mat-error {
   position: relative;

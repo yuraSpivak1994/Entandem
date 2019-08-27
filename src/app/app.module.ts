@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { DashboardInterceptor } from './interceptor/dashboard-interceptor';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,16 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DashboardInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

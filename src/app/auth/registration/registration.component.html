@@ -1,8 +1,11 @@
 <div class="content" [@simpleFadeAnimation]="'in'">
+  <div *ngIf="showSpinner" class="spinner-box">
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
+  </div>
   <div class="left-part">
     <div class="border-left"></div>
     <div class="vertical-help">
-      <div class="content-inside">
+      <div *ngIf="generalContent" class="content-inside">
         <div class="open-titles-box">
           <h1 class="title">Register Now</h1>
           <span class="description">Please provide the following information to register as:</span>
@@ -55,10 +58,21 @@
               <div class="col-md-5">
                 <div class="field-material">
                   <mat-form-field>
-                    <mat-select
-                      formControlName="establishmentProvince"
-                      placeholder="Province">
-                      <mat-option value="option">Option</mat-option>
+                    <mat-label>Province</mat-label>
+                    <mat-select  formControlName="establishmentProvince">
+                      <mat-option value="AB">Alberta</mat-option>
+                      <mat-option value="BC">British Columbia</mat-option>
+                      <mat-option value="MB">Manitoba</mat-option>
+                      <mat-option value="NB">New Brunswick</mat-option>
+                      <mat-option value="NL">Newfoundland and Labrador</mat-option>
+                      <mat-option value="NT">Northwest Territories</mat-option>
+                      <mat-option value="NS">Nova Scotia</mat-option>
+                      <mat-option value="NU">Nunavut</mat-option>
+                      <mat-option value="ON">Ontario</mat-option>
+                      <mat-option value="PE">Prince Edward Island</mat-option>
+                      <mat-option value="QC">Quebec</mat-option>
+                      <mat-option value="SK">Saskatchewan</mat-option>
+                      <mat-option value="YT">Yukon</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -97,56 +111,62 @@
                 </div>
               </div>
             </div>
-<!--          <div *ngIf="mailingInfo">-->
-<!--            <div class="padding">-->
-<!--              <div class="row">-->
-<!--                <div class="col">-->
-<!--                  <span class="text-establish">Mailing Information</span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--              <div class="col-md-5">-->
-<!--                <div class="field-material">-->
-<!--                  <mat-form-field>-->
-<!--                    <mat-select placeholder="Province">-->
-<!--                      <mat-option value="option">Option</mat-option>-->
-<!--                    </mat-select>-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="col-md-7">-->
-<!--                <div class="padding-mobile">-->
-<!--                  <div class="field-material">-->
-<!--                    <mat-form-field>-->
-<!--                      <input matInput-->
-<!--                             placeholder="City">-->
-<!--                    </mat-form-field>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--              <div class="col-md-12">-->
-<!--                <div class="field-material">-->
-<!--                  <mat-form-field>-->
-<!--                    <input matInput-->
-<!--                           placeholder="Street Address">-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--              <div class="col-md-5">-->
-<!--                <div class="field-material">-->
-<!--                  <mat-form-field>-->
-<!--                    <input matInput-->
-<!--                           placeholder="Postal Code">-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <div *ngIf="mailingInfo">
+            <div class="padding">
+              <div class="row">
+                <div class="col">
+                  <span class="text-establish">Mailing Information</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="field-material">
+                  <mat-form-field>
+                    <mat-select
+                      formControlName="mailingProvince"
+                      placeholder="Province">
+                      <mat-option value="canada">Canada</mat-option>
+                      <mat-option value="orbion">Orbion</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="padding-mobile">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             formControlName="mailingCity"
+                             placeholder="City">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           formControlName="mailingStreet"
+                           placeholder="Street Address">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           formControlName="mailingPostalCode"
+                           placeholder="Postal Code">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="padding-personal">
             <div class="row">
               <div class="col">
@@ -202,6 +222,7 @@
                   <div class="field-material">
                     <mat-form-field>
                       <input matInput
+                             formControlName="fax"
                              placeholder="Fax Number (Optional)">
                     </mat-form-field>
                   </div>
@@ -215,6 +236,7 @@
               </div>
             </div>
           </div>
+          <div  >
             <div class="row">
               <div class="col-md-12">
                 <div class="field-material">
@@ -233,11 +255,13 @@
                 <div class="field-material">
                   <mat-form-field>
                     <input matInput
+                           formControlName="passwordRepeat"
                            placeholder="Repeat Password">
                   </mat-form-field>
                 </div>
               </div>
             </div>
+          </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="include-container">
@@ -341,6 +365,20 @@
           <span>Already registered?</span>
           <a [routerLink]="['/auth/login']" class="text-helper">login</a>
         </div>
+      </div>
+      <div *ngIf="thanksContent" class="message-container">
+        <img src="/assets/image/success.svg" alt="success" style="width: 46px; padding-bottom: 20px">
+        <h1 class="title margin-bottom">Thank You!</h1>
+        <div class="description">We have sent you a verification email. Please check your inbox to confirm your account. </div>
+        <div class="description">Haven’t received a confirmation email yet? </div>
+        <a href="" class="text-helper">Resend Verification Link</a>
+      </div>
+      <div *ngIf="errorContent" class="message-container">
+        <h1 class="title margin-bottom">An Unexpected Error Occurred</h1>
+        <div class="description-err">You can’t access your account at this time. Please, contact us:</div>
+        <a href="#" class="support-link">support@entandem.ca</a>
+        <div class="or-space-err">OR</div>
+        <a href="#" class="support-link">1-877-575-8208</a>
       </div>
     </div>
   </div>

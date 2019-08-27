@@ -148,6 +148,29 @@ form .registr-btn-bpx button.registration:hover {
   width: 100%;
   margin-bottom: 20px;
 }
+.message-container {
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: center;
+}
+.description {
+  margin-bottom: 20px;
+}
+.or-space {
+  padding: 20px 0;
+}
+.description-err {
+  margin-bottom: 10px;
+}
+a.support-link {
+  color: #404DDC!important;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+}
+.or-space-err {
+  padding: 5px 0;
+}
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
   color: #9B9B9B;
   font-size: 16px;
@@ -175,4 +198,11 @@ form .registr-btn-bpx button.registration:hover {
 ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
   background-color: #C9C9C9 !important;
 }
-
+::ng-deep .mat-progress-spinner svg {
+  width: 50px!important;
+  height: 50px!important;
+}
+::ng-deep .mat-progress-spinner {
+  width: 50px!important;
+  height: 50px!important;
+}

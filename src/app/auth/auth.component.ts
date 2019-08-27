@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { fadeInAnimation } from '../shared/animation';
+import { UserService } from '../shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -8,7 +10,13 @@ import { fadeInAnimation } from '../shared/animation';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  cookieKey = 'user';
+  constructor(private userService: UserService,
+              private router: Router) {
+    if(this.userService.getToken(this.cookieKey)) {
+      this.router.navigate(['/dashboard'])
+    }
+  }
 
   ngOnInit() {
   }
