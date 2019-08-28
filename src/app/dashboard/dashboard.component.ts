@@ -8,9 +8,10 @@ import { fadeInAnimation } from '../shared/animation';
   styleUrls: ['./dashboard.component.scss'],
   animations: [fadeInAnimation]
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
 
-  constructor(private coreService: CoreService) { }
+  constructor(private coreService: CoreService) {
+  }
 
   ngOnInit() {
   }

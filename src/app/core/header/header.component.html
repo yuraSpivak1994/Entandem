@@ -23,31 +23,34 @@
       <div mat-menu-item
            (click)="logOut()"
            [routerLink]="['/auth/login']"
-           class="last-item"><img src="../../../assets/image/sign-out.svg" alt="">Sign Out</div>
+           class="last-item"><img src="../../../assets/image/sign-out.svg" alt="">Sign Out
+      </div>
     </mat-menu>
   </div>
 </header>
-<div *ngIf="!hamburgerMenu"  [@slideAnimation] class="menu-container">
+<div *ngIf="!hamburgerMenu" [@slideAnimation] class="menu-container">
   <nav class="menu-bar">
-    <div id="2" (click)="expandFirst(id=1)" [ngClass]="{'showPanel': !expandedSectionFirst }" >
+    <div id="2" (click)="expandFirst(id=1)" [ngClass]="{'showPanel': !expandedSectionFirst }">
       <div class="menu-item">
         <div class="background-hover hide-background">
           <img src="/assets/image/closed-envelope.svg" alt="img">
         </div>
         <span>Reports</span>
-        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow" [ngClass]="{'transform': !expandedSectionFirst }">
+        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
+             [ngClass]="{'transform': !expandedSectionFirst }">
       </div>
       <div class="sub-menu">Submit New</div>
       <div class="sub-menu">Drafts</div>
       <div class="sub-menu">Submitted</div>
     </div>
-    <div id="1" (click)="expandSecond(id=1)" [ngClass]="{'showPanel': !expandedSectionSecond }" >
+    <div id="1" (click)="expandSecond(id=1)" [ngClass]="{'showPanel': !expandedSectionSecond }">
       <div class="menu-item">
         <div class="background-hover">
           <img src="/assets/image/closed-envelope.svg" alt="img">
         </div>
         <span>Payments</span>
-        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow" [ngClass]="{'transform': !expandedSectionSecond}">
+        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
+             [ngClass]="{'transform': !expandedSectionSecond}">
       </div>
       <div class="sub-menu">Make a Payment</div>
       <div class="sub-menu">Payment History</div>
@@ -65,9 +68,11 @@
       </div>
       <span>Statements</span>
     </div>
-    <div class="menu-item"> <div class="background-hover hide-background">
-      <img src="/assets/image/closed-envelope.svg" alt="img">
-    </div><span>Support</span>
+    <div class="menu-item">
+      <div class="background-hover hide-background">
+        <img src="/assets/image/closed-envelope.svg" alt="img">
+      </div>
+      <span>Support</span>
     </div>
   </nav>
 </div>

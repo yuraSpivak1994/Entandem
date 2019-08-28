@@ -16,11 +16,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  isChecked =  true;
+  isChecked = false;
   private expirateDay = 2;
+
   constructor(private userService: UserService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router) {
+  }
+
   cookieKey = 'user';
   showSpinner = false;
 
@@ -40,34 +43,34 @@ export class LoginComponent implements OnInit {
     if (this.isChecked) {
       this.expirateDay = 14
     } else {
-    this.expirateDay = 2
+      this.expirateDay = 2
+    }
   }
-  }
+
   validatePassword() {
     return this.form.get('password').invalid && this.form.get('password').touched;
   }
+
   validateEmail() {
     return this.form.get('email').invalid && this.form.get('email').touched;
   }
 
   onSubmit() {
-    if(!this.form.invalid) {
+    if (!this.form.invalid) {
       this.showSpinner = true;
       const req: User = {};
-       req.email = this.form.controls.email.value;
-       req.password = this.form.controls.password.value;
-       this.authService.login(req)
-         .subscribe((data) => {
-           const token = data.headers.get('authorization');
-           console.log(token);
-           this.userService.saveUser(this.cookieKey, token, this.expirateDay );
-           console.log(data);
-           this.showSpinner = false;
-           this.router.navigate(['/dashboard']);
-         },(err: HttpErrorResponse) => {
-           this.showSpinner = false;
-           console.log(err);
-         });
+      req.email = this.form.controls.email.value;
+      req.password = this.form.controls.password.value;
+      this.authService.login(req)
+        .subscribe((data) => {
+          const token = data.headers.get('authorization');
+          this.userService.saveUser(this.cookieKey, token, this.expirateDay);
+          this.showSpinner = false;
+          this.router.navigate(['/dashboard']);
+        }, (err: HttpErrorResponse) => {
+          this.showSpinner = false;
+          console.log(err);
+        });
     }
   }
 }

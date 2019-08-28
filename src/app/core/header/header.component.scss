@@ -116,45 +116,57 @@ nav.menu-bar .menu-item .arrow-icon {
   position: absolute;
   right: 10px;
 }
+
 .showPanel {
   height: 70px;
   overflow-y: hidden;
 }
+
 .transform {
   transition: 0.3s;
-  transform: rotate(360deg)!important;
+  transform: rotate(360deg) !important;
 }
-@media screen and (max-width: 767px){
+
+@media screen and (max-width: 767px) {
   .menu-container {
     transition: 0.2s ease-in;
   }
 }
+
 ::ng-deep .mat-menu-panel {
-  min-width: 175px!important;
+  min-width: 175px !important;
 }
+
 ::ng-deep .mat-menu-content {
   background-color: #3E4254;
 }
+
 ::ng-deep .mat-menu-item {
   color: #ffffff;
-  padding: 0 20px!important;
+  padding: 0 20px !important;
 }
+
 ::ng-deep .mat-menu-item-highlighted:not([disabled]), .mat-menu-item.cdk-keyboard-focused:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item:hover:not([disabled]) {
   background-color: rgba(0, 0, 0, 0.65);
 }
+
 ::ng-deep .cdk-overlay-transparent-backdrop, .cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing {
-  opacity: initial!important;
+  opacity: initial !important;
 }
+
 ::ng-deep .cdk-overlay-backdrop {
-  background-color: rgba(0, 0, 0, 0.13)!important;
+  background-color: rgba(0, 0, 0, 0.13) !important;
 }
+
 ::ng-deep .cdk-overlay-connected-position-bounding-box {
-  top: 57px!important;
-  right: 10px!important;
+  top: 57px !important;
+  right: 10px !important;
 }
+
 .last-item {
   margin-top: 20px;
 }
+
 .last-item img {
   width: 18px;
   padding-right: 5px;

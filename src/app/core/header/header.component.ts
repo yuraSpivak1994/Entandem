@@ -3,6 +3,7 @@ import { CoreService } from '../core.service';
 import { slideAnimation } from '../../shared/animation';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/interfaces/user';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +23,11 @@ export class HeaderComponent implements OnInit {
     FIRST_NAME: '',
     LAST_NAME: ''
   };
+
   constructor(private coreService: CoreService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.detectWidth();
@@ -38,39 +42,47 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
-    this.userService.deleteAllCookies(this.cookieKey)
+    this.authService.logout().subscribe((data) => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
+    this.userService.deleteAllCookies(this.cookieKey);
   }
+
   toggleMenu() {
     this.hamburgerMenu = !this.hamburgerMenu;
     this.coreService.menuOpen.next(this.hamburgerMenu);
   }
 
   expandFirst(id) {
-    if(id === this.expandedSectionFirst) {
+    if (id === this.expandedSectionFirst) {
       this.expandedSectionFirst = undefined;
-    }else {
+    } else {
       this.expandedSectionSecond = undefined;
       this.expandedSectionFirst = id;
     }
   }
+
   expandSecond(id) {
-    if(id === this.expandedSectionSecond) {
+    if (id === this.expandedSectionSecond) {
       this.expandedSectionSecond = undefined;
-    }else {
+    } else {
       this.expandedSectionFirst = undefined;
       this.expandedSectionSecond = id;
     }
   }
 
   cutInitials(FIRST_NAME, LAST_NAME) {
-    this.userInfo.FIRST_NAME =  FIRST_NAME.substr(0, 1);
+    this.userInfo.FIRST_NAME = FIRST_NAME.substr(0, 1);
     this.userInfo.LAST_NAME = LAST_NAME.substr(0, 1);
   }
+
   getUserData() {
     this.coreService.getUser()
       .subscribe((res: any) => {
-       this.userInfo.FIRST_NAME = res.FIRST_NAME;
-       this.userInfo.LAST_NAME = res.LAST_NAME;
+        this.userInfo.FIRST_NAME = res.FIRST_NAME;
+        this.userInfo.LAST_NAME = res.LAST_NAME;
         this.cutInitials(this.userInfo.FIRST_NAME, this.userInfo.LAST_NAME)
       }, error => {
         console.log(error);

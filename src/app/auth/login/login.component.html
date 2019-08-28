@@ -2,7 +2,7 @@
   <div *ngIf="showSpinner" class="spinner-box">
     <mat-spinner *ngIf="showSpinner"></mat-spinner>
   </div>
-  <div class="left-part"  [@simpleFadeAnimation]="'in'">
+  <div class="left-part" [@simpleFadeAnimation]="'in'">
     <div class="vertical-help">
       <div class="content-inside">
         <div class="open-titles-box">
@@ -58,7 +58,8 @@
               [disabled]="form.invalid"
               [ngClass]="{'btn-disabled' : form.invalid}"
               class="login"
-              [routerLink]="['/dashboard']">Login</button>
+              [routerLink]="['/dashboard']">Login
+            </button>
           </div>
           <div class="not-register-box">
             <span>Not registered yet?</span>

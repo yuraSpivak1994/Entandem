@@ -33,6 +33,8 @@ export class ValidatePassword {
 export class RegistrationComponent implements OnInit, ValidatePassword {
 
   form: FormGroup;
+  form2: FormGroup;
+  form3: FormGroup;
   otherValue = false;
   mailingInfo = false;
   passwordRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(^\S*$)/);
@@ -42,6 +44,7 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
   generalContent = true;
   thanksContent = false;
   errorContent = false;
+  radioChecked = true;
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService) { }
 
@@ -63,15 +66,29 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
       establishmentCity: new FormControl(null, [Validators.required]),
       establishmentPostalCode: new FormControl(null, [Validators.required]),
       fax:'',
-      mailingStreet: '',
-      mailingProvince: '',
-      mailingCity: '',
-      mailingPostalCode: '',
       hearAboutOther: '',
       hearAbout: new FormControl(null, [Validators.required])
       },{
       validator: ValidatePassword.MatchPassword
     });
+
+    this.form2 = this.formBuilder.group({
+      mailingStreet: '',
+      mailingProvince: '',
+      mailingCity: '',
+      mailingPostalCode: '',
+    });
+
+    this.form3 = this.formBuilder.group({
+      email: new FormControl(null, [Validators.required]),
+      password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern(this.passwordRegex)]],
+      passwordRepeat: [''],
+      hearAboutOther: '',
+      hearAbout: new FormControl(null, [Validators.required])
+    },{
+      validator: ValidatePassword.MatchPassword
+    });
+
 }
 
   passwordHasNumber(password: string) {
@@ -79,12 +96,23 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
     return validator.test(password);
   }
 
+   removeValidators(form: FormGroup) {
+    for (const key in form.controls) {
+      form.get(key).clearValidators();
+      form.get(key).updateValueAndValidity();
+    }
+  }
   toggleMailingInfo() {
     this.mailingInfo = !this.mailingInfo;
-    this.form.controls["mailingStreet"].setValidators(Validators.required);
-    this.form.controls["mailingProvince"].setValidators(Validators.required);
-    this.form.controls["mailingCity"].setValidators(Validators.required);
-    this.form.controls["mailingPostalCode"].setValidators(Validators.required);
+    if( this.mailingInfo){
+      this.form2.controls["mailingStreet"].setValidators(Validators.required);
+      this.form2.controls["mailingProvince"].setValidators(Validators.required);
+      this.form2.controls["mailingCity"].setValidators(Validators.required);
+      this.form2.controls["mailingPostalCode"].setValidators(Validators.required);
+    }else {
+      this.removeValidators(this.form2);
+    }
+
   }
 
   checkHearAboutOther(value) {
@@ -94,6 +122,11 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
   checkLengthPassword() {
     return this.form.get('password').value.length >= 8
       && this.form.get('password').value.length <= 20;
+  }
+
+  checkLengthPasswordForm3() {
+    return this.form3.get('password').value.length >= 8
+      && this.form3.get('password').value.length <= 20;
   }
 
   passwordHasLetter(password: string) {
@@ -106,12 +139,12 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
     return validator.test(password);
   }
 
+
   onSubmit() {
     this.showSpinner = true;
     if(this.form.valid) {
       const req: User = {};
       req.lang = 'E';
-      req.mailingEnable = '';
       req.hearAbout = this.form.controls.hearAbout.value;
       req.hearAboutOther = this.form.controls.hearAboutOther.value;
       req.mailingEnable = '';
@@ -120,10 +153,10 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
       req.establishmentProvince = this.form.controls.establishmentProvince.value;
       req.establishmentCity = this.form.controls.establishmentCity.value;
       req.establishmentPostalCode = this.form.controls.establishmentPostalCode.value;
-      req.mailingStreet = this.form.controls.mailingStreet.value;
-      req.mailingProvince = this.form.controls.mailingProvince.value;
-      req.mailingCity = this.form.controls.mailingCity.value;
-      req.mailingPostalCode = this.form.controls.mailingPostalCode.value;
+      req.mailingStreet = this.form2.controls.mailingStreet.value;
+      req.mailingProvince = this.form2.controls.mailingProvince.value;
+      req.mailingCity = this.form2.controls.mailingCity.value;
+      req.mailingPostalCode = this.form2.controls.mailingPostalCode.value;
       req.firstName = this.form.controls.firstName.value;
       req.lastName = this.form.controls.lastName.value;
       req.email = this.form.controls.email.value;
@@ -134,16 +167,56 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
 
       this.authService.register(req)
       .subscribe((res) => {
-        console.log(res);
         this.generalContent = false;
         this.thanksContent = true;
         this.showSpinner = false;
       },error => {
         console.log(error);
         this.generalContent = false;
-        this.errorContent = true
+        this.errorContent = true;
         this.showSpinner = false;
       })
     }
+  }
+  onSubmit2() {
+    this.showSpinner = true;
+    if(this.form3.valid) {
+      const req: User = {};
+      req.lang = 'E';
+      req.hearAbout = this.form3.controls.hearAbout.value;
+      req.hearAboutOther = this.form3.controls.hearAboutOther.value;
+      req.mailingEnable = '';
+      req.establishmentName = 'sdf';
+      req.establishmentStreet = 'sdf';
+      req.establishmentProvince = 'AB';
+      req.establishmentCity = 'lviv';
+      req.establishmentPostalCode = 'A1A1A1';
+      req.mailingStreet =  'wefr';
+      req.mailingProvince = 'AB';
+      req.mailingCity = 'fdg';
+      req.mailingPostalCode = 'A1A1A1';
+      req.firstName = 'erg';
+      req.lastName = 'drg';
+      req.email = this.form3.controls.email.value;
+      req.phone = '+1555-555-5555';
+      req.fax = 'wer';
+      req.password = this.form3.controls.password.value;
+      req.passwordRepeat = this.form3.controls.passwordRepeat.value;
+
+      this.authService.register(req)
+        .subscribe((res) => {
+          this.generalContent = false;
+          this.thanksContent = true;
+          this.showSpinner = false;
+        },error => {
+          console.log(error);
+          this.generalContent = false;
+          this.errorContent = true;
+          this.showSpinner = false;
+        })
+    }
+  }
+  toggleRadio() {
+    this.radioChecked = !this.radioChecked;
   }
 }

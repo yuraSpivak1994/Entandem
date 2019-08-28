@@ -14,25 +14,182 @@
           <div class="row">
             <div class="col-md-4">
               <div class="first-choose">
-                <input type="radio" id="test1" name="radio-group" checked class="radio-input">
+                <input
+                  (click)="toggleRadio()"
+                  type="radio" id="test1"
+                  name="radio-group"
+                  checked class="radio-input">
                 <label for="test1" class="radio-label">New Licensee</label>
               </div>
             </div>
             <div class="col">
               <div class="second-choose">
-                <input type="radio" id="test2" name="radio-group"  class="radio-input">
+                <input type="radio" id="test2"
+                       (click)="toggleRadio()"
+                       name="radio-group"  class="radio-input">
                 <label for="test2" class="radio-label">SOCAN / Re:Sound Licensee</label>
               </div>
             </div>
           </div>
-          <div class="padding">
-            <div class="row">
-              <div class="col">
-                <span class="text-establish">Establishment Information</span>
+
+          <div *ngIf="!radioChecked" [formGroup]="form3">
+            <div class="padding">
+              <div class="row">
+                <div class="col">
+                  <span class="text-establish">Account Information</span>
+                </div>
               </div>
             </div>
-          </div>
             <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           formControlName="email"
+                           placeholder="Email Address or Account Number">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="padding">
+              <div class="row">
+                <div class="col">
+                  <span class="text-establish">Create Password</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             formControlName="password"
+                             maxlength="20"
+                             type="password"
+                             placeholder="Password">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             formControlName="passwordRepeat"
+                             placeholder="Repeat Password">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="include-container">
+                  <span class="title-include">Password must include:</span>
+                  <div class="space"></div>
+                  <div class="left">
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input
+                            type="checkbox"
+                            [checked]="checkLengthPasswordForm3()"
+                            />
+                          <label></label>
+                        </div>
+                      </span>
+                      <span class="mark">8-20 Characters</span>
+                    </div>
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input
+                            type="checkbox"
+                            [checked]="passwordHasLetter(form3.get('password').value)"/>
+                          <label></label>
+                        </div>
+                      </span>
+                      <span class="mark">At least one capital letter</span>
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input
+                            type="checkbox"
+                            [checked]="passwordHasNumber(form3.get('password').value)"/>
+                          <label for="checkbox3"></label></div>
+                      </span>
+                      <span class="mark">At least one number</span>
+                    </div>
+                    <div class="item">
+                      <span>
+                        <div class="round">
+                          <input
+                            type="checkbox"
+                            [checked]="passworHasntSpace(form3.get('password').value)"/>
+                          <label for="checkbox4"></label>
+                        </div>
+                      </span>
+                      <span class="mark">No spaces</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <mat-label>How did you hear about Entandem?</mat-label>
+                    <select
+                      formControlName="hearAbout"
+                      matNativeControl
+                      (click)="checkHearAboutOther(form3.get('hearAbout').value)">
+                      <option value="Advertisement">Advertisement</option>
+                      <option value="Advertisement">Brochure / Flyer</option>
+                      <option value="Advertisement">News / Mediar</option>
+                      <option value="Advertisement">Referral</option>
+                      <option value="O">Other</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="otherValue"  class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           type="text"
+                           formControlName="hearAboutOther"
+                           placeholder="Please provide additional information (optional)">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="registr-btn-bpx">
+              <button
+                type="button"
+                (click)="onSubmit2()"
+                [disabled]="form3.invalid"
+                [ngClass]="{'btn-disabled' : form3.invalid}"
+                class="registration">Register Now</button>
+            </div>
+          </div>
+
+          <div *ngIf="radioChecked">
+            <div class="padding">
+              <div class="row">
+                <div class="col">
+                  <span class="text-establish">Establishment Information</span>
+                </div>
+              </div>
+            </div>
+            <div  class="row">
               <div class="col-md-12">
                 <div class="field-material">
                   <mat-form-field>
@@ -54,7 +211,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div  class="row">
               <div class="col-md-5">
                 <div class="field-material">
                   <mat-form-field>
@@ -111,69 +268,81 @@
                 </div>
               </div>
             </div>
-          <div *ngIf="mailingInfo">
-            <div class="padding">
-              <div class="row">
-                <div class="col">
-                  <span class="text-establish">Mailing Information</span>
+            <div class="radio-box">
+              <div *ngIf="mailingInfo" [formGroup]="form2">
+                <div class="padding">
+                  <div class="row">
+                    <div class="col">
+                      <span class="text-establish">Mailing Information</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-5">
-                <div class="field-material">
-                  <mat-form-field>
-                    <mat-select
-                      formControlName="mailingProvince"
-                      placeholder="Province">
-                      <mat-option value="canada">Canada</mat-option>
-                      <mat-option value="orbion">Orbion</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="field-material">
+                      <mat-form-field>
+                        <mat-label>Province</mat-label>
+                        <mat-select  formControlName="mailingProvince">
+                          <mat-option value="AB">Alberta</mat-option>
+                          <mat-option value="BC">British Columbia</mat-option>
+                          <mat-option value="MB">Manitoba</mat-option>
+                          <mat-option value="NB">New Brunswick</mat-option>
+                          <mat-option value="NL">Newfoundland and Labrador</mat-option>
+                          <mat-option value="NT">Northwest Territories</mat-option>
+                          <mat-option value="NS">Nova Scotia</mat-option>
+                          <mat-option value="NU">Nunavut</mat-option>
+                          <mat-option value="ON">Ontario</mat-option>
+                          <mat-option value="PE">Prince Edward Island</mat-option>
+                          <mat-option value="QC">Quebec</mat-option>
+                          <mat-option value="SK">Saskatchewan</mat-option>
+                          <mat-option value="YT">Yukon</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-7">
+                    <div class="padding-mobile">
+                      <div class="field-material">
+                        <mat-form-field>
+                          <input matInput
+                                 formControlName="mailingCity"
+                                 placeholder="City">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-7">
-                <div class="padding-mobile">
-                  <div class="field-material">
-                    <mat-form-field>
-                      <input matInput
-                             formControlName="mailingCity"
-                             placeholder="City">
-                    </mat-form-field>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="field-material">
+                      <mat-form-field>
+                        <input matInput
+                               formControlName="mailingStreet"
+                               placeholder="Street Address">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="field-material">
+                      <mat-form-field>
+                        <input matInput
+                               formControlName="mailingPostalCode"
+                               placeholder="Postal Code">
+                      </mat-form-field>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="field-material">
-                  <mat-form-field>
-                    <input matInput
-                           formControlName="mailingStreet"
-                           placeholder="Street Address">
-                  </mat-form-field>
+            <div class="padding-personal">
+              <div class="row">
+                <div class="col">
+                  <span class="text-establish">Personal Information</span>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-5">
-                <div class="field-material">
-                  <mat-form-field>
-                    <input matInput
-                           formControlName="mailingPostalCode"
-                           placeholder="Postal Code">
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="padding-personal">
-            <div class="row">
-              <div class="col">
-                <span class="text-establish">Personal Information</span>
-              </div>
-            </div>
-          </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="field-material">
@@ -229,39 +398,39 @@
                 </div>
               </div>
             </div>
-          <div class="padding">
-            <div class="row">
-              <div class="col">
-                <span class="text-establish">Create Password</span>
-              </div>
-            </div>
-          </div>
-          <div  >
-            <div class="row">
-              <div class="col-md-12">
-                <div class="field-material">
-                  <mat-form-field>
-                    <input matInput
-                           formControlName="password"
-                           maxlength="20"
-                           type="password"
-                           placeholder="Password">
-                  </mat-form-field>
+            <div class="padding">
+              <div class="row">
+                <div class="col">
+                  <span class="text-establish">Create Password</span>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="field-material">
-                  <mat-form-field>
-                    <input matInput
-                           formControlName="passwordRepeat"
-                           placeholder="Repeat Password">
-                  </mat-form-field>
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             formControlName="password"
+                             maxlength="20"
+                             type="password"
+                             placeholder="Password">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="field-material">
+                    <mat-form-field>
+                      <input matInput
+                             formControlName="passwordRepeat"
+                             placeholder="Repeat Password">
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="include-container">
@@ -273,9 +442,8 @@
                         <div class="round">
                           <input
                             type="checkbox"
-                            [checked]="checkLengthPassword()"
-                            id="checkbox1"/>
-                          <label for="checkbox1"></label>
+                            [checked]="checkLengthPassword()"/>
+                          <label></label>
                         </div>
                       </span>
                       <span class="mark">8-20 Characters</span>
@@ -285,9 +453,8 @@
                         <div class="round">
                           <input
                             type="checkbox"
-                            [checked]="passwordHasLetter(form.get('password').value)"
-                            id="checkbox2"/>
-                          <label for="checkbox2"></label>
+                            [checked]="passwordHasLetter(form.get('password').value)"/>
+                          <label></label>
                         </div>
                       </span>
                       <span class="mark">At least one capital letter</span>
@@ -299,9 +466,8 @@
                         <div class="round">
                           <input
                             type="checkbox"
-                            [checked]="passwordHasNumber(form.get('password').value)"
-                            id="checkbox3"/>
-                          <label for="checkbox3"></label></div>
+                            [checked]="passwordHasNumber(form.get('password').value)"/>
+                          <label></label></div>
                       </span>
                       <span class="mark">At least one number</span>
                     </div>
@@ -310,9 +476,8 @@
                         <div class="round">
                           <input
                             type="checkbox"
-                            [checked]="passworHasntSpace(form.get('password').value)"
-                            id="checkbox4"/>
-                          <label for="checkbox4"></label>
+                            [checked]="passworHasntSpace(form.get('password').value)"/>
+                          <label></label>
                         </div>
                       </span>
                       <span class="mark">No spaces</span>
@@ -340,25 +505,26 @@
                 </div>
               </div>
             </div>
-          <div *ngIf="otherValue"  class="row">
-            <div class="col-md-12">
-              <div class="field-material">
-                <mat-form-field>
-                  <input matInput
-                         type="text"
-                         formControlName="hearAboutOther"
-                         placeholder="Please provide additional information (optional)">
-                </mat-form-field>
+            <div *ngIf="otherValue"  class="row">
+              <div class="col-md-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <input matInput
+                           type="text"
+                           formControlName="hearAboutOther"
+                           placeholder="Please provide additional information (optional)">
+                  </mat-form-field>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="registr-btn-bpx">
-            <button
-              type="button"
-              (click)="onSubmit()"
-              [disabled]="form.invalid"
-              [ngClass]="{'btn-disabled' : form.invalid}"
-              class="registration">Register Now</button>
+            <div class="registr-btn-bpx">
+              <button
+                type="button"
+                (click)="onSubmit()"
+                [disabled]="form.invalid || form2.invalid"
+                [ngClass]="{'btn-disabled' : form.invalid || form2.invalid}"
+                class="registration">Register Now</button>
+            </div>
           </div>
         </form>
         <div class="to-login-box">

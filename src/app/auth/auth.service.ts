@@ -18,4 +18,8 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/signin`, user,  {observe: 'response'});
   }
 
+  logout() {
+    return this.http.get(`${environment.apiUrl}/auth/logout`);
+  }
+
 }
