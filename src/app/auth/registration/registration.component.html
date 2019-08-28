@@ -121,7 +121,7 @@
                           <input
                             type="checkbox"
                             [checked]="passwordHasNumber(form3.get('password').value)"/>
-                          <label for="checkbox3"></label></div>
+                          <label></label></div>
                       </span>
                       <span class="mark">At least one number</span>
                     </div>
@@ -131,7 +131,7 @@
                           <input
                             type="checkbox"
                             [checked]="passworHasntSpace(form3.get('password').value)"/>
-                          <label for="checkbox4"></label>
+                          <label></label>
                         </div>
                       </span>
                       <span class="mark">No spaces</span>
@@ -533,7 +533,7 @@
         </div>
       </div>
       <div *ngIf="thanksContent" class="message-container">
-        <img src="/assets/image/success.svg" alt="success" style="width: 46px; padding-bottom: 20px">
+        <img src="assets/image/success.svg" alt="success" style="width: 46px; padding-bottom: 20px">
         <h1 class="title margin-bottom">Thank You!</h1>
         <div class="description">We have sent you a verification email. Please check your inbox to confirm your account. </div>
         <div class="description">Haven’t received a confirmation email yet? </div>
@@ -550,7 +550,7 @@
   </div>
   <div class="right-part">
     <video type="video/mp4" autoplay loop>
-      <source src="/assets/image/login.mp4">
+      <source src="assets/image/login.mp4">
     </video>
   </div>
 </div>

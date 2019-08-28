@@ -3,16 +3,18 @@ import { CoreService } from '../core/core.service';
 import { fadeInAnimation } from '../shared/animation';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss'],
   animations: [fadeInAnimation]
 })
-export class DashboardComponent implements OnInit {
+export class AccountComponent implements OnInit {
 
-  constructor(public coreService: CoreService) {
-  }
+  constructor(private coreService: CoreService) { }
 
   ngOnInit() {
   }
+
 }
+
+

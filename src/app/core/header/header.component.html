@@ -5,7 +5,7 @@
     <div></div>
   </div>
   <a class="logo">
-    <img src="/assets/image/entandem_tagline_logo.svg" alt="logo">
+    <img src="assets/image/entandem_tagline_logo.svg" alt="logo">
   </a>
   <div class="description-portal">
     Licensing Portal
@@ -18,25 +18,31 @@
   <div class="btn-logout">
     <div mat-button [matMenuTriggerFor]="menu" class="info-user">{{userInfo.FIRST_NAME}}{{userInfo.LAST_NAME}}</div>
     <mat-menu #menu="matMenu">
-      <div mat-menu-item>My Account</div>
+      <div mat-menu-item [routerLink]="['/account']">My Account</div>
       <div mat-menu-item>Assign Tariff</div>
       <div mat-menu-item
            (click)="logOut()"
            [routerLink]="['/auth/login']"
-           class="last-item"><img src="../../../assets/image/sign-out.svg" alt="">Sign Out
+           class="last-item"><img src="assets/image/sign-out.svg" alt="sign">Sign Out
       </div>
     </mat-menu>
   </div>
 </header>
 <div *ngIf="!hamburgerMenu" [@slideAnimation] class="menu-container">
   <nav class="menu-bar">
+    <div class="dash-item" [routerLink]="['/dashboard']">
+      <div class="background-hover hide-background">
+        <img src="assets/image/user.svg"  class="user-pic" alt="img">
+      </div>
+      <span>Dashboard</span>
+    </div>
     <div id="2" (click)="expandFirst(id=1)" [ngClass]="{'showPanel': !expandedSectionFirst }">
       <div class="menu-item">
         <div class="background-hover hide-background">
-          <img src="/assets/image/closed-envelope.svg" alt="img">
+          <img src="assets/image/closed-envelope.svg" alt="img">
         </div>
         <span>Reports</span>
-        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
+        <img src="assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
              [ngClass]="{'transform': !expandedSectionFirst }">
       </div>
       <div class="sub-menu">Submit New</div>
@@ -46,10 +52,10 @@
     <div id="1" (click)="expandSecond(id=1)" [ngClass]="{'showPanel': !expandedSectionSecond }">
       <div class="menu-item">
         <div class="background-hover">
-          <img src="/assets/image/closed-envelope.svg" alt="img">
+          <img src="assets/image/closed-envelope.svg" alt="img">
         </div>
         <span>Payments</span>
-        <img src="/assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
+        <img src="assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
              [ngClass]="{'transform': !expandedSectionSecond}">
       </div>
       <div class="sub-menu">Make a Payment</div>
@@ -58,19 +64,19 @@
 
     <div class="menu-item">
       <div class="background-hover hide-background">
-        <img src="/assets/image/closed-envelope.svg" alt="img">
+        <img src="assets/image/closed-envelope.svg" alt="img">
       </div>
       <span>Invoices</span>
     </div>
     <div class="menu-item">
       <div class="background-hover hide-background">
-        <img src="/assets/image/closed-envelope.svg" alt="img">
+        <img src="assets/image/closed-envelope.svg" alt="img">
       </div>
       <span>Statements</span>
     </div>
     <div class="menu-item">
       <div class="background-hover hide-background">
-        <img src="/assets/image/closed-envelope.svg" alt="img">
+        <img src="assets/image/closed-envelope.svg" alt="img">
       </div>
       <span>Support</span>
     </div>

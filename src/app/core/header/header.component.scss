@@ -27,7 +27,7 @@ header .btn-logout:after {
   position: absolute;
   left: 42px;
   content: " ";
-  background: url(/assets/image/down-arrow-black.svg);
+  background-image: url('/assets/image/down-arrow-black.svg');
   background-size: 100% 100%;
   width: 10px;
   height: 123%;
@@ -88,7 +88,7 @@ nav.menu-bar {
   font-size: 16px;
 }
 
-nav.menu-bar .menu-item {
+nav.menu-bar .menu-item, nav.menu-bar .dash-item{
   padding: 20px 0 20px 5px;
   display: flex;
   align-items: center;
@@ -98,7 +98,9 @@ nav.menu-bar .menu-item {
 nav.menu-bar .menu-item img {
   max-width: 16px;
 }
-
+nav.menu-bar .menu-item-dash img {
+  max-width: 30px;
+}
 nav.menu-bar .dash-item img {
   max-width: 30px;
 }
@@ -107,7 +109,7 @@ nav.menu-bar .dash-item {
   background-color: #ff4d26;
 }
 
-nav.menu-bar .menu-item span {
+nav.menu-bar .menu-item span, nav.menu-bar .dash-item span {
   margin: 0 10px;
 }
 

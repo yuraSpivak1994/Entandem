@@ -1,0 +1,80 @@
+<app-header></app-header>
+<div class="content" [@simpleFadeAnimation]="'in'">
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <div class="header-block">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="title">My Account</h1>
+              <div class="some-information-box">
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Profile Information
+                      <div class="hover-icon">
+                        <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="user-detail-wrap">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="user-detail">
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Business Name:</div>
+                            <div class="item-large">ABC Business</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">Address:</div>
+                            <div class="item-large">Suite 900-1234 Bay St</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Account #:</div>
+                            <div class="item-large">10-02-00000464</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">City:</div>
+                            <div class="item-large">Toronto</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Phone Number:</div>
+                            <div class="item-large"> 416 888 9090</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">Province:</div>
+                            <div class="item-large">Ontario</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Postal Code</div>
+                            <div class="item-large">M5R 3K4</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Profile Information
+                      <div class="hover-icon">
+                        <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
