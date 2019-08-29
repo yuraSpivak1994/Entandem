@@ -9,12 +9,16 @@ import { fadeInAnimation } from '../shared/animation';
   animations: [fadeInAnimation]
 })
 export class AccountComponent implements OnInit {
+  showSearch = true
+  ;
 
   constructor(private coreService: CoreService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  toggleSearch() {
+    this.showSearch = !this.showSearch;
+  }
 }
 
 

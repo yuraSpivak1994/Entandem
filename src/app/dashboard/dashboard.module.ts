@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterModule } from '@angular/router';
 import { DashboardRouterModule } from './dashboard-router.module';
 import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -13,7 +14,8 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     RouterModule,
     DashboardRouterModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }

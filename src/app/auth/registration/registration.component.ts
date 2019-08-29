@@ -38,8 +38,9 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
   otherValue = false;
   mailingInfo = false;
   passwordRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(^\S*$)/);
+  repeatPasswordRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(^\S*$)/);
   emailRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/);
-  phoneRegex = new RegExp(/^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{3}[-|\s]?\d{4}$/);
+  phoneRegex = new RegExp(/^([1-9][0-9]*)$/);
   showSpinner =  false;
   generalContent = true;
   thanksContent = false;
@@ -56,7 +57,7 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
     this.form = this.formBuilder.group({
       email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern(this.emailRegex)]),
       password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern(this.passwordRegex)]],
-      passwordRepeat: [''],
+      passwordRepeat: ['', [Validators.pattern(this.repeatPasswordRegex)]],
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       phone: new FormControl(null, [Validators.required, Validators.pattern(this.phoneRegex)]),
@@ -82,7 +83,7 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
     this.form3 = this.formBuilder.group({
       email: new FormControl(null, [Validators.required]),
       password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern(this.passwordRegex)]],
-      passwordRepeat: [''],
+      passwordRepeat: ['', [Validators.pattern(this.repeatPasswordRegex)]],
       hearAboutOther: '',
       hearAbout: new FormControl(null, [Validators.required])
     },{

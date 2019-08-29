@@ -63,9 +63,164 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="descriptions">Profile Information
+                    <div class="descriptions">Email Address
                       <div class="hover-icon">
                         <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="email-block">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="block-items">
+                        <div class="item-small">Email Address:</div>
+                        <div class="item-large">johnsmith@emailsample.ca</div>
+                      </div>
+                      <div class="receive-block">
+                        <div class="square">
+                          <input
+                            type="checkbox"
+                            id="checkbox-square"/>
+                          <label for="checkbox-square"></label>
+                        </div>
+                          <label for="checkbox-square" class="receive">Receive Promotional Emails</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Password
+                      <div class="hover-icon">
+                        <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Contact Information
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col md-12">
+            <div class="table-block">
+             <div class="search-block">
+               <div class="search-padding">
+                 <div class="left">
+                   <div class="search-img">
+                     <img src="assets/image/search.svg" alt="search" (click)="toggleSearch()">
+                   </div>
+                   <input type="search" id="search" [ngClass]="{'show-input' : showSearch}">
+                 </div>
+                 <div class="right">
+                   <button type="button" class="new-contact">+ New Contact</button>
+                 </div>
+               </div>
+             </div>
+              <div class="table-responsive-md">
+                <table class="table table-borderless">
+                  <thead>
+                  <tr>
+                    <th scope="col" class="th-top description-card"></th>
+                    <th scope="col" class="th-top description-card">First Name</th>
+                    <th scope="col" class="th-top description-card">Last Name</th>
+                    <th scope="col" class="th-top description-card">Email</th>
+                    <th scope="col" class="th-top description-card">Phone</th>
+                    <th scope="col" class="th-top description-card"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="hover-table">
+                    <td data-label="" scope="row" class="th-bottom">
+                      <img src="assets/image/star.svg" alt="star" class="star">
+                    </td>
+                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
+                    <td data-label="Time">Santiago</td>
+                    <td data-label="Last Name">contact_sample@email.com</td>
+                    <td data-label="Paid by">(416) 888 - 9090</td>
+                    <td data-label="">
+                      <div class="edit-icon">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover-table">
+                    <td data-label="" scope="row" class="th-bottom">
+                    </td>
+                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
+                    <td data-label="Time">Santiago</td>
+                    <td data-label="Last Name">contact_sample@email.com</td>
+                    <td data-label="Paid by">(416) 888 - 9090</td>
+                    <td data-label="">
+                      <div class="edit-icon">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover-table">
+                    <td data-label="" scope="row" class="th-bottom">
+                    </td>
+                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
+                    <td data-label="Time">Santiago</td>
+                    <td data-label="Last Name">contact_sample@email.com</td>
+                    <td data-label="Paid by">(416) 888 - 9090</td>
+                    <td data-label="">
+                      <div class="edit-icon">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover-table">
+                    <td data-label="" scope="row" class="th-bottom">
+                    </td>
+                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
+                    <td data-label="Time">Santiago</td>
+                    <td data-label="Last Name">contact_sample@email.com</td>
+                    <td data-label="Paid by">(416) 888 - 9090</td>
+                    <td data-label="">
+                      <div class="edit-icon">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="pagination-box">
+                  <div class="letter-pages">
+                    <span>1</span>
+                    <span>-</span>
+                    <span>4</span>
+                    <span class="of-letter">of</span>
+                    <span>4</span>
+                  </div>
+                  <div class="arrows-box">
+                    <div class="part">
+                      <div class="big-play-box">
+                        <div class="line"></div>
+                        <div class="arrow-box">
+                          <div class="arrow"></div>
+                        </div>
+                      </div>
+                      <div class="arrow-box">
+                        <div class="arrow"></div>
+                      </div>
+                    </div>
+                    <div class="part">
+                      <div class="arrow-box-right">
+                        <div class="arrow-right"></div>
+                      </div>
+                      <div class="big-play-box">
+                        <div class="arrow-box-right">
+                          <div class="arrow-right"></div>
+                        </div>
+                          <div class="line"></div>
                       </div>
                     </div>
                   </div>
@@ -74,6 +229,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

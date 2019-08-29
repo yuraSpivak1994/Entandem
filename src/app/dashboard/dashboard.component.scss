@@ -25,10 +25,17 @@
   border: 1px solid rgba(155, 155, 155, 0.28);
   margin-bottom: 30px;
 }
-
+a {
+  color: #404DDC;
+}
 .contact-card .left {
   max-width: 100%;
   padding: 50px 10px 10px 50px;
+}
+.card-block {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .info-items {
@@ -62,6 +69,32 @@
 
 .contact-card .right img {
   width: 100%
+}
+.user-detail {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 20px;
+
+  .block {
+
+    .block-items {
+      margin-bottom: 10px;
+
+      .item-small {
+        color: #6F7886;
+        font-family: "Rubik", sans-serif;
+        font-size: 12px;
+        line-height: 14px;
+      }
+      .item-large {
+        color: #3E4254;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        line-height: 40px;
+      }
+    }
+  }
 }
 
 .description-card {
