@@ -1,0 +1,107 @@
+<div class="header-modal">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-dialog-actions align="end">
+        <div class="title-box-modal"><span class="title-modal">Edit Profile Information</span></div>
+        <button class="close-modal" mat-dialog-close>
+          <img src="assets/image/cancel.svg" alt="cancel">
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>
+<mat-dialog-content>
+<div class="main-modal">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="field-material">
+        <mat-form-field>
+          <input matInput
+                 placeholder="First Name">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="field-material">
+        <mat-form-field>
+          <input matInput
+                 placeholder="Phone Number">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="field-material">
+        <mat-form-field>
+          <input matInput
+                 placeholder="Email Address or Account Number">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div  class="row">
+    <div class="col-md-5">
+      <div class="field-material">
+        <mat-form-field>
+          <mat-label>Province</mat-label>
+          <mat-select>
+            <mat-option value="AB">Alberta</mat-option>
+            <mat-option value="BC">British Columbia</mat-option>
+            <mat-option value="MB">Manitoba</mat-option>
+            <mat-option value="NB">New Brunswick</mat-option>
+            <mat-option value="NL">Newfoundland and Labrador</mat-option>
+            <mat-option value="NT">Northwest Territories</mat-option>
+            <mat-option value="NS">Nova Scotia</mat-option>
+            <mat-option value="NU">Nunavut</mat-option>
+            <mat-option value="ON">Ontario</mat-option>
+            <mat-option value="PE">Prince Edward Island</mat-option>
+            <mat-option value="QC">Quebec</mat-option>
+            <mat-option value="SK">Saskatchewan</mat-option>
+            <mat-option value="YT">Yukon</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="padding-mobile">
+        <div class="field-material">
+          <mat-form-field>
+            <input matInput
+                   placeholder="City">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="field-material">
+        <mat-form-field>
+          <input matInput
+                 placeholder="Postal Code">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button class="modal-blue-btn" [mat-dialog-close]="true" cdkFocusInitial>Update Profile</button>
+  </mat-dialog-actions>
+</div>
+  </mat-dialog-content>
+
+
+<style>
+  .field-material > * {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .main-modal {
+      min-width: 685px;
+    }
+  }
+</style>

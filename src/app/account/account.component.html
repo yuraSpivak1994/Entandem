@@ -11,50 +11,50 @@
                 <div class="row">
                   <div class="col">
                     <div class="descriptions">Profile Information
-                      <div class="hover-icon">
+                      <div class="hover-icon" (click)="openDialogProfile()">
                         <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="user-detail-wrap">
+                <div *ngIf="user" class="user-detail-wrap">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="user-detail">
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Business Name:</div>
-                            <div class="item-large">ABC Business</div>
+                            <div class="item-large">{{user.BUSINESS_NAME}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">Address:</div>
-                            <div class="item-large">Suite 900-1234 Bay St</div>
+                            <div class="item-large">{{user.ADDRESS}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Account #:</div>
-                            <div class="item-large">10-02-00000464</div>
+                            <div class="item-large">{{user.ACCT_NO}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">City:</div>
-                            <div class="item-large">Toronto</div>
+                            <div class="item-large">{{user.CITY}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Phone Number:</div>
-                            <div class="item-large"> 416 888 9090</div>
+                            <div class="item-large">{{user.PHONE}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">Province:</div>
-                            <div class="item-large">Ontario</div>
+                            <div class="item-large">{{user.PROVINCE}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Postal Code</div>
-                            <div class="item-large">M5R 3K4</div>
+                            <div class="item-large">{{user.POSTAL_CODE}}</div>
                           </div>
                         </div>
                       </div>
@@ -64,7 +64,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="descriptions">Email Address
-                      <div class="hover-icon">
+                      <div class="hover-icon" (click)="openDialog()">
                         <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
                       </div>
                     </div>
@@ -92,7 +92,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="descriptions">Password
-                      <div class="hover-icon">
+                      <div class="hover-icon"  (click)="openDialogPassword()">
                         <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
                       </div>
                     </div>
@@ -120,7 +120,7 @@
                    <input type="search" id="search" [ngClass]="{'show-input' : showSearch}">
                  </div>
                  <div class="right">
-                   <button type="button" class="new-contact">+ New Contact</button>
+                   <button type="button" class="new-contact" (click)="openDialogContact()">+ New Contact</button>
                  </div>
                </div>
              </div>
@@ -146,8 +146,12 @@
                     <td data-label="Last Name">contact_sample@email.com</td>
                     <td data-label="Paid by">(416) 888 - 9090</td>
                     <td data-label="">
-                      <div class="edit-icon">
+                      <div class="edit-icon" [matMenuTriggerFor]="edit">
                         <span></span><span></span><span></span>
+                        <mat-menu #edit="matMenu">
+                          <button mat-menu-item>Item 1</button>
+                          <button mat-menu-item>Item 2</button>
+                        </mat-menu>
                       </div>
                     </td>
                   </tr>
@@ -158,10 +162,15 @@
                     <td data-label="Time">Santiago</td>
                     <td data-label="Last Name">contact_sample@email.com</td>
                     <td data-label="Paid by">(416) 888 - 9090</td>
-                    <td data-label="">
+                    <td data-label="" [matMenuTriggerFor]="edit">
                       <div class="edit-icon">
                         <span></span><span></span><span></span>
+                        <mat-menu #edit="matMenu">
+                          <button mat-menu-item>Item 1</button>
+                          <button mat-menu-item>Item 2</button>
+                        </mat-menu>
                       </div>
+
                     </td>
                   </tr>
                   <tr class="hover-table">
@@ -172,9 +181,17 @@
                     <td data-label="Last Name">contact_sample@email.com</td>
                     <td data-label="Paid by">(416) 888 - 9090</td>
                     <td data-label="">
-                      <div class="edit-icon">
+                      <div class="edit-icon" [matMenuTriggerFor]="edit">
                         <span></span><span></span><span></span>
+                        <mat-menu #edit="matMenu">
+                          <button mat-menu-item>Item 1</button>
+                          <button mat-menu-item>Item 2</button>
+                        </mat-menu>
                       </div>
+                      <mat-menu #edit="matMenu">
+                        <button mat-menu-item>Item 1</button>
+                        <button mat-menu-item>Item 2</button>
+                      </mat-menu>
                     </td>
                   </tr>
                   <tr class="hover-table">
@@ -185,8 +202,12 @@
                     <td data-label="Last Name">contact_sample@email.com</td>
                     <td data-label="Paid by">(416) 888 - 9090</td>
                     <td data-label="">
-                      <div class="edit-icon">
+                      <div class="edit-icon" [matMenuTriggerFor]="edit">
                         <span></span><span></span><span></span>
+                        <mat-menu #edit="matMenu">
+                          <button mat-menu-item>Item 1</button>
+                          <button mat-menu-item>Item 2</button>
+                        </mat-menu>
                       </div>
                     </td>
                   </tr>
