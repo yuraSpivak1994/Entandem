@@ -11,12 +11,14 @@
   </div>
 </div>
 <mat-dialog-content>
+  <form  [formGroup]="formEmail">
   <div class="main-modal">
     <div class="row">
       <div class="col-md-12">
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   formControlName="oldEmail"
                    placeholder="Current Email Address">
           </mat-form-field>
         </div>
@@ -27,6 +29,7 @@
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   formControlName="email"
                    placeholder="New Email Address">
           </mat-form-field>
         </div>
@@ -38,18 +41,24 @@
           <mat-form-field>
             <input matInput
                    type="password"
+                   formControlName="password"
                    placeholder="Password">
           </mat-form-field>
         </div>
       </div>
     </div>
     <mat-dialog-actions align="end">
-      <button class="modal-blue-btn" [mat-dialog-close]="true" cdkFocusInitial>Change Email</button>
+      <button class="modal-blue-btn"
+              (click)="onSubmit()"
+              [disabled]="formEmail.invalid"
+              [ngClass]="{'btn-disabled' : formEmail.invalid}"
+              [mat-dialog-close]="true" cdkFocusInitial>Change Email</button>
     </mat-dialog-actions>
     <div class="desc-link">
       An email with a verification link will be sent to your inbox.
     </div>
   </div>
+  </form>
 </mat-dialog-content>
 
 

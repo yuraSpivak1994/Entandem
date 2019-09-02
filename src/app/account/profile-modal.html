@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <mat-dialog-actions align="end">
         <div class="title-box-modal"><span class="title-modal">Edit Profile Information</span></div>
-        <button class="close-modal" mat-dialog-close>
+        <button class="close-modal" mat-dialog-close >
           <img src="assets/image/cancel.svg" alt="cancel">
         </button>
       </mat-dialog-actions>
@@ -11,12 +11,14 @@
   </div>
 </div>
 <mat-dialog-content>
+  <form [formGroup]="formProfile">
 <div class="main-modal">
   <div class="row">
     <div class="col-md-12">
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 formControlName="establishmentName"
                  placeholder="First Name">
         </mat-form-field>
       </div>
@@ -27,6 +29,7 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 formControlName="phone"
                  placeholder="Phone Number">
         </mat-form-field>
       </div>
@@ -37,7 +40,8 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
-                 placeholder="Email Address or Account Number">
+                 formControlName="establishmentStreet"
+                 placeholder="Address">
         </mat-form-field>
       </div>
     </div>
@@ -47,7 +51,7 @@
       <div class="field-material">
         <mat-form-field>
           <mat-label>Province</mat-label>
-          <mat-select>
+          <mat-select formControlName="establishmentProvince">
             <mat-option value="AB">Alberta</mat-option>
             <mat-option value="BC">British Columbia</mat-option>
             <mat-option value="MB">Manitoba</mat-option>
@@ -70,6 +74,7 @@
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   formControlName="establishmentCity"
                    placeholder="City">
           </mat-form-field>
         </div>
@@ -81,15 +86,22 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 formControlName="establishmentPostalCode"
                  placeholder="Postal Code">
         </mat-form-field>
       </div>
     </div>
   </div>
   <mat-dialog-actions align="end">
-    <button class="modal-blue-btn" [mat-dialog-close]="true" cdkFocusInitial>Update Profile</button>
+    <button class="modal-blue-btn"
+            type="button"
+            (click)="onSubmit()"
+            [disabled]="formProfile.invalid"
+            [ngClass]="{'btn-disabled' : formProfile.invalid}"
+            [mat-dialog-close]="true" cdkFocusInitial>Update Profile</button>
   </mat-dialog-actions>
 </div>
+  </form>
   </mat-dialog-content>
 
 

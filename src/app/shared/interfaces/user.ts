@@ -19,6 +19,9 @@ export interface User {
   fax?: string;
   password?: string;
   passwordRepeat?: string;
+  newEmail?: string;
+  oldEmail?: string;
+  oldPassword?: string;
 }
 
 export interface UserInfo {

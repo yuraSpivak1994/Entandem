@@ -1,5 +1,14 @@
 <app-header></app-header>
 <div class="content" [@simpleFadeAnimation]="'in'">
+  <div *ngIf="showSpinner" class="spinner-box">
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
+  </div>
+  <div class="alert alert-success" role="alert" [ngClass]="{'toggle-alert': coreService.alertMessageSuccess | async}">
+    Success!
+  </div>
+  <div class="alert alert-danger" role="alert" [ngClass]="{'toggle-alert': coreService.alertMessageError | async}">
+    Error!
+  </div>
   <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
     <div class="padding-help">
       <div class="content-inside-page">
@@ -70,17 +79,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="email-block">
+                <div *ngIf="user" class="email-block">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="block-items">
                         <div class="item-small">Email Address:</div>
-                        <div class="item-large">johnsmith@emailsample.ca</div>
+                        <div class="item-large">{{user.EMAIL}}</div>
                       </div>
                       <div class="receive-block">
                         <div class="square">
                           <input
                             type="checkbox"
+                            [checked] = "numberPromotion"
+                            (click)="togglePromotion()"
                             id="checkbox-square"/>
                           <label for="checkbox-square"></label>
                         </div>

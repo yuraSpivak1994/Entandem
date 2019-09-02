@@ -6,7 +6,7 @@
         <div class="first-block">
           <div class="row">
             <div class="col-md-8">
-              <div class="contact-card">
+              <div *ngIf="user" class="contact-card">
                 <div class="left">
                   <h1 class="title">Welcome Back!</h1>
                   <span class="description-card">Welcome back, here is a overview of your reports, payments and current balance.</span>
@@ -14,21 +14,21 @@
                     <div class="block">
                       <div class="block-items">
                         <div class="item-small">Business Name:</div>
-                        <div class="item-large">ABC Business</div>
+                        <div class="item-large">{{user.BUSINESS_NAME}}</div>
                       </div>
                       <div class="block-items">
                         <div class="item-small">Email Address:</div>
-                        <div class="item-large">johnsmith@emailsample.ca</div>
+                        <div class="item-large">{{user.EMAIL}}</div>
                       </div>
                     </div>
                     <div class="block">
                       <div class="block-items">
                         <div class="item-small">Contact Name:</div>
-                        <div class="item-large">Smith ReSound UX</div>
+                        <div class="item-large">{{user.FIRST_NAME}}</div>
                       </div>
                       <div class="block-items">
                         <div class="item-small">Account #:</div>
-                        <div class="item-large">10-02-00000464</div>
+                        <div class="item-large">{{user.ACCT_NO}}</div>
                       </div>
                     </div>
                   </div>

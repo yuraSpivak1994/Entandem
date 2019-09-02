@@ -4,6 +4,29 @@ html, body {
   margin: 0;
 
 }
+.alert {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
+  padding: 0;
+  margin-bottom: 0;
+  border: none;
+  max-width: 100%;
+}
+.toggle-alert {
+  top: 50px;
+  height: auto;
+  overflow: visible;
+  transition: 0.3s;
+  z-index: 700;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  text-align: center;
+}
 
 .hover-text {
   transition: 0.3s;
