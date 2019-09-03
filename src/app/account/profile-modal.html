@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <mat-dialog-actions align="end">
         <div class="title-box-modal"><span class="title-modal">Edit Profile Information</span></div>
-        <button class="close-modal" mat-dialog-close >
+        <button class="close-modal" mat-dialog-close>
           <img src="assets/image/cancel.svg" alt="cancel">
         </button>
       </mat-dialog-actions>
@@ -18,8 +18,10 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 [(ngModel)]="data.name"
                  formControlName="establishmentName"
-                 placeholder="First Name">
+                 placeholder="First Name"
+          >
         </mat-form-field>
       </div>
     </div>
@@ -29,6 +31,7 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 [(ngModel)]="data.phone"
                  formControlName="phone"
                  placeholder="Phone Number">
         </mat-form-field>
@@ -40,6 +43,7 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 [(ngModel)]="data.address"
                  formControlName="establishmentStreet"
                  placeholder="Address">
         </mat-form-field>
@@ -51,7 +55,7 @@
       <div class="field-material">
         <mat-form-field>
           <mat-label>Province</mat-label>
-          <mat-select formControlName="establishmentProvince">
+          <mat-select formControlName="establishmentProvince" [(ngModel)]="data.province">
             <mat-option value="AB">Alberta</mat-option>
             <mat-option value="BC">British Columbia</mat-option>
             <mat-option value="MB">Manitoba</mat-option>
@@ -74,6 +78,7 @@
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   [(ngModel)]="data.city"
                    formControlName="establishmentCity"
                    placeholder="City">
           </mat-form-field>
@@ -86,6 +91,7 @@
       <div class="field-material">
         <mat-form-field>
           <input matInput
+                 [(ngModel)]="data.postalCode"
                  formControlName="establishmentPostalCode"
                  placeholder="Postal Code">
         </mat-form-field>
@@ -98,7 +104,7 @@
             (click)="onSubmit()"
             [disabled]="formProfile.invalid"
             [ngClass]="{'btn-disabled' : formProfile.invalid}"
-            [mat-dialog-close]="true" cdkFocusInitial>Update Profile</button>
+            [mat-dialog-close]="data">Update Profile</button>
   </mat-dialog-actions>
 </div>
   </form>
@@ -109,11 +115,5 @@
   .field-material > * {
     width: 100%;
     margin-bottom: 20px;
-  }
-
-  @media screen and (min-width: 768px) {
-    .main-modal {
-      min-width: 685px;
-    }
   }
 </style>

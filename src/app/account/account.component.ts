@@ -1,11 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CoreService } from '../core/core.service';
 import { fadeInAnimation } from '../shared/animation';
 import { MatDialog } from '@angular/material';
-import { User, UserInfo } from '../shared/interfaces/user';
+import { Account, User, UserInfo } from '../shared/interfaces/user';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { AccountService } from "./account.service";
 import { ValidatePassword } from "../auth/registration/registration.component";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+
+export interface DialogData {
+  address: string;
+  name: string;
+  city: string;
+  province: string;
+  phone: string;
+  postalCode: string;
+  email?: string;
+
+}
 
 @Component({
   selector: 'app-account',
@@ -16,8 +28,16 @@ import { ValidatePassword } from "../auth/registration/registration.component";
 export class AccountComponent implements OnInit {
   showSearch = true;
   user: UserInfo;
+  accountContacts: Account;
   showSpinner =  false;
-  private numberPromotion = 0;
+  numberPromotion = 0;
+  address: string;
+  name: string;
+  city: string;
+  province: string;
+  phone: string;
+  postalCode: string;
+  email: string;
 
   constructor(public coreService: CoreService,
               public dialog: MatDialog,
@@ -25,6 +45,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.getUserData();
+    this.getContactsTable();
   }
 
 getUserData() {
@@ -39,9 +60,74 @@ getUserData() {
     })
 }
 
+getContactsTable() {
+    this.accountService.getAllContacts()
+      .subscribe((data) => {
+        this.accountContacts = data;
+        console.log(data);
+      },error => {
+        console.log(error);
+      })
+}
+
+  checkFieldName() {
+    if (this.name) {
+      return this.name
+    } else if (this.user.EMAIL) {
+      return this.user.BUSINESS_NAME
+    }
+  }
+
+  checkFieldAddress() {
+    if (this.address) {
+      return this.address
+    } else if (this.user.ADDRESS) {
+      return this.user.ADDRESS
+    }
+  }
+
+  checkFieldPostalCode() {
+    if (this.postalCode) {
+      return this.postalCode
+    } else if (this.user.POSTAL_CODE) {
+      return this.user.POSTAL_CODE
+    }
+  }
+
+  checkFieldPhone() {
+    if (this.phone) {
+      return this.phone
+    } else if (this.user.PHONE) {
+      return this.user.PHONE
+    }
+  }
+
+  checkFieldCity() {
+    if (this.city) {
+      return this.city
+    } else if (this.user.CITY) {
+      return this.user.CITY
+    }
+  }
+
+  checkFieldProvince() {
+    if (this.province) {
+      return this.province
+    } else if (this.user.PROVINCE) {
+      return this.user.PROVINCE
+    }
+  }
+
 
   openDialog() {
-    const dialogRef = this.dialog.open(EmailDialog);
+    this.email = this.user.EMAIL;
+    const dialogRef = this.dialog.open(EmailDialog, {
+      width: '100%',
+      maxWidth: '650px',
+      data: {
+        email: this.email
+      }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -49,23 +135,63 @@ getUserData() {
   }
 
   openDialogProfile() {
-    const dialogRef = this.dialog.open(ProfileDialog);
+    this.name = this.user.BUSINESS_NAME;
+    this.postalCode = this.user.POSTAL_CODE;
+    this.province = this.user.PROVINCE;
+    this.postalCode = this.user.POSTAL_CODE;
+    this.address = this.user.ADDRESS;
+    this.phone = this.user.PHONE;
+    this.city = this.user.CITY;
+    const dialogRef = this.dialog.open(ProfileDialog, {
+      width: '100%',
+      maxWidth: '750px',
+      data: {
+        name: this.name,
+        address: this.address,
+        city: this.city,
+        province: this.province,
+        postalCode: this.postalCode,
+        phone: this.phone
+      }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.name = result.name;
+      this.postalCode = result.postalCode;
+      this.province = result.province;
+      this.postalCode = result.postalCode;
+      this.address = result.address;
+      this.phone = result.phone;
     });
   }
 
   openDialogPassword() {
-    const dialogRef = this.dialog.open(PasswordDialog);
+    const dialogRef = this.dialog.open(PasswordDialog,  {
+      width: '100%',
+      maxWidth: '750px',
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  openDialogContact() {
-    const dialogRef = this.dialog.open(ContactDialog);
+  openDialogContact () {
+    const dialogRef = this.dialog.open(ContactModal, {
+      width: '100%',
+      maxWidth: '750px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openDialogDelete() {
+    const dialogRef = this.dialog.open(DeleteModal, {
+      width: '100%',
+      maxWidth: '450px',
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -96,7 +222,9 @@ getUserData() {
       console.log(error);
     })
   }
+
 }
+
 @Component({
   selector: 'email-modal',
   templateUrl: 'email-modal.html',
@@ -108,7 +236,8 @@ export class EmailDialog implements OnInit{
 
   constructor (private formBuilder: FormBuilder,
                public coreService: CoreService,
-               public accountService: AccountService) {
+               public accountService: AccountService,
+               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
 
   ngOnInit(): void {
@@ -154,8 +283,10 @@ export class ProfileDialog  implements OnInit {
 
   constructor (private formBuilder: FormBuilder,
                public coreService: CoreService,
-               public accountService: AccountService) {
+               public accountService: AccountService,
+               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
+
 
   ngOnInit(): void {
     this.initProfileForm()
@@ -262,7 +393,54 @@ export class PasswordDialog implements OnInit{
 }
 
 @Component({
+  selector: 'delete-modal',
+  templateUrl: 'delete-modal.html',
+})
+export class DeleteModal {}
+
+@Component({
   selector: 'contact-modal',
   templateUrl: 'contact-modal.html',
 })
-export class ContactDialog {}
+export class ContactModal implements OnInit{
+  account: Account;
+  formAccount: FormGroup;
+  phoneRegex = new RegExp(/^([1-9][0-9]*)$/);
+
+  constructor(private formBuilder: FormBuilder,
+              private accountService: AccountService,
+              private coreService: CoreService) {
+  }
+
+  ngOnInit(): void {
+    this.initAccountForm();
+  }
+
+  initAccountForm() {
+    this.formAccount = this.formBuilder.group({
+      CONTACT_LAST_NAME: new FormControl(null, [Validators.required]),
+      CONTACT_MIDDLE_NAME: new FormControl(null, [Validators.required]),
+      E_MAIL: new FormControl(null, [Validators.required]),
+      EPR_PHONE_NO: new FormControl(null, [Validators.required, Validators.pattern(this.phoneRegex)]),
+    });
+  }
+
+  onSubmit() {
+    const req: Account = {};
+    req.CONTACT_LAST_NAME = this.formAccount.controls.CONTACT_LAST_NAME.value;
+    req.CONTACT_MIDDLE_NAME = this.formAccount.controls.CONTACT_MIDDLE_NAME.value;
+    req.E_MAIL = this.formAccount.controls.E_MAIL.value;
+    req.EPR_PHONE_NO = this.formAccount.controls.EPR_PHONE_NO.value;
+
+
+    this.accountService.addAccount(req)
+      .subscribe((res) => {
+        console.log(res);
+        this.coreService.showSuccessAlert();
+      },error => {
+        this.coreService.showErrorAlert();
+        console.log(error);
+      })
+  }
+
+}

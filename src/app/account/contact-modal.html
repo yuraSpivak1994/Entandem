@@ -11,12 +11,14 @@
   </div>
 </div>
 <mat-dialog-content>
+  <form [formGroup]="formAccount">
   <div class="main-modal">
     <div class="row">
       <div class="col-md-6">
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   formControlName="CONTACT_LAST_NAME"
                    placeholder="First Name">
           </mat-form-field>
         </div>
@@ -25,6 +27,7 @@
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   formControlName="CONTACT_MIDDLE_NAME"
                    placeholder="Last Name">
           </mat-form-field>
         </div>
@@ -35,6 +38,7 @@
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   formControlName="EPR_PHONE_NO"
                    placeholder="Phone Number">
           </mat-form-field>
         </div>
@@ -46,6 +50,7 @@
           <mat-form-field>
             <input matInput
                    type="text"
+                   formControlName="E_MAIL"
                    placeholder="Email Address">
           </mat-form-field>
         </div>
@@ -65,9 +70,15 @@
       </div>
     </div>
     <mat-dialog-actions align="end">
-      <button class="modal-blue-btn" [mat-dialog-close]="true" cdkFocusInitial>Change Email</button>
+      <button class="modal-blue-btn"
+              (click)="onSubmit()"
+              [mat-dialog-close]="true" cdkFocusInitial
+              [disabled]="formAccount.invalid"
+              [ngClass]="{'btn-disabled' : formAccount.invalid}"
+              [mat-dialog-close]="true" cdkFocusInitial>Change Email</button>
     </mat-dialog-actions>
   </div>
+  </form>
 </mat-dialog-content>
 
 

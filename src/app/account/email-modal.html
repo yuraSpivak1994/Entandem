@@ -18,6 +18,7 @@
         <div class="field-material">
           <mat-form-field>
             <input matInput
+                   [(ngModel)]="data.email"
                    formControlName="oldEmail"
                    placeholder="Current Email Address">
           </mat-form-field>
@@ -50,9 +51,10 @@
     <mat-dialog-actions align="end">
       <button class="modal-blue-btn"
               (click)="onSubmit()"
+              [mat-dialog-close]="true" cdkFocusInitial
               [disabled]="formEmail.invalid"
               [ngClass]="{'btn-disabled' : formEmail.invalid}"
-              [mat-dialog-close]="true" cdkFocusInitial>Change Email</button>
+             >Change Email</button>
     </mat-dialog-actions>
     <div class="desc-link">
       An email with a verification link will be sent to your inbox.
@@ -66,12 +68,6 @@
   .field-material > * {
     width: 100%;
     margin-bottom: 20px;
-  }
-
-  @media screen and (min-width: 768px) {
-    .main-modal {
-      min-width: 685px;
-    }
   }
 </style>
 

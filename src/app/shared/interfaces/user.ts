@@ -46,3 +46,12 @@ export interface UserInfo {
   RECEIVE_PROMO_EMAILS?: string;
   BALANCE?: string;
 }
+
+export interface Account {
+  CONTACT_LAST_NAME?: string;
+  CONTACT_MIDDLE_NAME?: string;
+  E_MAIL?: string;
+  EPR_PHONE_NO?: string;
+  PRIMARY_CONTACT?: string;
+  CONTACT_ID?: number;
+}

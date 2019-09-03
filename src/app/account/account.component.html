@@ -33,11 +33,11 @@
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Business Name:</div>
-                            <div class="item-large">{{user.BUSINESS_NAME}}</div>
+                            <div class="item-large">{{checkFieldName()}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">Address:</div>
-                            <div class="item-large">{{user.ADDRESS}}</div>
+                            <div class="item-large">{{checkFieldAddress()}}</div>
                           </div>
                         </div>
                         <div class="block">
@@ -47,23 +47,23 @@
                           </div>
                           <div class="block-items">
                             <div class="item-small">City:</div>
-                            <div class="item-large">{{user.CITY}}</div>
+                            <div class="item-large">{{checkFieldCity()}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Phone Number:</div>
-                            <div class="item-large">{{user.PHONE}}</div>
+                            <div class="item-large">{{checkFieldPhone()}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">Province:</div>
-                            <div class="item-large">{{user.PROVINCE}}</div>
+                            <div class="item-large">{{checkFieldProvince()}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Postal Code</div>
-                            <div class="item-large">{{user.POSTAL_CODE}}</div>
+                            <div class="item-large">{{checkFieldPostalCode()}}</div>
                           </div>
                         </div>
                       </div>
@@ -148,76 +148,21 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr class="hover-table">
+                  <tr *ngFor="let contact of accountContacts" class="hover-table">
                     <td data-label="" scope="row" class="th-bottom">
                       <img src="assets/image/star.svg" alt="star" class="star">
                     </td>
-                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
-                    <td data-label="Time">Santiago</td>
-                    <td data-label="Last Name">contact_sample@email.com</td>
-                    <td data-label="Paid by">(416) 888 - 9090</td>
+                    <td data-label="First Name" scope="row" class="th-bottom">{{contact.CONTACT_FIRST_NAME}}</td>
+                    <td data-label="Last Name">{{contact.CONTACT_LAST_NAME}}</td>
+                    <td data-label="Email">{{contact.E_MAIL}}</td>
+                    <td data-label="Phone">{{contact.EPR_PHONE_NO}}</td>
                     <td data-label="">
                       <div class="edit-icon" [matMenuTriggerFor]="edit">
                         <span></span><span></span><span></span>
                         <mat-menu #edit="matMenu">
-                          <button mat-menu-item>Item 1</button>
-                          <button mat-menu-item>Item 2</button>
-                        </mat-menu>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="hover-table">
-                    <td data-label="" scope="row" class="th-bottom">
-                    </td>
-                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
-                    <td data-label="Time">Santiago</td>
-                    <td data-label="Last Name">contact_sample@email.com</td>
-                    <td data-label="Paid by">(416) 888 - 9090</td>
-                    <td data-label="" [matMenuTriggerFor]="edit">
-                      <div class="edit-icon">
-                        <span></span><span></span><span></span>
-                        <mat-menu #edit="matMenu">
-                          <button mat-menu-item>Item 1</button>
-                          <button mat-menu-item>Item 2</button>
-                        </mat-menu>
-                      </div>
-
-                    </td>
-                  </tr>
-                  <tr class="hover-table">
-                    <td data-label="" scope="row" class="th-bottom">
-                    </td>
-                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
-                    <td data-label="Time">Santiago</td>
-                    <td data-label="Last Name">contact_sample@email.com</td>
-                    <td data-label="Paid by">(416) 888 - 9090</td>
-                    <td data-label="">
-                      <div class="edit-icon" [matMenuTriggerFor]="edit">
-                        <span></span><span></span><span></span>
-                        <mat-menu #edit="matMenu">
-                          <button mat-menu-item>Item 1</button>
-                          <button mat-menu-item>Item 2</button>
-                        </mat-menu>
-                      </div>
-                      <mat-menu #edit="matMenu">
-                        <button mat-menu-item>Item 1</button>
-                        <button mat-menu-item>Item 2</button>
-                      </mat-menu>
-                    </td>
-                  </tr>
-                  <tr class="hover-table">
-                    <td data-label="" scope="row" class="th-bottom">
-                    </td>
-                    <td data-label="First Name" scope="row" class="th-bottom">Nannie</td>
-                    <td data-label="Time">Santiago</td>
-                    <td data-label="Last Name">contact_sample@email.com</td>
-                    <td data-label="Paid by">(416) 888 - 9090</td>
-                    <td data-label="">
-                      <div class="edit-icon" [matMenuTriggerFor]="edit">
-                        <span></span><span></span><span></span>
-                        <mat-menu #edit="matMenu">
-                          <button mat-menu-item>Item 1</button>
-                          <button mat-menu-item>Item 2</button>
+                          <button mat-menu-item>Make as Primary Contact</button>
+                          <button mat-menu-item>Edit Contact</button>
+                          <button mat-menu-item (click)="openDialogDelete()">Delete Contact</button>
                         </mat-menu>
                       </div>
                     </td>

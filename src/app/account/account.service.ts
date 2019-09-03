@@ -25,8 +25,16 @@ export class AccountService {
   }
 
   setPromotion(letter){
-    console.log(letter);
     return this.http.get(`${environment.apiUrl}/profile/account/promo/${letter}`);
+  }
+
+  getAllContacts(){
+    return this.http.get(`${environment.apiUrl}/profile/account/contacts`);
+  }
+
+  addAccount(user){
+    debugger
+    return this.http.get(`https://wp-dev.entandemdevelopment.com/api/profile/account/contacts`, user);
   }
 
 }
