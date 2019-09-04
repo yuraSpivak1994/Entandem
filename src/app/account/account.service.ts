@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
-import { CoreService } from "../core/core.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+  idAccount: number;
 
-  constructor(private http: HttpClient,
-              public coreService: CoreService) { }
+  constructor(private http: HttpClient) { }
 
   editProfile(data){
     return this.http.post(`${environment.apiUrl}/profile/account/edit`, data);
@@ -32,9 +31,20 @@ export class AccountService {
     return this.http.get(`${environment.apiUrl}/profile/account/contacts`);
   }
 
-  addAccount(user){
-    debugger
-    return this.http.get(`https://wp-dev.entandemdevelopment.com/api/profile/account/contacts`, user);
+  addAccount(primary, user){
+    return this.http.post(`${environment.apiUrl}/profile/account/add-contact/${primary}`, user);
+  }
+
+  deleteAccount(id){
+    return this.http.get(`${environment.apiUrl}/profile/account/del-contact/${id}`);
+  }
+
+  editAccount(isPrimary, user){
+    return this.http.post(`${environment.apiUrl}/profile/account/edit-contact/${this.idAccount}/${isPrimary}`, user);
+  }
+
+  setPrimaryContact(id){
+    return this.http.get(`${environment.apiUrl}/profile/account/primary-contact/ ${id}`);
   }
 
 }

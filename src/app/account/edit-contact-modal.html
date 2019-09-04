@@ -1,0 +1,119 @@
+<div class="header-modal">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-dialog-actions align="end">
+        <div class="title-box-modal"><span class="title-modal">Add New Contact </span></div>
+        <button class="close-modal" mat-dialog-close>
+          <img src="assets/image/cancel.svg" alt="cancel">
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>
+<mat-dialog-content>
+  <form [formGroup]="formAccountEdit">
+    <div class="main-modal">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field-material">
+            <mat-form-field>
+              <input matInput
+                     [(ngModel)]="data.firstNameEdit"
+                     formControlName="CONTACT_LAST_NAME"
+                     placeholder="First Name">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="field-material">
+            <mat-form-field>
+              <input matInput
+                     [(ngModel)]="data.lastNameEdit"
+                     formControlName="CONTACT_MIDDLE_NAME"
+                     placeholder="Last Name">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field-material">
+            <mat-form-field>
+              <input matInput
+                     [(ngModel)]="data.phoneEdit"
+                     formControlName="EPR_PHONE_NO"
+                     placeholder="Phone Number">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="field-material">
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     [(ngModel)]="data.emailEdit"
+                     formControlName="E_MAIL"
+                     placeholder="Email Address">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="receive-block">
+            <div class="square">
+              <input
+                type="checkbox"
+                formControlName="PRIMARY"
+                (click)="togglePrimary()"
+                id="checkbox-modal"/>
+              <label for="checkbox-modal"></label>
+            </div>
+            <label for="checkbox-modal" class="receive">Receive Promotional Emails</label>
+          </div>
+        </div>
+      </div>
+      <mat-dialog-actions align="end">
+        <button class="modal-blue-btn"
+                (click)="onSubmit()"
+                [disabled]="formAccountEdit.invalid"
+                [ngClass]="{'btn-disabled' : formAccountEdit.invalid}"
+                [mat-dialog-close]="data">Edit Contact</button>
+      </mat-dialog-actions>
+    </div>
+  </form>
+</mat-dialog-content>
+
+
+<style>
+  .field-material > * {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .receive-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .receive-block label.receive {
+    padding-left: 10px;
+    color: #6F7886;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  .square label {
+    top: 2px;
+  }
+
+
+  @media screen and (min-width: 768px) {
+    .main-modal {
+      min-width: 685px;
+    }
+  }
+</style>

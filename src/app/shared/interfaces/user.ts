@@ -55,3 +55,11 @@ export interface Account {
   PRIMARY_CONTACT?: string;
   CONTACT_ID?: number;
 }
+
+export interface AccountEdit {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  primary?: string;
+}

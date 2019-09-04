@@ -27,8 +27,8 @@ export class DashboardInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401 || err.status === 403 || err.status === 404 || err.status === 422) {
-          // this.userService.deleteAllCookies(cookieKey);
-          // this.router.navigate(['']);
+          this.userService.deleteAllCookies(cookieKey);
+          this.router.navigate(['']);
         }
         return throwError(err);
       }

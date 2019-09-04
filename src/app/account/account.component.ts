@@ -2,21 +2,28 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { CoreService } from '../core/core.service';
 import { fadeInAnimation } from '../shared/animation';
 import { MatDialog } from '@angular/material';
-import { Account, User, UserInfo } from '../shared/interfaces/user';
+import { Account, AccountEdit, User, UserInfo } from '../shared/interfaces/user';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { AccountService } from "./account.service";
 import { ValidatePassword } from "../auth/registration/registration.component";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 export interface DialogData {
-  address: string;
-  name: string;
-  city: string;
-  province: string;
-  phone: string;
+  address?: string;
+  name?: string;
+  city?: string;
+  province?: string;
+  phone?: string;
   postalCode: string;
   email?: string;
+}
 
+export interface AccountEditDataModal {
+  firstNameEdit?: string;
+  lastNameEdit?: string;
+  emailEdit?: string;
+  phoneEdit?: string;
+  primaryEdit?: string;
 }
 
 @Component({
@@ -38,6 +45,12 @@ export class AccountComponent implements OnInit {
   phone: string;
   postalCode: string;
   email: string;
+  firstNameEdit: string;
+  lastNameEdit: string;
+  emailEdit: string;
+  phoneEdit: string;
+  primaryEdit: string;
+  tableResult = true;
 
   constructor(public coreService: CoreService,
               public dialog: MatDialog,
@@ -60,64 +73,9 @@ getUserData() {
     })
 }
 
-getContactsTable() {
-    this.accountService.getAllContacts()
-      .subscribe((data) => {
-        this.accountContacts = data;
-        console.log(data);
-      },error => {
-        console.log(error);
-      })
+showPrimaryInTable(primary) {
+  return primary === 'Y';
 }
-
-  checkFieldName() {
-    if (this.name) {
-      return this.name
-    } else if (this.user.EMAIL) {
-      return this.user.BUSINESS_NAME
-    }
-  }
-
-  checkFieldAddress() {
-    if (this.address) {
-      return this.address
-    } else if (this.user.ADDRESS) {
-      return this.user.ADDRESS
-    }
-  }
-
-  checkFieldPostalCode() {
-    if (this.postalCode) {
-      return this.postalCode
-    } else if (this.user.POSTAL_CODE) {
-      return this.user.POSTAL_CODE
-    }
-  }
-
-  checkFieldPhone() {
-    if (this.phone) {
-      return this.phone
-    } else if (this.user.PHONE) {
-      return this.user.PHONE
-    }
-  }
-
-  checkFieldCity() {
-    if (this.city) {
-      return this.city
-    } else if (this.user.CITY) {
-      return this.user.CITY
-    }
-  }
-
-  checkFieldProvince() {
-    if (this.province) {
-      return this.province
-    } else if (this.user.PROVINCE) {
-      return this.user.PROVINCE
-    }
-  }
-
 
   openDialog() {
     this.email = this.user.EMAIL;
@@ -138,7 +96,6 @@ getContactsTable() {
     this.name = this.user.BUSINESS_NAME;
     this.postalCode = this.user.POSTAL_CODE;
     this.province = this.user.PROVINCE;
-    this.postalCode = this.user.POSTAL_CODE;
     this.address = this.user.ADDRESS;
     this.phone = this.user.PHONE;
     this.city = this.user.CITY;
@@ -156,13 +113,26 @@ getContactsTable() {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.name = result.name;
-      this.postalCode = result.postalCode;
-      this.province = result.province;
-      this.postalCode = result.postalCode;
-      this.address = result.address;
-      this.phone = result.phone;
+      this.user.BUSINESS_NAME = result.name;
+      this.user.POSTAL_CODE = result.postalCode;
+      this.user.PROVINCE = result.province;
+      this.user.ADDRESS = result.address;
+      this.user.PHONE = result.phone;
+      this.user.CITY = result.city;
     });
+  }
+
+  getContactsTable() {
+    this.accountService.getAllContacts()
+      .subscribe((data) => {
+        this.accountContacts = data;
+        if(data === false) {
+          this.tableResult = true;
+        }
+        console.log(data);
+      },error => {
+        console.log(error);
+      })
   }
 
   openDialogPassword() {
@@ -183,18 +153,81 @@ getContactsTable() {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getContactsTable();
     });
   }
 
-  openDialogDelete() {
+  openDialogContactEdit (id, firstName, lastName, email, phone) {
+    this.accountService.idAccount = id;
+    this.firstNameEdit = firstName;
+    this.lastNameEdit = lastName;
+    this.emailEdit = email;
+    this.phoneEdit = phone;
+
+    const dialogRef = this.dialog.open(EditContactModal, {
+      width: '100%',
+      maxWidth: '750px',
+      data: {
+        firstNameEdit: this.firstNameEdit,
+        lastNameEdit: this.lastNameEdit,
+        emailEdit: this.emailEdit,
+        phoneEdit: this.phoneEdit,
+        primaryEdit: this.primaryEdit
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result.phoneEdit}`);
+      this.getContactsTable();
+    });
+  }
+
+  openDialogDelete(id) {
     const dialogRef = this.dialog.open(DeleteModal, {
       width: '100%',
       maxWidth: '450px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.accountService.deleteAccount(id)
+          .subscribe((res) => {
+          this.getContactsTable();
+          this.coreService.showSuccessAlert();
+        }, error => {
+            this.coreService.showErrorAlert();
+            console.log(error);
+          });
+      } else{
+        return
+      }
+    });
+  }
+
+  openDialogPrimary(id) {
+    const dialogRef = this.dialog.open(MakePrimary, {
+      width: '100%',
+      maxWidth: '450px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.showSpinner = true;
+      if (result) {
+        this.accountService.setPrimaryContact(id)
+          .subscribe((res) => {
+            this.showSpinner = false;
+            this.coreService.showSuccessAlert()
+            console.log(res);
+            this.getContactsTable();
+          }, error => {
+            this.showSpinner = false;
+            this.coreService.showErrorAlert()
+            console.log(error);
+          });
+      } else{
+        this.showSpinner = false;
+        return
+      }
     });
   }
 
@@ -399,13 +432,83 @@ export class PasswordDialog implements OnInit{
 export class DeleteModal {}
 
 @Component({
+  selector: 'make-primary-modal',
+  templateUrl: 'make-primary-modal.html',
+})
+export class MakePrimary {}
+
+@Component({
+  selector: 'edit-contact-modal',
+  templateUrl: 'edit-contact-modal.html',
+})
+
+export class EditContactModal implements OnInit{
+  account: Account;
+  formAccountEdit: FormGroup;
+  emailRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/);
+  phoneRegex = new RegExp(/^([1-9][0-9]*)$/);
+  primaryToggle = false;
+
+  constructor(private formBuilder: FormBuilder,
+              private accountService: AccountService,
+              private coreService: CoreService,
+              @Inject(MAT_DIALOG_DATA) public data: AccountEditDataModal) {
+  }
+
+  ngOnInit(): void {
+    this.initAccountEditForm();
+  }
+
+  togglePrimary() {
+    this.primaryToggle = this.formAccountEdit.get('PRIMARY').value;
+    if (this.primaryToggle) {
+      return 'Y'
+    }else {
+      return 'N'
+    }
+  }
+
+  initAccountEditForm() {
+    this.formAccountEdit = this.formBuilder.group({
+      CONTACT_LAST_NAME: new FormControl(null, [Validators.required]),
+      CONTACT_MIDDLE_NAME: new FormControl(null, [Validators.required]),
+      E_MAIL: new FormControl(null, [Validators.required, Validators.pattern(this.emailRegex)]),
+      EPR_PHONE_NO: new FormControl(null, [Validators.required, Validators.pattern(this.phoneRegex)]),
+      PRIMARY: new FormControl(null),
+    });
+  }
+
+  onSubmit() {
+    const req: AccountEdit = {};
+    req.firstName = this.formAccountEdit.controls.CONTACT_LAST_NAME.value;
+    req.lastName = this.formAccountEdit.controls.CONTACT_MIDDLE_NAME.value;
+    req.email = this.formAccountEdit.controls.E_MAIL.value;
+    req.phone = this.formAccountEdit.controls.EPR_PHONE_NO.value;
+    req.primary = this.togglePrimary();
+
+    this.accountService.editAccount(req.primary, req)
+      .subscribe((res) => {
+        console.log(res);
+        this.coreService.showSuccessAlert();
+      },error => {
+        this.coreService.showErrorAlert();
+        console.log(error);
+      })
+  }
+
+}
+
+@Component({
   selector: 'contact-modal',
   templateUrl: 'contact-modal.html',
 })
+
 export class ContactModal implements OnInit{
   account: Account;
   formAccount: FormGroup;
   phoneRegex = new RegExp(/^([1-9][0-9]*)$/);
+  emailRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/);
+  primaryToggle = false;
 
   constructor(private formBuilder: FormBuilder,
               private accountService: AccountService,
@@ -416,24 +519,35 @@ export class ContactModal implements OnInit{
     this.initAccountForm();
   }
 
+  togglePrimary() {
+    this.primaryToggle = this.formAccount.get('PRIMARY').value;
+    if (this.primaryToggle) {
+      return 'Y'
+    }else {
+      return 'N'
+    }
+  }
+
   initAccountForm() {
     this.formAccount = this.formBuilder.group({
       CONTACT_LAST_NAME: new FormControl(null, [Validators.required]),
       CONTACT_MIDDLE_NAME: new FormControl(null, [Validators.required]),
-      E_MAIL: new FormControl(null, [Validators.required]),
+      PRIMARY: new FormControl(['']),
+      E_MAIL: new FormControl(null, [Validators.required, Validators.pattern(this.emailRegex)]),
       EPR_PHONE_NO: new FormControl(null, [Validators.required, Validators.pattern(this.phoneRegex)]),
     });
   }
 
   onSubmit() {
-    const req: Account = {};
-    req.CONTACT_LAST_NAME = this.formAccount.controls.CONTACT_LAST_NAME.value;
-    req.CONTACT_MIDDLE_NAME = this.formAccount.controls.CONTACT_MIDDLE_NAME.value;
-    req.E_MAIL = this.formAccount.controls.E_MAIL.value;
-    req.EPR_PHONE_NO = this.formAccount.controls.EPR_PHONE_NO.value;
+    const req: AccountEdit = {};
+    req.lastName = this.formAccount.controls.CONTACT_LAST_NAME.value;
+    req.firstName = this.formAccount.controls.CONTACT_MIDDLE_NAME.value;
+    req.email = this.formAccount.controls.E_MAIL.value;
+    req.phone = this.formAccount.controls.EPR_PHONE_NO.value;
+    req.primary = this.togglePrimary();
 
 
-    this.accountService.addAccount(req)
+    this.accountService.addAccount( req.primary, req)
       .subscribe((res) => {
         console.log(res);
         this.coreService.showSuccessAlert();

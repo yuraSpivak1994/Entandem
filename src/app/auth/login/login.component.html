@@ -26,6 +26,7 @@
               <img *ngIf="validatePassword()" src="assets/image/error-triangle.svg" alt="error" class="error-triangle">
               <mat-form-field>
                 <input matInput
+                       type="password"
                        placeholder="Password"
                        formControlName="password">
                 <mat-error *ngIf="validatePassword()">

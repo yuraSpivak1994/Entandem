@@ -33,11 +33,11 @@
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Business Name:</div>
-                            <div class="item-large">{{checkFieldName()}}</div>
+                            <div class="item-large">{{user.BUSINESS_NAME}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">Address:</div>
-                            <div class="item-large">{{checkFieldAddress()}}</div>
+                            <div class="item-large">{{user.ADDRESS}}</div>
                           </div>
                         </div>
                         <div class="block">
@@ -47,23 +47,23 @@
                           </div>
                           <div class="block-items">
                             <div class="item-small">City:</div>
-                            <div class="item-large">{{checkFieldCity()}}</div>
+                            <div class="item-large">{{user.CITY}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Phone Number:</div>
-                            <div class="item-large">{{checkFieldPhone()}}</div>
+                            <div class="item-large">{{user.PHONE}}</div>
                           </div>
                           <div class="block-items">
                             <div class="item-small">Province:</div>
-                            <div class="item-large">{{checkFieldProvince()}}</div>
+                            <div class="item-large">{{user.PROVINCE}}</div>
                           </div>
                         </div>
                         <div class="block">
                           <div class="block-items">
                             <div class="item-small">Postal Code</div>
-                            <div class="item-large">{{checkFieldPostalCode()}}</div>
+                            <div class="item-large">{{user.POSTAL_CODE}}</div>
                           </div>
                         </div>
                       </div>
@@ -128,7 +128,9 @@
                    <div class="search-img">
                      <img src="assets/image/search.svg" alt="search" (click)="toggleSearch()">
                    </div>
-                   <input type="search" id="search" [ngClass]="{'show-input' : showSearch}">
+                   <input type="search" id="search"
+                          placeholder="Account Name"
+                          [ngClass]="{'show-input' : showSearch}">
                  </div>
                  <div class="right">
                    <button type="button" class="new-contact" (click)="openDialogContact()">+ New Contact</button>
@@ -147,10 +149,10 @@
                     <th scope="col" class="th-top description-card"></th>
                   </tr>
                   </thead>
-                  <tbody>
+                  <tbody *ngIf="tableResult">
                   <tr *ngFor="let contact of accountContacts" class="hover-table">
                     <td data-label="" scope="row" class="th-bottom">
-                      <img src="assets/image/star.svg" alt="star" class="star">
+                      <img src="assets/image/star.svg" alt="star" class="star" [ngClass]="{'show-star' : showPrimaryInTable(contact.PRIMARY_CONTACT)}">
                     </td>
                     <td data-label="First Name" scope="row" class="th-bottom">{{contact.CONTACT_FIRST_NAME}}</td>
                     <td data-label="Last Name">{{contact.CONTACT_LAST_NAME}}</td>
@@ -160,9 +162,9 @@
                       <div class="edit-icon" [matMenuTriggerFor]="edit">
                         <span></span><span></span><span></span>
                         <mat-menu #edit="matMenu">
-                          <button mat-menu-item>Make as Primary Contact</button>
-                          <button mat-menu-item>Edit Contact</button>
-                          <button mat-menu-item (click)="openDialogDelete()">Delete Contact</button>
+                          <button mat-menu-item (click)="openDialogPrimary(contact.CONTACT_ID)" [ngClass]="{'show-primary-delete' : showPrimaryInTable(contact.PRIMARY_CONTACT)}">Make as Primary Contact</button>
+                          <button mat-menu-item (click)="openDialogContactEdit(contact.CONTACT_ID, contact.CONTACT_FIRST_NAME, contact.CONTACT_LAST_NAME, contact.E_MAIL, contact.EPR_PHONE_NO)">Edit Contact</button>
+                          <button mat-menu-item (click)="openDialogDelete(contact.CONTACT_ID)" [ngClass]="{'show-primary-delete' : showPrimaryInTable(contact.PRIMARY_CONTACT)}">Delete Contact</button>
                         </mat-menu>
                       </div>
                     </td>

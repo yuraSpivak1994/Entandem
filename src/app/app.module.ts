@@ -19,7 +19,7 @@ import { DashboardInterceptor } from './interceptor/dashboard-interceptor';
     BrowserAnimationsModule,
     AuthModule,
     CoreModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     {

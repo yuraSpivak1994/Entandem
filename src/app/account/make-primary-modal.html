@@ -1,0 +1,44 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-delete-popup description">
+      Are you sure want delete contact from your account?
+    </div>
+    <mat-dialog-actions align="end">
+      <button class="modal-blue-btn cancel" [mat-dialog-close]="false">
+        cancel
+      </button>
+      <button class="modal-blue-btn"
+              [mat-dialog-close]="true" cdkFocusInitial
+      >make primary</button>
+    </mat-dialog-actions>
+  </div>
+</div>
+<style>
+  .field-material > * {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .modal-blue-btn {
+    max-width: 200px;
+  }
+
+  .text-delete-popup {
+    padding: 20px 0;
+    line-height: 30px;
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  button{
+    text-transform: uppercase;
+  }
+
+  button.cancel {
+    background: rgba(255,255,255,0);
+    border: 2px solid #3f51b5;
+    color: #3f51b5;
+  }
+</style>

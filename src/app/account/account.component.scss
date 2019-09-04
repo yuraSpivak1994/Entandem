@@ -197,7 +197,16 @@ table td {
   & .star {
     width: 10px;
     margin-left: 10px;
+    display: none;
   }
+}
+
+.show-star {
+  display: block!important;
+}
+
+.show-primary-delete {
+  display: none!important;
 }
 
 .edit-icon {
