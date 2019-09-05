@@ -1,0 +1,204 @@
+<div class="content" [@simpleFadeAnimation]="'in'">
+  <div *ngIf="false" class="spinner-box">
+    <mat-spinner *ngIf="false"></mat-spinner>
+  </div>
+  <div class="alert alert-success" role="alert" [ngClass]="{'toggle-alert': coreService.alertMessageSuccess | async}">
+    Success!
+  </div>
+  <div class="alert alert-danger" role="alert" [ngClass]="{'toggle-alert': coreService.alertMessageError | async}">
+    Error!
+  </div>
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <div class="header-block">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="title">Make a Secure Payment</h1>
+              <div class="some-information-box">
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Account Information</div>
+                  </div>
+                </div>
+                <div class="user-detail-wrap">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="user-detail">
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Customer Name:</div>
+                            <div class="item-large">John Smith</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Account #:</div>
+                            <div class="item-large">10-02-00000464</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Current Balance:</div>
+                            <div class="item-large">CAD$ 515.54</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Due Date:</div>
+                            <div class="item-large">Apr 30, 2019</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Payment Information</div>
+                  </div>
+                </div>
+                <div class="payment-card">
+                  <div class="navigation-payments">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <nav>
+                          <div class="row" [ngClass]="{'revert-menu' : menuItem}">
+                            <div class="col-md-6">
+                              <div class="titles-box-payment" [ngClass]="{'active-payment-left' : !menuItem}">
+                                <div class="desc-payments" (click)="chooseMenu()">Pay by Credit Card</div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="titles-box-payment" [ngClass]="{'active-payment-right' : menuItem}">
+                                <div class="desc-payments" (click)="chooseMenu()">See Online Banking and Interac</div>
+                              </div>
+                            </div>
+                          </div>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="menuItem" class="pay-part">
+                    <form [formGroup]="form">
+                      <div class="form-pay">
+                        <div class="fields">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <div class="field-material">
+                                <mat-form-field>
+                                  <input matInput
+                                         type="text"
+                                         minlength="5"
+                                         formControlName="payment"
+                                         placeholder="Payment Amount (CAD$):">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="field-material">
+                                <mat-form-field>
+                                  <input matInput
+                                         type="text"
+                                         [ngModel]="checkCreditCard(form.get('cardNumber').value)"
+                                         formControlName="cardNumber"
+                                         placeholder="Card Number">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            <div class="col-md-1">
+                              <div class="visa-img-box">
+                                <img *ngIf="visa" src="assets/image/visa.svg" alt="credit">
+                                <img *ngIf="masterCard" src="assets/image/mastercard.svg" alt="credit">
+                                <img *ngIf="jcb" src="assets/image/jcb.svg" alt="credit">
+                                <img *ngIf="dinersClub" src="assets/image/diners-club.svg" alt="credit">
+                                <img *ngIf="americanExpress" src="assets/image/american-express.svg" alt="credit">
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="field-material">
+                                <mat-form-field>
+                                  <input matInput [matDatepicker]="picker"
+                                         [(ngModel)]="date"
+                                         [min]="minDate" [max]="maxDate"
+                                         formControlName="date"
+                                         placeholder="Choose a date">
+                                  <mat-datepicker-toggle matSuffix [for]="picker">
+                                    <mat-icon matDatepickerToggleIcon>
+                                      <i class="material-icons">
+                                        date_range
+                                      </i></mat-icon>
+                                  </mat-datepicker-toggle>
+                                  <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="field-material">
+                                <mat-form-field>
+                                  <input matInput
+                                         type="password"
+                                         maxlength="3"
+                                         formControlName="cv"
+                                         placeholder="CVC">
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="btn-margin">
+                          <button class="pay"
+                                  (click)="onSubmit()"
+                                  [disabled]="form.invalid"
+                                  [ngClass]="{'btn-disabled' : form.invalid}">finish and pay</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div *ngIf="!menuItem" class="banking-part">
+                    <div class="item-img">
+                      <img src="assets/image/bank-1.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-2.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-3.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-4.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-5.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-6.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-7.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-8.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-9.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-10.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-11.svg" alt="bank">
+                    </div>
+                    <div class="item-img">
+                      <img src="assets/image/bank-12.svg" alt="bank">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
