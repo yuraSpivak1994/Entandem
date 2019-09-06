@@ -63,3 +63,27 @@ export interface AccountEdit {
   phone?: string;
   primary?: string;
 }
+
+export interface Payment {
+  total?: string;
+  cardnum?: string;
+  carddate?: string;
+  cardcode?: number;
+}
+
+export interface PaymentData {
+  ACCT_CHECK_NO?: any;
+  ACCT_NO?: string;
+  AUTHORIZATION_NO?: string;
+  FIRSTTWO?: string;
+  LASTFOUR?: string;
+  LASTTWO?: string;
+  MERCHANT_NO?: string;
+  PAYMENT_AMT?: number;
+  PAYMENT_DATE?: string;
+  PAYMENT_STATUS?: string;
+  PAYMENT_TYPE?: string;
+  REQUEST_NO?: string;
+  TERR_CODE?: number;
+  TRANS_DATE?: string;
+}

@@ -46,6 +46,7 @@ export class RegistrationComponent implements OnInit, ValidatePassword {
   thanksContent = false;
   errorContent = false;
   radioChecked = true;
+
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService) { }
 

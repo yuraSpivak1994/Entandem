@@ -58,8 +58,8 @@
         <img src="assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
              [ngClass]="{'transform': !expandedSectionSecond}">
       </div>
-      <div class="sub-menu">Make a Payment</div>
-      <div class="sub-menu">Payment History</div>
+      <div class="sub-menu" [routerLink]="['/payments/make-payment']">Make a Payment</div>
+      <div class="sub-menu" [routerLink]="['/payments/payment-history']">Payment History</div>
     </div>
 
     <div class="menu-item">

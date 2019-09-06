@@ -10,6 +10,8 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 
 @NgModule({
@@ -21,7 +23,12 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSelectModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatDialogModule, MatFormFieldModule, MatButtonModule, MatInputModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   imports: [
     CommonModule
