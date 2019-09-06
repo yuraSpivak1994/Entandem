@@ -30,7 +30,7 @@ export class MakePaymentComponent implements OnInit {
   isShowPaySuccessful = false;
 
 
-  constructor(private coreService: CoreService,
+  constructor(public coreService: CoreService,
               private formBuilder: FormBuilder,
               private paymentsService: PaymentsService) { }
 

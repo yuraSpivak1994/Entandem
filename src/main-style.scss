@@ -296,3 +296,19 @@ table td {
   width: 100%;
   margin-bottom: 20px;
 }
+.description-card {
+  color: #6F7886;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 24px
+}
+
+@media screen and (max-width: 880px) {
+  .center-part {
+    padding-left: 0;
+  }
+  .padding-help {
+    padding: 0 15px;
+  }
+}
+

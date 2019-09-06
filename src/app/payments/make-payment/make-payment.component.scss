@@ -191,7 +191,11 @@
   }
 }
 
-
+@media screen and (max-width: 767px) {
+  .pay-part {
+    padding: 0 15px;
+  }
+}
 //field
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
   color: #9B9B9B;

@@ -1,1 +1,103 @@
-<h1>payment-history works!</h1>
+<div class="content" [@simpleFadeAnimation]="'in'">
+  <div *ngIf="false" class="spinner-box">
+    <mat-spinner *ngIf="false"></mat-spinner>
+  </div>
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <h1 class="title">Payments</h1>
+        <div class="row">
+          <div class="col md-12">
+            <div class="table-block">
+              <div class="search-block">
+                <div class="search-padding">
+                  <div class="left">
+                    <div class="search-img">
+                      <img src="assets/image/search.svg" alt="search" >
+                    </div>
+                    <input type="search" id="search"
+                           placeholder="Account Name"
+                          >
+                  </div>
+                  <div class="right">
+                    <button type="button" class="new-contact">+ New Contact</button>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive-md">
+                <table class="table table-borderless">
+                  <thead>
+                  <tr>
+                    <th scope="col" class="th-top description-card">Date</th>
+                    <th scope="col" class="th-top description-card">Time</th>
+                    <th scope="col" class="th-top description-card">Pay  #</th>
+                    <th scope="col" class="th-top description-card">Paid by</th>
+                    <th scope="col" class="th-top description-card">Type</th>
+                    <th scope="col" class="th-top description-card">Amount (CAD$)</th>
+                    <th scope="col" class="th-top description-card">Status</th>
+                    <th scope="col" class="th-top description-card"></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="hover-table">
+                    <td data-label="Date" scope="row" class="th-bottom">Mar 20, 2019</td>
+                    <td data-label="First Name" scope="row" class="th-bottom">10:05 AM</td>
+                    <td data-label="Last Name"><a href="">12345678</a></td>
+                    <td data-label="Email">Elizabeth Blackburn</td>
+                    <td data-label="Phone">Credit Card</td>
+                    <td data-label="Phone">1,032.05</td>
+                    <td data-label="Phone">Confirmed</td>
+                    <td data-label="">
+                      <div class="edit-icon" [matMenuTriggerFor]="edit">
+                        <span></span><span></span><span></span>
+                        <mat-menu #edit="matMenu">
+                          <button mat-menu-item >Make as Primary Contact</button>
+                          <button mat-menu-item>Edit Contact</button>
+                          <button mat-menu-item >Delete Contact</button>
+                        </mat-menu>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="pagination-box">
+                  <div class="letter-pages">
+                    <span>1</span>
+                    <span>-</span>
+                    <span>4</span>
+                    <span class="of-letter">of</span>
+                    <span>4</span>
+                  </div>
+                  <div class="arrows-box">
+                    <div class="part">
+                      <div class="big-play-box">
+                        <div class="line"></div>
+                        <div class="arrow-box">
+                          <div class="arrow"></div>
+                        </div>
+                      </div>
+                      <div class="arrow-box">
+                        <div class="arrow"></div>
+                      </div>
+                    </div>
+                    <div class="part">
+                      <div class="arrow-box-right">
+                        <div class="arrow-right"></div>
+                      </div>
+                      <div class="big-play-box">
+                        <div class="arrow-box-right">
+                          <div class="arrow-right"></div>
+                        </div>
+                        <div class="line"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

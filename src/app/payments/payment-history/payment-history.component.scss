@@ -1,4 +1,49 @@
-h1{
-  margin: 300px auto;
-  text-align: center;
+@media screen and (max-width: 880px) {
+  .center-part {
+    padding-left: 0;
+  }
+  .padding-help {
+    padding: 0 15px;
+  }
+
+  table tr {
+    border-bottom: 0 solid #ddd;
+    display: block;
+    margin-bottom: 80px;
+  }
+
+  table th,
+  table td {
+    display: block;
+    text-align: right;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table td {
+    display: block;
+    text-align: right;
+
+    &:last-child {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    color: #6F7886;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    padding-right: 5px;
+    padding-bottom: 20px;
+  }
+
+  table tr:last-child {
+    margin-bottom: 0;
+  }
+
 }
