@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CoreService } from "../../core/core.service";
 import { fadeInAnimation } from "../../shared/animation";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Payment, PaymentData } from "../../shared/interfaces/user";
+import { PaymentsService } from "../payments.service";
 
 @Component({
   selector: 'app-make-payment',
@@ -11,23 +13,30 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 })
 export class MakePaymentComponent implements OnInit {
   menuItem = true;
+  showSpinner =  false;
   form: FormGroup;
+  payment: Payment;
+  paymentData: PaymentData;
   visa = false;
   masterCard = false;
   americanExpress = false;
   dinersClub = false;
   jcb = false;
   numberRegex = new RegExp(/^([1-9][0-9]*)$/);
-  date = new Date;
+  startDate = new Date();
+  minDate = new Date();
+  maxDate = new Date();
+  test: string;
+  isShowPaySuccessful = false;
 
-  minDate = this.date.setDate(6);
-  maxDate = new Date(2020, 0, 1);
 
   constructor(private coreService: CoreService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private paymentsService: PaymentsService) { }
 
   ngOnInit() {
     this.initForm();
+    this.configDate();
   }
 
 
@@ -38,6 +47,11 @@ export class MakePaymentComponent implements OnInit {
       date: new FormControl(null, [Validators.required]),
       cv: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.pattern(this.numberRegex)]),
     })
+  }
+
+  configDate() {
+    this.startDate.setMonth(this.startDate.getMonth()+6);
+    this.maxDate.setFullYear(this.maxDate.getFullYear()+3);
   }
 
   checkCreditCard(cardNumber: string) {
@@ -96,4 +110,56 @@ export class MakePaymentComponent implements OnInit {
     this.initForm();
     this.menuItem = !this.menuItem
   }
+
+  checkCardSuccessful(card) {
+    if(card === "V") {
+      this.visa = true;
+      return
+    } else if(card === "M") {
+      this.masterCard = true;
+      return
+    } else if(card === "J") {
+      this.jcb = true;
+      return
+    } else if(card === "D") {
+      this.dinersClub = true;
+      return
+    } else if(card === "A") {
+      this.americanExpress = true;
+      return
+    }
+}
+
+  transformDate() {
+    let calendarDate;
+    calendarDate = this.form.get('date').value;
+    calendarDate = ('0' + calendarDate.getDate()).slice(-4)
+      + ('0' + (calendarDate.getMonth()+1)).slice(-2)
+      + calendarDate.getFullYear().toString().slice(0, 2);
+    let cutDate = calendarDate.slice(-4);
+    return cutDate
+  }
+
+  onSubmit() {
+    this.showSpinner = true;
+    const req: Payment = {};
+    req.total = this.form.controls.payment.value;
+    req.carddate = this.transformDate();
+    req.cardnum = this.form.controls.cardNumber.value;
+    req.cardcode = this.form.controls.cv.value;
+
+    this.paymentsService.makePayment(req)
+      .subscribe((data: PaymentData) => {
+        this.paymentData = data;
+        this.checkCardSuccessful(this.paymentData.PAYMENT_TYPE);
+        console.log(data);
+        this.showSpinner = false;
+        this.isShowPaySuccessful = true;
+      }, error => {
+        this.showSpinner = false;
+        this.coreService.showErrorAlert();
+        console.log(error);
+      });
+  }
+
 }

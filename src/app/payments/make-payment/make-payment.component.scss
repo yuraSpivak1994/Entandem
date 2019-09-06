@@ -106,7 +106,89 @@
       margin-bottom: 30px;
     }
   }
+}
 
+.payment-successful {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+
+  .payment-card {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    border-radius: 5px;
+
+    .header-card {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.29);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+
+      .image-block {
+        display: flex;
+        justify-content: center;
+
+        & img {
+          width: 50px;
+        }
+      }
+        .title, .mat-small {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+    }
+
+    .pay-content {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.29);
+      margin-bottom: 10px;
+
+      .wraper-flex {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .description-portal {
+          & img {
+            width: 40px;
+          }
+        }
+      }
+    }
+
+    .recip-content {
+      margin-bottom: 30px;
+
+      .mat-dialog-title {
+        margin-bottom: 10px;
+      }
+
+      .receive-block {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        & label.receive {
+          padding-left: 10px;
+          color: #6F7886;
+          font-family: 'Rubik', sans-serif;
+          font-size: 14px;
+          margin-bottom: 0;
+          cursor: pointer;
+        }
+
+        .square label {
+          top: 2px;
+        }
+      }
+    }
+    .btn-box {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 
 

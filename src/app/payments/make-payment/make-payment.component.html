@@ -1,6 +1,6 @@
 <div class="content" [@simpleFadeAnimation]="'in'">
-  <div *ngIf="false" class="spinner-box">
-    <mat-spinner *ngIf="false"></mat-spinner>
+  <div *ngIf="showSpinner" class="spinner-box">
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
   </div>
   <div class="alert alert-success" role="alert" [ngClass]="{'toggle-alert': coreService.alertMessageSuccess | async}">
     Success!
@@ -11,7 +11,7 @@
   <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
     <div class="padding-help">
       <div class="content-inside-page">
-        <div class="header-block">
+        <div *ngIf="!isShowPaySuccessful" class="header-block">
           <div class="row">
             <div class="col-md-12">
               <h1 class="title">Make a Secure Payment</h1>
@@ -89,7 +89,6 @@
                                 <mat-form-field>
                                   <input matInput
                                          type="text"
-                                         minlength="5"
                                          formControlName="payment"
                                          placeholder="Payment Amount (CAD$):">
                                 </mat-form-field>
@@ -119,8 +118,8 @@
                               <div class="field-material">
                                 <mat-form-field>
                                   <input matInput [matDatepicker]="picker"
-                                         [(ngModel)]="date"
-                                         [min]="minDate" [max]="maxDate"
+                                         [min]="minDate"
+                                         [max]="maxDate"
                                          formControlName="date"
                                          placeholder="Choose a date">
                                   <mat-datepicker-toggle matSuffix [for]="picker">
@@ -130,6 +129,7 @@
                                       </i></mat-icon>
                                   </mat-datepicker-toggle>
                                   <mat-datepicker #picker></mat-datepicker>
+                                  <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                                 </mat-form-field>
                               </div>
                             </div>
@@ -195,6 +195,67 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isShowPaySuccessful" class="payment-successful">
+          <div class="payment-card">
+            <div class="header-card">
+              <div class="image-block">
+                <img src="assets/image/done-icon.svg" alt="dove">
+              </div>
+              <h1 class="title">Payment Successful!</h1>
+              <div class="mat-small">Thank you for making your payment</div>
+            </div>
+            <div class="pay-content">
+              <div class="wraper-flex">
+                <span class="mat-small">Transaction Number:</span>
+                <span class="description-portal">{{paymentData.REQUEST_NO}}</span>
+              </div>
+              <div class="wraper-flex">
+                <span class="mat-small">Paid Amount:</span>
+                <span class="description-portal">${{paymentData.PAYMENT_AMT}}</span>
+              </div>
+              <div class="wraper-flex">
+                <span class="mat-small">Payment Method:</span>
+                <span class="description-portal">Credit Card
+                                <img *ngIf="visa" src="assets/image/visa.svg" alt="credit">
+                                <img *ngIf="masterCard" src="assets/image/mastercard.svg" alt="credit">
+                                <img *ngIf="jcb" src="assets/image/jcb.svg" alt="credit">
+                                <img *ngIf="dinersClub" src="assets/image/diners-club.svg" alt="credit">
+                                <img *ngIf="americanExpress" src="assets/image/american-express.svg" alt="credit">
+                </span>
+              </div>
+              <div class="wraper-flex">
+                <span class="mat-small">Card Number:</span>
+                <span class="description-portal">**** **** **** {{paymentData.LASTFOUR}}</span>
+              </div>
+            </div>
+            <div class="recip-content">
+              <div class="mat-dialog-title">
+                Would you like a copy of this receipt?
+              </div>
+              <div class="receive-block">
+                <div class="square">
+                  <input
+                    type="checkbox"
+                    id="checkbox-square1"/>
+                  <label for="checkbox-square1"></label>
+                </div>
+                <label for="checkbox-square1" class="receive">Send a copy to me</label>
+              </div>
+              <div class="receive-block">
+                <div class="square">
+                  <input
+                    type="checkbox"
+                    id="checkbox-square2"/>
+                  <label for="checkbox-square2"></label>
+                </div>
+                <label for="checkbox-square2" class="receive">Send a copy to others</label>
+              </div>
+            </div>
+            <div class="btn-box">
+              <button class="modal-blue-btn" [routerLink]="['/payments/payment-history']">My Payments</button>
             </div>
           </div>
         </div>
