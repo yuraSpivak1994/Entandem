@@ -1,0 +1,31 @@
+<div class="content" [@simpleFadeAnimation]="'in'">
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <div class="content-inside" [ngClass]="{'hide-vertical' : coreService.menuOpen | async}">
+          <div class="payment-successful">
+            <div class="payment-card">
+              <div class="header-card">
+                <h1 class="title">Payment Unsuccessful</h1>
+                <div class="mat-small small-desc">An error has been occurred during transaction. Please try again later.</div>
+              </div>
+              <div class="pay-content">
+                <div class="wraper-flex">
+                  <span class="mat-small">Transaction Number:</span>
+                  <span class="description-portal">3252345</span>
+                </div>
+                <div class="wraper-flex">
+                  <span class="mat-small">Error code:</span>
+                  <span class="description-portal">X90C30A200</span>
+                </div>
+              </div>
+              <div class="btn-box">
+                <button class="modal-blue-btn" [routerLink]="['/payments/make-payment']">RETRY</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

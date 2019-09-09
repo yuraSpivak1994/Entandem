@@ -12,7 +12,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
-
+import { MatIconModule } from "@angular/material/icon";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
   declarations: [],
@@ -29,6 +31,9 @@ import { MatNativeDateModule } from "@angular/material/core";
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   imports: [
     CommonModule

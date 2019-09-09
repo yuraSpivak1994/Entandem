@@ -87,3 +87,10 @@ export interface PaymentData {
   TERR_CODE?: number;
   TRANS_DATE?: string;
 }
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}

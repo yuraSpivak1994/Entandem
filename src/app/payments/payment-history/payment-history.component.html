@@ -10,93 +10,180 @@
           <div class="col md-12">
             <div class="table-block">
               <div class="search-block">
-                <div class="search-padding">
-                  <div class="left">
-                    <div class="search-img">
-                      <img src="assets/image/search.svg" alt="search" >
+                <div class="row">
+                  <div class="col-md-5" [ngClass]="{'hack-search' : !isOpenConfig}">
+                    <div class="field-material hack-for-search" [ngClass]="{'open-search' : !isOpenSearch}">
+                      <div class="search-icon-box">
+                        <img src="assets/image/search.svg" alt="search" (click)="toggleSearch()">
+                      </div>
+                      <mat-form-field>
+                        <input matInput
+                               [(ngModel)]="searchValue"
+                               type="text">
+                      </mat-form-field>
+                    <img *ngIf="isOpenSearch" class="cancel"src="assets/image/cancel.svg" alt="cancel" (click)="clearSearch()">
                     </div>
-                    <input type="search" id="search"
-                           placeholder="Account Name"
-                          >
                   </div>
-                  <div class="right">
-                    <button type="button" class="new-contact">+ New Contact</button>
+                  <div *ngIf="isOpenConfig" class="col-md-2">
+                    <div class="field-material">
+                      <mat-form-field>
+                        <mat-label>Toppings</mat-label>
+                        <mat-select multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div *ngIf="isOpenConfig" class="col-md-2">
+                    <div class="field-material">
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="picker"
+                               placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                          <mat-icon matDatepickerToggleIcon>
+                            <i class="material-icons">
+                              date_range
+                            </i></mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-datepicker #picker startView="month"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div *ngIf="isOpenConfig" class="col-md-2 small-hack-1">
+                    <div class="field-material">
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="picker2"
+                               placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker2">
+                          <mat-icon matDatepickerToggleIcon>
+                            <i class="material-icons">
+                              date_range
+                            </i></mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-datepicker #picker2 startView="month"></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-1 small-hack-2" [ngClass]="{'open-config' : !isOpenConfig}">
+                    <div class="config-search-box">
+                      <div class="config-icon">
+                        <img src="assets/image/configuration.svg" alt="config-search" (click)="toggleConfig()">
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="table-responsive-md">
-                <table class="table table-borderless">
-                  <thead>
-                  <tr>
-                    <th scope="col" class="th-top description-card">Date</th>
-                    <th scope="col" class="th-top description-card">Time</th>
-                    <th scope="col" class="th-top description-card">Pay  #</th>
-                    <th scope="col" class="th-top description-card">Paid by</th>
-                    <th scope="col" class="th-top description-card">Type</th>
-                    <th scope="col" class="th-top description-card">Amount (CAD$)</th>
-                    <th scope="col" class="th-top description-card">Status</th>
-                    <th scope="col" class="th-top description-card"></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr class="hover-table">
-                    <td data-label="Date" scope="row" class="th-bottom">Mar 20, 2019</td>
-                    <td data-label="First Name" scope="row" class="th-bottom">10:05 AM</td>
-                    <td data-label="Last Name"><a href="">12345678</a></td>
-                    <td data-label="Email">Elizabeth Blackburn</td>
-                    <td data-label="Phone">Credit Card</td>
-                    <td data-label="Phone">1,032.05</td>
-                    <td data-label="Phone">Confirmed</td>
-                    <td data-label="">
-                      <div class="edit-icon" [matMenuTriggerFor]="edit">
-                        <span></span><span></span><span></span>
-                        <mat-menu #edit="matMenu">
-                          <button mat-menu-item >Make as Primary Contact</button>
-                          <button mat-menu-item>Edit Contact</button>
-                          <button mat-menu-item >Delete Contact</button>
-                        </mat-menu>
-                      </div>
-                    </td>
-                  </tr>
-                  </tbody>
+
+                </div>
+<!--              <div class="table-responsive-md">-->
+<!--                <table class="table table-borderless">-->
+<!--                  <thead>-->
+<!--                  <tr>-->
+<!--                    <th scope="col" class="th-top description-card">Date</th>-->
+<!--                    <th scope="col" class="th-top description-card">Time</th>-->
+<!--                    <th scope="col" class="th-top description-card">Pay  #</th>-->
+<!--                    <th scope="col" class="th-top description-card">Paid by</th>-->
+<!--                    <th scope="col" class="th-top description-card">Type</th>-->
+<!--                    <th scope="col" class="th-top description-card">Amount (CAD$)</th>-->
+<!--                    <th scope="col" class="th-top description-card">Status</th>-->
+<!--                    <th scope="col" class="th-top description-card"></th>-->
+<!--                  </tr>-->
+<!--                  </thead>-->
+<!--                  <tbody>-->
+<!--                  <tr class="hover-table">-->
+<!--                    <td data-label="Date" scope="row">Mar 20, 2019</td>-->
+<!--                    <td data-label="First Name" scope="row" class="th-bottom">10:05 AM</td>-->
+<!--                    <td data-label="Last Name"><a [routerLink]="['/payments/successful']">12345678</a></td>-->
+<!--                    <td data-label="Email">Elizabeth Blackburn</td>-->
+<!--                    <td data-label="Phone">Credit Card</td>-->
+<!--                    <td data-label="Phone">1,032.05</td>-->
+<!--                    <td data-label="Phone">Confirmed</td>-->
+<!--                    <td data-label="" class="last-child-table">-->
+<!--                      <div class="edit-icon" [matMenuTriggerFor]="edit">-->
+<!--                        <span></span><span></span><span></span>-->
+<!--                        <mat-menu #edit="matMenu">-->
+<!--                          <button mat-menu-item>Edit Contact</button>-->
+<!--                        </mat-menu>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                  </tr>-->
+<!--                  </tbody>-->
+<!--                </table>-->
+<!--                <div class="pagination-box">-->
+<!--                  <div class="letter-pages">-->
+<!--                    <span>1</span>-->
+<!--                    <span>-</span>-->
+<!--                    <span>4</span>-->
+<!--                    <span class="of-letter">of</span>-->
+<!--                    <span>4</span>-->
+<!--                  </div>-->
+<!--                  <div class="arrows-box">-->
+<!--                    <div class="part">-->
+<!--                      <div class="big-play-box">-->
+<!--                        <div class="line"></div>-->
+<!--                        <div class="arrow-box">-->
+<!--                          <div class="arrow"></div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="arrow-box">-->
+<!--                        <div class="arrow"></div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="part">-->
+<!--                      <div class="arrow-box-right">-->
+<!--                        <div class="arrow-right"></div>-->
+<!--                      </div>-->
+<!--                      <div class="big-play-box">-->
+<!--                        <div class="arrow-box-right">-->
+<!--                          <div class="arrow-right"></div>-->
+<!--                        </div>-->
+<!--                        <div class="line"></div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+
+              <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" >
+
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-                <div class="pagination-box">
-                  <div class="letter-pages">
-                    <span>1</span>
-                    <span>-</span>
-                    <span>4</span>
-                    <span class="of-letter">of</span>
-                    <span>4</span>
-                  </div>
-                  <div class="arrows-box">
-                    <div class="part">
-                      <div class="big-play-box">
-                        <div class="line"></div>
-                        <div class="arrow-box">
-                          <div class="arrow"></div>
-                        </div>
-                      </div>
-                      <div class="arrow-box">
-                        <div class="arrow"></div>
-                      </div>
-                    </div>
-                    <div class="part">
-                      <div class="arrow-box-right">
-                        <div class="arrow-right"></div>
-                      </div>
-                      <div class="big-play-box">
-                        <div class="arrow-box-right">
-                          <div class="arrow-right"></div>
-                        </div>
-                        <div class="line"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
               </div>
+
+
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

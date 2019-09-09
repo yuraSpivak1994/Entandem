@@ -1,0 +1,67 @@
+.content-inside {
+  max-width: 600px;
+  padding-top: 100px;
+}
+
+.small-desc {
+  max-width: 276px;
+  color: #6F7886;
+  margin: 0 auto;
+}
+
+.payment-successful {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .payment-card {
+    width: 100%;
+    padding: 50px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    border-radius: 5px;
+
+    .header-card {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.29);;
+
+
+      .title {
+        font-size: 19px;
+      }
+
+      .title, .mat-small {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+
+    .pay-content {
+      margin-bottom: 20px;
+
+      .wraper-flex {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+      }
+    }
+
+    .btn-box {
+      display: flex;
+      justify-content: center;
+
+      & button {
+        max-width: 150px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .payment-card {
+    padding: 15px !important;
+  }
+
+}

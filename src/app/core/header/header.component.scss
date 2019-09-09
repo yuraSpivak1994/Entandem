@@ -21,17 +21,17 @@ header .btn-logout {
   align-items: center;
   text-transform: uppercase;
   font-size: 12px;
+
+  & img {
+    width: 10px;
+    position: absolute;
+    left: 45px;
+  }
 }
 
-header .btn-logout:after {
-  position: absolute;
-  left: 42px;
-  content: " ";
-  background-image: url('../../../assets/image/down-arrow-black.svg');
-  background-size: 100% 100%;
-  width: 10px;
-  height: 123%;
-  margin: 2px;
+header .btn-logout:hover {
+  transition: 0.3s ease-in-out;
+  background-color: #0a00ff;
 }
 
 header .btn-logout .info-user {

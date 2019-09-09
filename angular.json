@@ -31,7 +31,9 @@
               "src/styles.scss",
               "src/main-style.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/hammerjs/hammer.min.js"
+            ]
           },
           "configurations": {
             "production": {
