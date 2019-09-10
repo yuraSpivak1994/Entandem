@@ -12,4 +12,8 @@ export class PaymentsService {
   makePayment(data) {
     return this.http.post(`${environment.apiUrl}/profile/make-payment`,  data)
   }
+
+  getPayments(sortArray) {
+    return this.http.post(`${environment.apiUrl}/profile/payments`, sortArray)
+  }
 }

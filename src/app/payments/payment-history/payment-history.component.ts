@@ -1,31 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CoreService } from "../../core/core.service";
 import { fadeInAnimation } from "../../shared/animation";
 import { PeriodicElement } from "../../shared/interfaces/user";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
+import { MatSort, Sort } from "@angular/material/sort";
+import { merge } from "rxjs";
+import { startWith, switchMap } from "rxjs/operators";
+import { PaymentsService } from "../payments.service";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+
 @Component({
   selector: 'app-payment-history',
   templateUrl: './payment-history.component.html',
@@ -39,16 +23,124 @@ export class PaymentHistoryComponent implements OnInit {
   searchValue: string;
   isOpenSearch =  false;
   isOpenConfig = false;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  form: FormGroup;
+  displayedColumns: string[] = ['Date', 'Time', 'Pay  #', 'Paid by', 'Type', 'Amount (CAD$)', 'Status', 'menu'];
+   ELEMENT_DATA: PeriodicElement[] = [
+    {dateTime: '1019', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '2014', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '2016', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '4017', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '5012', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '2017', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '1014', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '2013', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '2015', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+    {dateTime: '2017', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
+  ];
+  dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
+  sortedData: PeriodicElement[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  endDateValue: any;
+  startDateValue: any;
 
 
-  constructor(public coreService: CoreService) { }
+  constructor(public coreService: CoreService,
+              private paymentsService: PaymentsService,
+              private formBuilder: FormBuilder) {
+    this.sortedData = this.ELEMENT_DATA.slice();
+  }
+
+  getSortData() {
+    const sortArray = {
+      currentPage: this.paginator.pageIndex,
+      itemsPerPage: this.paginator.pageSize,
+      filter: {
+        endDate: this.endDateValue,
+        name: "вуву",
+        startDate: this.startDateValue,
+        status: 1
+      },
+      sort: {}
+    };
+
+    console.log(sortArray);
+    // this.paymentsService.getPayments(sortArray)
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //   },
+    //     error => {
+    //       console.log(error);
+    //     })
+  }
+
+  checkDateStart() {
+    let calendarDate;
+    calendarDate = this.form.get('startDate').value;
+    let year = calendarDate.getFullYear().toString().slice(2);
+    let month = ('0' + (calendarDate.getMonth()+1)).slice(-2);
+    let day =  ('0' + calendarDate.getDate()).slice(-2);
+    let cutDate = year + '-' + month + '-' + day;
+    console.log(cutDate);
+  }
+
+  checkDateEnd() {
+    let calendarDate;
+    calendarDate = this.form.get('endDate').value;
+    let year = calendarDate.getFullYear().toString().slice(2);
+    let month = ('0' + (calendarDate.getMonth()+1)).slice(-2);
+    let day =  ('0' + calendarDate.getDate()).slice(-2);
+    let cutDate = year + '-' + month + '-' + day;
+    console.log(cutDate);
+  }
+
+  initForm() {
+    this.form = this.formBuilder.group({
+      startDate: new FormControl(null),
+      endDate: new FormControl(null),
+      sort: new FormControl(null),
+    })
+  }
+
+  // ngAfterViewInit() {
+  //   this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+  //
+  //   merge()
+  //     .pipe(
+  //       startWith({}),
+  //       switchMap(() => {
+  //         return this.exampleDatabase!.getRepoIssues(
+  //           this.sort.active, this.sort.direction, this.paginator.pageIndex);
+  //       })
+  //     )
+  // }
+
+  sortData(sort: Sort) {
+    const data = this.ELEMENT_DATA.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'Date': return compare(a.dateTime, b.dateTime, isAsc);
+        default: return 0;
+      }
+    });
+    console.log(this.sortedData);
+  }
 
   ngOnInit() {
+    this.initForm();
     this.dataSource.paginator = this.paginator;
+    this.getSortData();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   clearSearch() {
@@ -62,6 +154,10 @@ export class PaymentHistoryComponent implements OnInit {
   toggleConfig() {
     this.isOpenConfig = !this.isOpenConfig;
   }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
 

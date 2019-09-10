@@ -15,6 +15,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,8 @@ import { MatTableModule } from "@angular/material/table";
     MatNativeDateModule,
     MatIconModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   imports: [
     CommonModule

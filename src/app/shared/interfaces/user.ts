@@ -89,8 +89,12 @@ export interface PaymentData {
 }
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
+  time: string;
+  dateTime: string;
+  pay: string;
   symbol: string;
+  menu?: string;
+  type?: string;
+  amount?: string;
+  status?: string;
 }

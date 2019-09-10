@@ -4,6 +4,32 @@
 .table-responsive-md td {
   padding-left: 20px;
 }
+table {
+  width: 100%;
+
+  & tr:hover {
+    background-color: rgba(111, 120, 134, 0.16);
+    transition: 0.2s;
+
+    .edit-icon span{
+
+      background-color: #6F7886;
+      cursor: pointer;
+    }
+  }
+  .edit-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-50%, 50%);
+  }
+}
+.mat-elevation-z8 {
+  box-shadow: none;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}
 @media screen and (max-width: 880px) {
   .center-part {
     padding-left: 0;
@@ -15,26 +41,37 @@
   table tr {
     border-bottom: 0 solid #ddd;
     display: block;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
+    &:hover {
+      background-color: #ffffff;
+      transition: 0.2s;
+    }
+
+    .edit-icon span {
+      background-color: #6F7886;
+    }
+  }
+  table tr:last-of-type {
+    margin-bottom: 0;
   }
 
   table th,
   table td {
-    display: block;
     text-align: right;
+    padding: 15px;
   }
 
-  table thead {
+  table th {
     display: none;
   }
 
   table td {
-    display: block;
+    display: flex;
+    justify-content: space-between;
     text-align: right;
 
-    &:last-child {
-      display: flex;
-      justify-content: flex-end;
+    &:last-of-type {
+      padding-bottom: 30px;
     }
   }
 
@@ -44,13 +81,27 @@
     color: #6F7886;
     font-family: 'Rubik', sans-serif;
     font-size: 12px;
-    padding-right: 5px;
-    padding-bottom: 20px;
   }
 
   table tr:last-child {
     margin-bottom: 0;
   }
+
+  ::ng-deep td.mat-cell:first-of-type {
+    padding-left: 15px!important;
+  }
+  ::ng-deep td.mat-cell:last-of-type {
+    padding-right: 15px!important;
+  }
+  ::ng-deep tr.mat-row {
+    height: auto!important;
+  }
+}
+::ng-deep td.mat-cell:last-of-type {
+ position: relative;
+}
+::ng-deep button.mat-sort-header-button {
+  width: auto;
 }
 .search-block {
   position: relative;
@@ -117,6 +168,10 @@
   max-width: 90%;
 }
 //field
+
+.field-material > * {
+  margin-bottom: 5px;
+}
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
   color: #9B9B9B;
   font-size: 16px;
@@ -158,3 +213,6 @@
   display: flex;
   justify-content: flex-end;
 }
+
+
+
