@@ -1,6 +1,6 @@
 <div class="content" [@simpleFadeAnimation]="'in'">
-  <div *ngIf="false" class="spinner-box">
-    <mat-spinner *ngIf="false"></mat-spinner>
+  <div *ngIf="isLoadingResults || isRateLimitReached" class="spinner-box">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
     <div class="padding-help">
@@ -18,7 +18,7 @@
                           <img src="assets/image/search.svg" alt="search" (click)="toggleSearch()">
                         </div>
                         <mat-form-field>
-                          <input matInput [(ngModel)]="searchValue" (keyup)="applyFilter($event.target.value)"
+                          <input matInput [(ngModel)]="searchValue"
                                  [ngModelOptions]="{standalone: true}"
                                  placeholder="Search">
                         </mat-form-field>
@@ -41,17 +41,19 @@
                       <div class="field-material">
                         <mat-form-field>
                           <input matInput [matDatepicker]="picker"
-                                 (click)="checkDateStart()"
+                                 disabled
+                                 (click)="getQuestion()"
                                  formControlName="startDate"
                                  placeholder="Start a date">
-                          <mat-datepicker-toggle matSuffix [for]="picker">
+                          <mat-datepicker-toggle
+                            matSuffix [for]="picker">
                             <mat-icon matDatepickerToggleIcon>
-                              <i class="material-icons">
+                              <i class="material-icons" >
                                 date_range
                               </i></mat-icon>
                           </mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
-                          <mat-datepicker #picker startView="month"></mat-datepicker>
+                          <mat-datepicker disabled="false" #picker></mat-datepicker>
+                          <mat-datepicker  disabled="false" #picker startView="month"></mat-datepicker>
                         </mat-form-field>
                       </div>
                     </div>
@@ -59,8 +61,8 @@
                       <div class="field-material">
                         <mat-form-field>
                           <input matInput [matDatepicker]="picker2"
-                                 (click)="checkDateEnd()"
                                  formControlName="endDate"
+                                 (click)="getQuestion()"
                                  placeholder="End a date">
                           <mat-datepicker-toggle matSuffix [for]="picker2">
                             <mat-icon matDatepickerToggleIcon>
@@ -85,65 +87,56 @@
               </div>
               <div>
                 <table mat-table
-                       (matSortChange)="sortData($event)"
-                       [dataSource]="dataSource"  matSort class="mat-elevation-z8">
-
+                       matSort matSortActive="Date" matSortDisableClear matSortDirection="desc"
+                       [dataSource]="data">
                   <ng-container class="hover-table" matColumnDef="menu">
-                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <th mat-header-cell *matHeaderCellDef></th>
                     <td data-label="" mat-cell *matCellDef="let element">
                       <div class="edit-icon" [matMenuTriggerFor]="edit">
                         <span></span><span></span><span></span>
-                        <mat-menu #edit="matMenu"><button mat-menu-item>Edit Contact</button></mat-menu>
+                        <mat-menu #edit="matMenu">
+                          <button mat-menu-item>Edit Contact</button>
+                        </mat-menu>
                       </div>
                     </td>
                   </ng-container>
-                  <!-- Position Column -->
                   <ng-container class="hover-table" matColumnDef="Date">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
-                    <td data-label="Date" mat-cell *matCellDef="let element"> {{element.dateTime}} </td>
+                    <td data-label="Date" mat-cell *matCellDef="let element"> {{element.PAYMENT_DATE | date}} </td>
                   </ng-container>
-
-                  <!-- Name Column -->
                   <ng-container matColumnDef="Time">
-                    <th mat-header-cell *matHeaderCellDef> Time </th>
-                    <td data-label="Time" mat-cell *matCellDef="let element"> {{element.time}} </td>
+                    <th mat-header-cell *matHeaderCellDef> Time</th>
+                    <td data-label="Time" mat-cell
+                        *matCellDef="let element"> {{element.TRANS_DATE | date:'shortTime'}} </td>
                   </ng-container>
-
-                  <!-- Weight Column -->
                   <ng-container matColumnDef="Pay  #">
-                    <th mat-header-cell *matHeaderCellDef> Pay  # </th>
-                    <td data-label="Pay  #" mat-cell *matCellDef="let element"> {{element.pay}} </td>
+                    <th mat-header-cell *matHeaderCellDef> Pay #</th>
+                    <td data-label="Pay  #" mat-cell *matCellDef="let element"><a href=""> {{element.ACCT_NO}} </a></td>
                   </ng-container>
-
-                  <!-- Symbol Column -->
                   <ng-container matColumnDef="Paid by">
-                    <th mat-header-cell *matHeaderCellDef> Paid by </th>
-                    <td data-label="Paid by" mat-cell *matCellDef="let element"><a href="">{{element.symbol}} </a></td>
+                    <th mat-header-cell *matHeaderCellDef> Paid by</th>
+                    <td data-label="Paid by" mat-cell
+                        *matCellDef="let element">{{element.FIRST_NAME}}  {{element.LAST_NAME}}</td>
                   </ng-container>
-
                   <ng-container matColumnDef="Type">
                     <th mat-header-cell *matHeaderCellDef> Type</th>
-                    <td data-label="Type" mat-cell *matCellDef="let element"> {{element.type}} </td>
+                    <td data-label="Type" mat-cell *matCellDef="let element"> Credit Card</td>
                   </ng-container>
-
                   <ng-container matColumnDef="Amount (CAD$)">
                     <th mat-header-cell *matHeaderCellDef> Amount (CAD$)</th>
-                    <td data-label="Amount (CAD$)" mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                    <td data-label="Amount (CAD$)" mat-cell *matCellDef="let element"> {{element.PAYMENT_AMT}} </td>
                   </ng-container>
-
                   <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef> Status</th>
-                    <td data-label="Status" mat-cell *matCellDef="let element"> {{element.status}} </td>
+                    <td data-label="Status" mat-cell
+                        *matCellDef="let element"> {{checkStatus(element.PAYMENT_STATUS)}} </td>
                   </ng-container>
-
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 20, 30]"
+                               showFirstLastButtons></mat-paginator>
               </div>
-
-
             </div>
           </div>
         </div>

@@ -1,14 +1,14 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CoreService } from "../../core/core.service";
 import { fadeInAnimation } from "../../shared/animation";
-import { PeriodicElement } from "../../shared/interfaces/user";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatSort, Sort } from "@angular/material/sort";
-import { merge } from "rxjs";
-import { startWith, switchMap } from "rxjs/operators";
+import { MatSort } from "@angular/material/sort";
+import { merge, Observable, of as observableOf } from "rxjs";
+import { catchError, map, startWith, switchMap } from "rxjs/operators";
 import { PaymentsService } from "../payments.service";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-payment-history',
@@ -17,82 +17,78 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
   animations: [fadeInAnimation]
 })
 
-
-export class PaymentHistoryComponent implements OnInit {
+export class PaymentHistoryComponent implements OnInit, AfterViewInit {
   toppingList: string[] = ['Show All', 'Successful', 'Unsuccessful'];
   searchValue: string;
   isOpenSearch =  false;
   isOpenConfig = false;
   form: FormGroup;
   displayedColumns: string[] = ['Date', 'Time', 'Pay  #', 'Paid by', 'Type', 'Amount (CAD$)', 'Status', 'menu'];
-   ELEMENT_DATA: PeriodicElement[] = [
-    {dateTime: '1019', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '2014', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '2016', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '4017', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '5012', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '2017', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '1014', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '2013', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '2015', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-    {dateTime: '2017', time: '10:05 AM', pay: '1.0079', symbol: 'Elizabeth Blackburn', amount: '2,445,7', type: 'ACredit Card', status: 'Confirmed'},
-  ];
-  dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
-  sortedData: PeriodicElement[];
+  exampleDatabase: PaymentsHttpDatabase | null;
+  resultsLength = 0;
+  data: any = [];
+  isLoadingResults = true;
+  isRateLimitReached = false;
+  minDate = new Date();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  endDateValue: any;
-  startDateValue: any;
 
 
   constructor(public coreService: CoreService,
               private paymentsService: PaymentsService,
-              private formBuilder: FormBuilder) {
-    this.sortedData = this.ELEMENT_DATA.slice();
+              private formBuilder: FormBuilder,
+              private _httpClient: HttpClient) {
   }
 
   getSortData() {
     const sortArray = {
-      currentPage: this.paginator.pageIndex,
+      currentPage: this.paginator.pageIndex + 1,
       itemsPerPage: this.paginator.pageSize,
       filter: {
-        endDate: this.endDateValue,
-        name: "вуву",
-        startDate: this.startDateValue,
-        status: 1
+        endDate: this.checkDateEnd(),
+        startDate: this.checkDateStart(),
+        status: this.checkSortCheckbox()
       },
       sort: {}
     };
-
     console.log(sortArray);
-    // this.paymentsService.getPayments(sortArray)
-    //   .subscribe((data) => {
-    //     console.log(data);
-    //   },
-    //     error => {
-    //       console.log(error);
-    //     })
+    return sortArray
   }
 
+
   checkDateStart() {
-    let calendarDate;
-    calendarDate = this.form.get('startDate').value;
-    let year = calendarDate.getFullYear().toString().slice(2);
-    let month = ('0' + (calendarDate.getMonth()+1)).slice(-2);
-    let day =  ('0' + calendarDate.getDate()).slice(-2);
-    let cutDate = year + '-' + month + '-' + day;
-    console.log(cutDate);
+    let calendarDate = this.form.get('startDate').value;
+    if (calendarDate) {
+      let year = calendarDate.getFullYear().toString();
+      let month = ('0' + (calendarDate.getMonth()+1)).slice(-2);
+      let day =  ('0' + calendarDate.getDate()).slice(-2);
+      let cutDate = year + '-' + month + '-' + day;
+      return cutDate
+    }else  {
+      return '2000-01-01'
+    }
   }
 
   checkDateEnd() {
-    let calendarDate;
-    calendarDate = this.form.get('endDate').value;
-    let year = calendarDate.getFullYear().toString().slice(2);
-    let month = ('0' + (calendarDate.getMonth()+1)).slice(-2);
-    let day =  ('0' + calendarDate.getDate()).slice(-2);
-    let cutDate = year + '-' + month + '-' + day;
-    console.log(cutDate);
+    let calendarDate  = this.form.get('endDate').value;
+    if (calendarDate) {
+      let year = calendarDate.getFullYear().toString();
+      let month = ('0' + (calendarDate.getMonth()+1)).slice(-2);
+      let day =  ('0' + calendarDate.getDate()).slice(-2);
+      let cutDate = year + '-' + month + '-' + day;
+      return cutDate
+    } else  {
+      return '3000-01-01'
+    }
+  }
+
+  checkStatus(number) {
+    if (number === 1) {
+      return 'Confirmed'
+    } else if (number === 0) {
+      return 'Failed'
+    }
   }
 
   initForm() {
@@ -100,48 +96,59 @@ export class PaymentHistoryComponent implements OnInit {
       startDate: new FormControl(null),
       endDate: new FormControl(null),
       sort: new FormControl(null),
-    })
+    });
   }
 
-  // ngAfterViewInit() {
-  //   this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-  //
-  //   merge()
-  //     .pipe(
-  //       startWith({}),
-  //       switchMap(() => {
-  //         return this.exampleDatabase!.getRepoIssues(
-  //           this.sort.active, this.sort.direction, this.paginator.pageIndex);
-  //       })
-  //     )
-  // }
-
-  sortData(sort: Sort) {
-    const data = this.ELEMENT_DATA.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'Date': return compare(a.dateTime, b.dateTime, isAsc);
-        default: return 0;
-      }
+  getQuestion() {
+    this.exampleDatabase = new PaymentsHttpDatabase(this._httpClient);
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.exampleDatabase!.getRepoIssues(
+            this.getSortData());
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.total_count;
+          return data.payments;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe((data) => {
+      console.log(this.data = data);
     });
-    console.log(this.sortedData);
+  }
+  ngAfterViewInit() {
+    this.getQuestion();
+  }
+
+  checkSortCheckbox() {
+    let sort = 0;
+    this.form.get('sort').valueChanges.subscribe(
+      value => {
+        if (value === 'Show All') {
+          return sort = 0
+        } else if (value === 'Successful') {
+         return  sort = 1
+        } else if (value === 'Unsuccessful') {
+         return sort = 0
+        }
+      }
+    );
+    return sort
+
   }
 
   ngOnInit() {
     this.initForm();
-    this.dataSource.paginator = this.paginator;
-    this.getSortData();
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
   clearSearch() {
     this.searchValue = '';
@@ -156,8 +163,16 @@ export class PaymentHistoryComponent implements OnInit {
   }
 }
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+export class PaymentsHttpDatabase {
+  constructor(private _httpClient: HttpClient) {}
+
+  getRepoIssues(sortArray): Observable<any> {
+    const requestUrl =
+      `${environment.apiUrl}/profile/payments`;
+
+    return this._httpClient.post<any>(requestUrl, sortArray);
+  }
 }
+
 
 
