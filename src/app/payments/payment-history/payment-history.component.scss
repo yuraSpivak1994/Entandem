@@ -117,6 +117,10 @@ th.mat-sort-header-sorted {
     cursor: pointer;
   }
 
+  .cancel-date {
+    margin: -14px -16px 0 0;
+  }
+
   .search-icon-box {
     position: absolute;
     left: 12px;
@@ -135,7 +139,7 @@ th.mat-sort-header-sorted {
 .open-config {
   position: absolute;
   right: 5px;
-  top: 36px;
+  top: 29px;
   width: 20px;
 }
 

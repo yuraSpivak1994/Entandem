@@ -18,8 +18,9 @@
                           <img src="assets/image/search.svg" alt="search" (click)="toggleSearch()">
                         </div>
                         <mat-form-field>
-                          <input matInput [(ngModel)]="searchValue"
-                                 [ngModelOptions]="{standalone: true}"
+                          <input matInput [ngModel]='model'
+                                 (ngModelChange)='changed($event)'
+                                 formControlName="search"
                                  placeholder="Search">
                         </mat-form-field>
                         <img *ngIf="isOpenSearch" class="cancel" src="assets/image/cancel.svg" alt="cancel"
@@ -41,17 +42,21 @@
                       <div class="field-material">
                         <mat-form-field>
                           <input matInput [matDatepicker]="picker"
+                                 readonly
                                  disabled
-                                 (click)="getQuestion()"
                                  formControlName="startDate"
                                  placeholder="Start a date">
                           <mat-datepicker-toggle
+                            *ngIf="!startDateCloseIcon"
                             matSuffix [for]="picker">
                             <mat-icon matDatepickerToggleIcon>
                               <i class="material-icons" >
                                 date_range
                               </i></mat-icon>
                           </mat-datepicker-toggle>
+                          <div *ngIf="startDateCloseIcon" (click)="clearValueFieldStart()">
+                            <img class="cancel cancel-date" src="assets/image/cancel.svg" alt="cancel">
+                          </div>
                           <mat-datepicker disabled="false" #picker></mat-datepicker>
                           <mat-datepicker  disabled="false" #picker startView="month"></mat-datepicker>
                         </mat-form-field>
@@ -60,16 +65,19 @@
                     <div *ngIf="isOpenConfig" class="col-md-2 small-hack-1">
                       <div class="field-material">
                         <mat-form-field>
-                          <input matInput [matDatepicker]="picker2"
+                          <input readonly matInput [matDatepicker]="picker2"
                                  formControlName="endDate"
-                                 (click)="getQuestion()"
                                  placeholder="End a date">
-                          <mat-datepicker-toggle matSuffix [for]="picker2">
+                          <mat-datepicker-toggle *ngIf="!endDateCloseIcon" matSuffix [for]="picker2">
                             <mat-icon matDatepickerToggleIcon>
                               <i class="material-icons">
                                 date_range
-                              </i></mat-icon>
+                              </i>
+                            </mat-icon>
                           </mat-datepicker-toggle>
+                          <div *ngIf="endDateCloseIcon" (click)="clearValueFieldEnd()">
+                            <img class="cancel cancel-date" src="assets/image/cancel.svg" alt="cancel">
+                          </div>
                           <mat-datepicker #picker2></mat-datepicker>
                           <mat-datepicker #picker2 startView="month"></mat-datepicker>
                         </mat-form-field>
@@ -87,8 +95,8 @@
               </div>
               <div>
                 <table mat-table
-                       matSort matSortActive="Date" matSortDisableClear matSortDirection="desc"
-                       [dataSource]="data">
+                       [dataSource]="newData"
+                       matSort matSortActive="Date" matSortDisableClear matSortDirection="desc">
                   <ng-container class="hover-table" matColumnDef="menu">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td data-label="" mat-cell *matCellDef="let element">
@@ -101,7 +109,7 @@
                     </td>
                   </ng-container>
                   <ng-container class="hover-table" matColumnDef="Date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Date</th>
                     <td data-label="Date" mat-cell *matCellDef="let element"> {{element.PAYMENT_DATE | date}} </td>
                   </ng-container>
                   <ng-container matColumnDef="Time">
@@ -129,7 +137,8 @@
                   <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef> Status</th>
                     <td data-label="Status" mat-cell
-                        *matCellDef="let element"> {{checkStatus(element.PAYMENT_STATUS)}} </td>
+                        [ngStyle]="{'color' : element.status.color }"
+                        *matCellDef="let element"> {{element.status.text}} </td>
                   </ng-container>
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
