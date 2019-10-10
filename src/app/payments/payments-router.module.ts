@@ -10,8 +10,8 @@ const routes: Routes = [
   {path: '', component: PaymentsComponent, children: [
       {path: 'make-payment', component: MakePaymentComponent},
       {path: 'payment-history', component: PaymentHistoryComponent},
-      {path: 'successful', component: SuccessfulComponent},
-      {path: 'unsuccessful', component: UnsuccessfulComponent},
+      {path: 'successful/:AUTHORIZATION_NO', component: SuccessfulComponent},
+      {path: 'unsuccessful/:id', component: UnsuccessfulComponent},
     ]}
 ];
 

@@ -1,0 +1,92 @@
+<app-header></app-header>
+<div class="content" [@simpleFadeAnimation]="'in'">
+  <div *ngIf="false" class="spinner-box">
+    <mat-spinner *ngIf="false"></mat-spinner>
+  </div>
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <div class="header-block">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="title-btn-box">
+              <h1 class="title">Tariff Assignment</h1>
+                <button class="submit-report">SUBMIT REPORT</button>
+              </div>
+              <div class="some-information-box">
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions small-informations">Please assign a tariff from the available list to your account in order to report.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="accordeon-container payed">
+              <div class="title-accordion">Tariff Available</div>
+              <div class="filter-accordion">Name of music usage</div>
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let item of [0]">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <img src="assets/image/orange-player.svg" alt="music">
+                      Background Music
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="music-start-desc">Music Usage Start Date</div>
+                  <div class="music-start-date">May 2, 2019</div>
+
+                  <div class="add-assign-block">
+                    Unit Name
+                    <button class="tariff-unit"><span>+</span>Tariff Unit </button>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+            <div class="accordeon-container">
+              <div class="title-accordion">Tariff Available</div>
+              <div class="filter-accordion">Name of music usage</div>
+              <mat-accordion>
+                <mat-expansion-panel *ngFor="let item of [0,1,2,3,4,5,6]">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    <img src="assets/image/music-icon-tariff.svg" alt="music">
+                      Background Music
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <p>Lorem ipsum dolor sit amet,
+                    consectetur adipisicing elit. Blanditiis dolores error fugit itaque laborum, magnam magni, nihil
+                    placeat, qui repellat saepe tempora unde velit voluptate voluptatum. Labore ratione ut vel?
+                  </p>
+
+                  <div class="add-assign-block">
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="picker"
+                             placeholder="Add Music Usage Start Date">
+                      <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>
+                          <i class="material-icons">
+                            date_range
+                          </i></mat-icon>
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-datepicker #picker startView="year"></mat-datepicker>
+                    </mat-form-field>
+                    <button class="assign">Assign This Tariff</button>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

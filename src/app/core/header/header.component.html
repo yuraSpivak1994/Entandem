@@ -19,7 +19,7 @@
     <div mat-button [matMenuTriggerFor]="menu" class="info-user">{{userInfo.FIRST_NAME}}{{userInfo.LAST_NAME}}</div>
     <mat-menu #menu="matMenu">
       <div mat-menu-item [routerLink]="['/account']">My Account</div>
-      <div mat-menu-item>Assign Tariff</div>
+      <div mat-menu-item [routerLink]="['/assign-tariff']">Assign Tariff</div>
       <div mat-menu-item
            (click)="logOut()"
            [routerLink]="['/auth/login']"

@@ -11,7 +11,7 @@ import { DashboardInterceptor } from './interceptor/dashboard-interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

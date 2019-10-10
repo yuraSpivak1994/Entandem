@@ -312,5 +312,102 @@
     padding: 0 15px;
   }
 }
+//ACCORDEON
+.accordeon-container {
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+.border-accordion {
+  border-top: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+.accordeon-container img{
+  max-width: 30px;
+  margin-right: 20px;
+}
+
+.accordeon-container p {
+  color: #6F7886;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.accordeon-container .add-assign-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.accordeon-container .add-assign-block button.assign {
+  max-width: 170px;
+  height: 40px;
+  color: #FFFFFF;
+  font-family: 'Rubik';
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  background-color: #404DDC;
+  transition: 0.3s all;
+
+  &:hover {
+    transition: 0.3s all;
+    background-color: #0a00ff;
+    -webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+  }
+}
+
+.accordeon-container .add-assign-block button.tariff-unit {
+  max-width: 160px;
+  height: 40px;
+  color: #404DDC;
+  font-family: 'Rubik';
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #fff;
+  transition: 0.3s all;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+
+  &:hover {
+    transition: 0.3s all;
+    background-color: #0a00ff;
+    color: #fff;
+    -webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+    border: 1px solid #0a00ff;
+  }
+}
+
+.accordeon-container .title-accordion {
+  color: #3E4254;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 500;
+  padding: 15px 23px;
+  border: 1px solid #8080802b;
+}
+
+.accordeon-container .filter-accordion,
+.accordeon-container .music-start-desc{
+  color: #6F7886;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 15px 23px;
+  border-left: 1px solid #8080802b;
+  border-right: 1px solid #8080802b;
+}
+
+.accordeon-container .music-start-desc {
+  padding: 0
+ }
+
 
 

@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard]},
   {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule), canActivate: [AuthGuard]},
   {path: 'payments', loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule), canActivate: [AuthGuard]},
+  {path: 'assign-tariff', loadChildren: () => import('./assign-tariff/assign-tariff.module').then(m => m.AssignTariffModule), canActivate: [AuthGuard]},
 ];
 
 @NgModule({

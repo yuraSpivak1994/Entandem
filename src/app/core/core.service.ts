@@ -11,6 +11,7 @@ export class CoreService {
   menuOpen = new Subject();
   alertMessageError = new Subject();
   alertMessageSuccess = new Subject();
+  userName = new Subject();
 
   constructor(private http: HttpClient) { }
 

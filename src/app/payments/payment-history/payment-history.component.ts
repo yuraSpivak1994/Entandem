@@ -3,12 +3,12 @@ import { CoreService } from "../../core/core.service";
 import { fadeInAnimation } from "../../shared/animation";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { merge, Observable, of as observableOf, Subject } from "rxjs";
+import { merge, of as observableOf, Subject } from "rxjs";
 import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from "rxjs/operators";
 import { PaymentsService } from "../payments.service";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../../environments/environment";
+import { PaymentsHttpDatabase } from "../../shared/interfaces/user";
 
 @Component({
   selector: 'app-payment-history',
@@ -19,11 +19,11 @@ import { environment } from "../../../environments/environment";
 
 export class PaymentHistoryComponent implements OnInit, AfterViewInit {
   toppingList: string[] = ['Show All', 'Successful', 'Unsuccessful'];
-  searchValue: string;
+  searchValue: any;
   isOpenSearch = false;
   isOpenConfig = false;
   form: FormGroup;
-  displayedColumns: string[] = ['Date', 'Time', 'Pay  #', 'Paid by', 'Type', 'Amount (CAD$)', 'Status', 'menu'];
+  displayedColumns: string[] = ['date', 'Time', 'pay#', 'paid by', 'Type', 'amount(CAD)', 'status', 'menu'];
   exampleDatabase: PaymentsHttpDatabase | null;
   resultsLength = 0;
   data: any = [];
@@ -36,7 +36,6 @@ export class PaymentHistoryComponent implements OnInit, AfterViewInit {
   startDateCloseIcon = false;
   newData: any = [];
   searchName = '';
-  model: string;
   modelChanged: Subject<string> = new Subject<string>();
 
 
@@ -47,16 +46,7 @@ export class PaymentHistoryComponent implements OnInit, AfterViewInit {
   constructor(public coreService: CoreService,
               private paymentsService: PaymentsService,
               private formBuilder: FormBuilder,
-              private _httpClient: HttpClient) {
-
-    this.modelChanged
-      .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((model) => {
-        this.model = model;
-        this.searchName = model
-        this.getQuestion();
-      });
-  }
+              private _httpClient: HttpClient) {}
 
   changed(text: string) {
     this.modelChanged.next(text);
@@ -66,13 +56,20 @@ export class PaymentHistoryComponent implements OnInit, AfterViewInit {
     const sortArray = {
       currentPage: this.paginator.pageIndex + 1,
       itemsPerPage: this.paginator.pageSize,
-      name: this.searchName,
       filter: {
         endDate: this.endDateSort,
         startDate: this.startDateSort,
-        status: this.sortCheckbox
+        status: this.sortCheckbox,
+        name: this.searchName
       },
-      sort: {}
+      sort: {
+       date: "asc",
+        id: "asc",
+        name: "asc",
+        total: "asc",
+        status: "asc",
+        asc : 'desc'
+      }
     };
     console.log(sortArray);
     return sortArray
@@ -180,8 +177,12 @@ export class PaymentHistoryComponent implements OnInit, AfterViewInit {
         })
       ).subscribe((data) => {
       this.data = data;
-      this.transformStatus(this.data);
-      this.newData = this.transformStatus(this.data);
+      if(this.data) {
+        this.transformStatus(this.data);
+        this.newData = this.transformStatus(this.data);
+      }else {
+        return this.newData = this.data
+      }
     });
   }
 
@@ -208,11 +209,22 @@ export class PaymentHistoryComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initForm();
+    this.getSearchData();
   }
 
 
+  getSearchData() {
+    this.modelChanged
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((string) => {
+        this.searchValue = string;
+        this.searchName = string;
+        this.getQuestion();
+      });
+  }
+
   clearSearch() {
-    this.model = '';
+    this.searchValue = '';
   }
 
   toggleSearch() {
@@ -222,19 +234,13 @@ export class PaymentHistoryComponent implements OnInit, AfterViewInit {
   toggleConfig() {
     this.isOpenConfig = !this.isOpenConfig;
   }
-}
 
-export class PaymentsHttpDatabase {
-  constructor(private _httpClient: HttpClient) {
-  }
-
-  getRepoIssues(sortArray): Observable<any> {
-    const requestUrl =
-      `${environment.apiUrl}/profile/payments`;
-
-    return this._httpClient.post<any>(requestUrl, sortArray);
+  sentUserName(firstName, lastName) {
+    this.coreService.userName.next(firstName);
   }
 }
+
+
 
 
 

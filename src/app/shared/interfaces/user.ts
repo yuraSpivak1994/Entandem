@@ -1,3 +1,7 @@
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "../../../environments/environment";
+
 export interface User {
   hearAbout?: string;
   lang?: string;
@@ -97,4 +101,16 @@ export interface PeriodicElement {
   type?: string;
   amount?: string;
   status?: string;
+}
+
+export class PaymentsHttpDatabase {
+  constructor(private _httpClient: HttpClient) {
+  }
+
+  getRepoIssues(sortArray): Observable<any> {
+    const requestUrl =
+      `${environment.apiUrl}/profile/payments`;
+
+    return this._httpClient.post<any>(requestUrl, sortArray);
+  }
 }

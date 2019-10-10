@@ -16,6 +16,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { MatSortModule } from "@angular/material/sort";
     MatIconModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule
   ],
   imports: [
     CommonModule

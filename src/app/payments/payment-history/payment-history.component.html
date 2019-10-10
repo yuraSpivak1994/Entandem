@@ -18,7 +18,7 @@
                           <img src="assets/image/search.svg" alt="search" (click)="toggleSearch()">
                         </div>
                         <mat-form-field>
-                          <input matInput [ngModel]='model'
+                          <input matInput [ngModel]='searchValue'
                                  (ngModelChange)='changed($event)'
                                  formControlName="search"
                                  placeholder="Search">
@@ -96,7 +96,7 @@
               <div>
                 <table mat-table
                        [dataSource]="newData"
-                       matSort matSortActive="Date" matSortDisableClear matSortDirection="desc">
+                       matSort matSortActive="date" matSortDisableClear matSortDirection="desc">
                   <ng-container class="hover-table" matColumnDef="menu">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td data-label="" mat-cell *matCellDef="let element">
@@ -108,7 +108,7 @@
                       </div>
                     </td>
                   </ng-container>
-                  <ng-container class="hover-table" matColumnDef="Date">
+                  <ng-container class="hover-table" matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Date</th>
                     <td data-label="Date" mat-cell *matCellDef="let element"> {{element.PAYMENT_DATE | date}} </td>
                   </ng-container>
@@ -117,24 +117,24 @@
                     <td data-label="Time" mat-cell
                         *matCellDef="let element"> {{element.TRANS_DATE | date:'shortTime'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="Pay  #">
+                  <ng-container matColumnDef="pay#">
                     <th mat-header-cell *matHeaderCellDef> Pay #</th>
-                    <td data-label="Pay  #" mat-cell *matCellDef="let element"><a href=""> {{element.ACCT_NO}} </a></td>
+                    <td data-label="Pay  #" mat-cell *matCellDef="let element"><a [routerLink]="['/payments/successful/', element.AUTHORIZATION_NO]"> {{element.ACCT_NO}} </a></td>
                   </ng-container>
-                  <ng-container matColumnDef="Paid by">
+                  <ng-container matColumnDef="paid by">
                     <th mat-header-cell *matHeaderCellDef> Paid by</th>
                     <td data-label="Paid by" mat-cell
-                        *matCellDef="let element">{{element.FIRST_NAME}}  {{element.LAST_NAME}}</td>
+                        *matCellDef="let element" >{{sentUserName(element.FIRST_NAME, element.LAST_NAME)}} {{element.FIRST_NAME}}  {{element.LAST_NAME}}</td>
                   </ng-container>
                   <ng-container matColumnDef="Type">
                     <th mat-header-cell *matHeaderCellDef> Type</th>
                     <td data-label="Type" mat-cell *matCellDef="let element"> Credit Card</td>
                   </ng-container>
-                  <ng-container matColumnDef="Amount (CAD$)">
+                  <ng-container matColumnDef="amount(CAD)">
                     <th mat-header-cell *matHeaderCellDef> Amount (CAD$)</th>
                     <td data-label="Amount (CAD$)" mat-cell *matCellDef="let element"> {{element.PAYMENT_AMT}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="Status">
+                  <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> Status</th>
                     <td data-label="Status" mat-cell
                         [ngStyle]="{'color' : element.status.color }"

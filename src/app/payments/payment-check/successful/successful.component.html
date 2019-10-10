@@ -7,7 +7,7 @@
         </div>
         <div class="content-inside" [ngClass]="{'hide-vertical' : coreService.menuOpen | async}">
           <div class="payment-successful">
-            <div class="payment-card">
+            <div *ngIf="dataUser" class="payment-card">
               <div class="header-card">
                 <div class="image-block">
                   <img src="assets/image/done-icon.svg" alt="dove">
@@ -18,15 +18,15 @@
               <div class="pay-content">
                 <div class="wraper-flex">
                   <span class="mat-small">Confirmation #:</span>
-                  <span class="description-portal">3252345</span>
+                  <span class="description-portal">{{dataUser.ACCT_NO}}</span>
                 </div>
                 <div class="wraper-flex">
                   <span class="mat-small">Date and Time:</span>
-                  <span class="description-portal">May 2, 2019 10:05AM</span>
+                  <span class="description-portal">{{dataUser.PAYMENT_DATE | date}}{{dataUser.TRANS_DATE | date:'shortTime'}}</span>
                 </div>
                 <div class="wraper-flex">
                   <span class="mat-small">Paid by:</span>
-                  <span class="description-portal">Jonh Smith</span>
+                  <span class="description-portal">{{userName}}</span>
                 </div>
               </div>
               <div class="pay-content without-line">
