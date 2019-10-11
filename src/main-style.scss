@@ -395,7 +395,7 @@
 }
 
 .accordeon-container .filter-accordion,
-.accordeon-container .music-start-desc{
+.accordeon-container .music-start-desc {
   color: #6F7886;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
@@ -406,8 +406,38 @@
 }
 
 .accordeon-container .music-start-desc {
-  padding: 0
+  padding: 8px 0;
+  border: none;
  }
+
+.accordeon-container .music-start-date {
+  color: #3E4254;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.accordeon-container .unit-item {
+  position: relative;
+  padding: 10px 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.31);
+}
+
+.accordeon-container .unit-item:after {
+  position: absolute;
+  content: "";
+  width: 43px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+  top: -1px;
+  left: -43px;
+}
+
+.accordeon-container .unit-item img{
+  position: absolute;
+  left: -35px;
+  width: 10px;
+  top: 15px;
+}
 
 
 

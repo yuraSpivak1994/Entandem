@@ -103,6 +103,20 @@ export interface PeriodicElement {
   status?: string;
 }
 
+export interface AllTariff {
+  DATE_END_EFFECTIVE?: any;
+  DATE_START_EFFECTIVE?: string;
+  DATE_TARIFF_END?: any;
+  DATE_TARIFF_START?: string;
+  FREQUENCY?: string;
+  TRFF_DESC_ENG?: string;
+  TRFF_DESC_FR?: string;
+  TRFF_GROUP?: number;
+  TRFF_NAME_ENG?: string;
+  TRFF_NAME_FR?: string;
+  VALID_YEAR?: number;
+}
+
 export class PaymentsHttpDatabase {
   constructor(private _httpClient: HttpClient) {
   }

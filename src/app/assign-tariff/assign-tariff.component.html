@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="content" [@simpleFadeAnimation]="'in'">
-  <div *ngIf="false" class="spinner-box">
-    <mat-spinner *ngIf="false"></mat-spinner>
+  <div *ngIf="showSpinner" class="spinner-box">
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
   </div>
   <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
     <div class="padding-help">
@@ -40,34 +40,36 @@
                   <div class="music-start-desc">Music Usage Start Date</div>
                   <div class="music-start-date">May 2, 2019</div>
 
-                  <div class="add-assign-block">
+                  <div class="add-assign-block music-start-desc">
                     Unit Name
-                    <button class="tariff-unit"><span>+</span>Tariff Unit </button>
+                    <button class="tariff-unit" (click)="openDialogUnit()"><span>+</span>Tariff Unit </button>
                   </div>
+                  <div *ngFor="let unit of [0,1,2]" class="unit-item"><img src="assets/image/star.svg" alt="star">Main Unit</div>
 
                 </mat-expansion-panel>
               </mat-accordion>
             </div>
             <div class="accordeon-container">
+              <form [formGroup]="dateForm">
               <div class="title-accordion">Tariff Available</div>
               <div class="filter-accordion">Name of music usage</div>
               <mat-accordion>
-                <mat-expansion-panel *ngFor="let item of [0,1,2,3,4,5,6]">
+                <mat-expansion-panel *ngFor="let tariff of tariffs">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                     <img src="assets/image/music-icon-tariff.svg" alt="music">
-                      Background Music
+                      {{tariff.TRFF_NAME_ENG}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
 
-                  <p>Lorem ipsum dolor sit amet,
-                    consectetur adipisicing elit. Blanditiis dolores error fugit itaque laborum, magnam magni, nihil
-                    placeat, qui repellat saepe tempora unde velit voluptate voluptatum. Labore ratione ut vel?
+                  <p [innerHtml]="tariff.TRFF_DESC_ENG">
+
                   </p>
 
                   <div class="add-assign-block">
                     <mat-form-field>
                       <input matInput [matDatepicker]="picker"
+                             formControlName="date"
                              placeholder="Add Music Usage Start Date">
                       <mat-datepicker-toggle matSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>
@@ -78,11 +80,15 @@
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-datepicker #picker startView="year"></mat-datepicker>
                     </mat-form-field>
-                    <button class="assign">Assign This Tariff</button>
+                    <button class="assign"
+                            [disabled]="dateForm.invalid"
+                            [ngClass]="{'btn-disabled' : dateForm.invalid}"
+                            (click)="openDialogAssign(tariff.TRFF_GROUP)">Assign This Tariff</button>
                   </div>
 
                 </mat-expansion-panel>
               </mat-accordion>
+              </form>
             </div>
           </div>
         </div>

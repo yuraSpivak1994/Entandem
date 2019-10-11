@@ -123,3 +123,26 @@
   width: 50px!important;
   height: 50px!important;
 }
+
+//MODAL
+::ng-deep .mat-dialog-container {
+  padding: 0!important;
+  overflow: visible!important;
+}
+
+::ng-deep .mat-dialog-actions {
+  margin-bottom: 0!important;
+}
+::ng-deep .mat-dialog-actions[align=end] {
+  justify-content: space-between!important;
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+  justify-content: center!important;
+}
+
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+}
