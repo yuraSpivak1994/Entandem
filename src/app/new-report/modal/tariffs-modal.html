@@ -1,0 +1,96 @@
+<div class="header-modal">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-dialog-actions align="end">
+        <div class="title-box-modal"><span class="title-modal">Edit Profile Information</span></div>
+        <button class="close-modal" mat-dialog-close>
+          <img src="assets/image/cancel.svg" alt="cancel">
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>
+<mat-dialog-content>
+  <form  [formGroup]="formUnit">
+    <div class="border-bot">
+      <div *ngFor="let unit of units" class="units-category" (click)="chooseUnits(unit.TRFF_GROUP)">
+        <img src="assets/image/orange-player.svg" alt="music">
+        <span>{{unit.TRFF_NAME_ENG}}</span>
+      </div>
+    </div>
+    <div class="main-modal">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="field-material">
+<!--            <mat-form-field>-->
+<!--              <mat-label>Select Unit</mat-label>-->
+<!--              <mat-select-->
+<!--                formControlName="unitName">-->
+<!--                <mat-option *ngFor="let name of unitExpand" [value]="name.ROOM_NAME">-->
+<!--                  {{name.ROOM_NAME}}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+
+            <mat-form-field>
+              <mat-label>Select Unit</mat-label>
+              <select matNativeControl formControlName="unitName">
+                <option *ngFor="let name of unitExpand" [value]="name.value">{{name.ROOM_NAME}}</option>
+              </select>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+      <mat-dialog-actions align="end">
+        <button class="modal-blue-btn"
+                (click)="onSubmit()"
+                [mat-dialog-close]="data" cdkFocusInitial
+                [disabled]="formUnit.invalid"
+                [ngClass]="{'btn-disabled' : formUnit.invalid}"
+        >REPORT TARIFF</button>
+      </mat-dialog-actions>
+    </div>
+  </form>
+</mat-dialog-content>
+
+
+<style>
+  .field-material > * {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .units-category {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid rgba(128, 128, 128, 0.35);
+    align-items: center;
+  }
+
+  .border-bot {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.33);
+  }
+
+  .units-category span {
+    color: #3E4254;
+    font-family: 'Roboto';
+    font-size: 14px;
+    line-height: 16px
+  }
+
+  .units-category:hover {
+    background-color: rgba(128, 128, 128, 0.11);
+    cursor: pointer;
+  }
+
+  .units-category img {
+    width: 30px;
+    margin-right: 10px;
+  }
+
+  form {
+    margin-top: 10px;
+  }
+
+</style>

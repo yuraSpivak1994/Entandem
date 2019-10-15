@@ -1,0 +1,83 @@
+<app-header></app-header>
+<div class="content" [@simpleFadeAnimation]="'in'">
+  <div *ngIf="false" class="spinner-box">
+    <mat-spinner *ngIf="false"></mat-spinner>
+  </div>
+  <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
+    <div class="padding-help">
+      <div class="content-inside-page">
+        <div class="header-block">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="title">New Report</h1>
+              <div class="some-information-box">
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Establishment Details</div>
+                  </div>
+                </div>
+                <div *ngIf="user" class="user-detail-wrap">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="user-detail">
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Business Name:</div>
+                            <div class="item-large">{{user.BUSINESS_NAME}}</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">Address:</div>
+                            <div class="item-large">{{user.ADDRESS}}</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Legal Name:</div>
+                            <div class="item-large">{{user.FIRST_NAME}} {{user.LAST_NAME}}</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">City:</div>
+                            <div class="item-large">{{user.CITY}}</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Email:</div>
+                            <div class="item-large">{{user.EMAIL}}</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">Province:</div>
+                            <div class="item-large">{{user.PROVINCE}}</div>
+                          </div>
+                        </div>
+                        <div class="block">
+                          <div class="block-items">
+                            <div class="item-small">Phone</div>
+                            <div class="item-large">{{user.PHONE}}</div>
+                          </div>
+                          <div class="block-items">
+                            <div class="item-small">Postal Code</div>
+                            <div class="item-large">{{user.POSTAL_CODE}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="select-block">
+                <div class="description">Select a Tariff to Report</div>
+                <button (click)="openDialogUnit()" class="plus"><img src="assets/image/plus.svg" alt="plus"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -18,7 +18,7 @@
           <div class="field-material">
             <mat-form-field>
               <input matInput
-                     [(ngModel)]="data.unit"
+                     [(ngModel)]="data.unitName"
                      formControlName="unitName"
                      placeholder="Unit Name">
             </mat-form-field>
@@ -28,7 +28,7 @@
       <mat-dialog-actions align="end">
         <button class="modal-blue-btn"
                 (click)="onSubmit()"
-                [mat-dialog-close]="true" cdkFocusInitial
+                [mat-dialog-close]="data" cdkFocusInitial
                 [disabled]="formUnit.invalid"
                 [ngClass]="{'btn-disabled' : formUnit.invalid}"
         >Change Email</button>

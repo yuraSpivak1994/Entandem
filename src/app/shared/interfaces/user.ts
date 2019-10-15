@@ -117,6 +117,16 @@ export interface AllTariff {
   VALID_YEAR?: number;
 }
 
+export interface UnitTariff {
+    ACCT_NO?: number;
+    ACCT_TRFF_ID?: number;
+    COMPANY?: string;
+    START_DATE?: string;
+    TRFF_GROUP?: number;
+    ROOM_NAME?: string;
+    TRFF_NAME_ENG?: string;
+}
+
 export class PaymentsHttpDatabase {
   constructor(private _httpClient: HttpClient) {
   }

@@ -25,26 +25,33 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div class="accordeon-container payed">
+            <div *ngIf="units" class="accordeon-container payed">
               <div class="title-accordion">Tariff Available</div>
               <div class="filter-accordion">Name of music usage</div>
               <mat-accordion>
-                <mat-expansion-panel *ngFor="let item of [0]">
-                  <mat-expansion-panel-header>
+                <mat-expansion-panel *ngFor="let unit of units">
+                  <mat-expansion-panel-header (click)="expandUnit(unit.TRFF_GROUP)">
                     <mat-panel-title>
                       <img src="assets/image/orange-player.svg" alt="music">
-                      Background Music
+                      {{unit.TRFF_NAME_ENG}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
 
                   <div class="music-start-desc">Music Usage Start Date</div>
-                  <div class="music-start-date">May 2, 2019</div>
+                  <div class="music-start-date">{{unit.START_DATE | date}}</div>
 
                   <div class="add-assign-block music-start-desc">
                     Unit Name
-                    <button class="tariff-unit" (click)="openDialogUnit()"><span>+</span>Tariff Unit </button>
+                    <button class="tariff-unit" (click)="openDialogUnit(unit.TRFF_GROUP)"><span>+</span>Tariff Unit
+                    </button>
                   </div>
-                  <div *ngFor="let unit of [0,1,2]" class="unit-item"><img src="assets/image/star.svg" alt="star">Main Unit</div>
+                  <div *ngFor="let expand of unitExpand">
+                    <div class="unit-item">
+                      <img src="assets/image/star.svg"
+                           [ngStyle]="{'display': checkRoomName(expand.ROOM_NAME)}"
+                           alt="star">{{expand.ROOM_NAME}}
+                    </div>
+                  </div>
 
                 </mat-expansion-panel>
               </mat-accordion>

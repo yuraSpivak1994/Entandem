@@ -46,7 +46,7 @@
         <img src="assets/image/arrow-point-to-down.svg" alt="arrow" class="arrow-icon active-arrow"
              [ngClass]="{'transform': !expandedSectionFirst }">
       </div>
-      <div class="sub-menu">Submit New</div>
+      <div class="sub-menu" [routerLink]="['/new-report']">Submit New</div>
       <div class="sub-menu">Drafts</div>
       <div class="sub-menu">Submitted</div>
     </div>

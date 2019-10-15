@@ -35,4 +35,20 @@ export class AssignTariffService {
         }), catchError(val => throwError(val)));
   }
 
+  addUnit(unit, tariffSeq) {
+    return this.http.post(environment.apiUrl + '/profile/tariff/add-unit/' + tariffSeq, unit)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }), catchError(val => throwError(val)));
+  }
+
+  getUnitNew(tariffSeq) {
+    return this.http.get(environment.apiUrl + '/profile/tariff/user-tariff-units/' + tariffSeq)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }), catchError(val => throwError(val)));
+  }
+
 }
