@@ -1,9 +1,12 @@
 <div class="header-modal">
   <div class="row">
     <div class="col-md-12">
+      <div *ngIf="showSpinner" class="spinner-box">
+        <mat-spinner *ngIf="showSpinner"></mat-spinner>
+      </div>
       <mat-dialog-actions align="end">
         <div class="title-box-modal"><span class="title-modal">Edit Profile Information</span></div>
-        <button class="close-modal" mat-dialog-close>
+        <button class="close-modal" mat-dialog-close [mat-dialog-close]="false" >
           <img src="assets/image/cancel.svg" alt="cancel">
         </button>
       </mat-dialog-actions>
@@ -11,7 +14,7 @@
   </div>
 </div>
 <mat-dialog-content>
-  <form  [formGroup]="formUnit">
+  <form [formGroup]="formUnit">
     <div class="border-bot">
       <div *ngFor="let unit of units" class="units-category" (click)="chooseUnits(unit.TRFF_GROUP)">
         <img src="assets/image/orange-player.svg" alt="music">
@@ -22,22 +25,21 @@
       <div class="row">
         <div class="col-md-12">
           <div class="field-material">
-<!--            <mat-form-field>-->
-<!--              <mat-label>Select Unit</mat-label>-->
-<!--              <mat-select-->
-<!--                formControlName="unitName">-->
-<!--                <mat-option *ngFor="let name of unitExpand" [value]="name.ROOM_NAME">-->
-<!--                  {{name.ROOM_NAME}}-->
-<!--                </mat-option>-->
-<!--              </mat-select>-->
-<!--            </mat-form-field>-->
-
             <mat-form-field>
               <mat-label>Select Unit</mat-label>
-              <select matNativeControl formControlName="unitName">
-                <option *ngFor="let name of unitExpand" [value]="name.value">{{name.ROOM_NAME}}</option>
-              </select>
+              <mat-select [(ngModel)]="selected" formControlName="nameUnit">
+                <mat-option *ngFor="let name of unitExpand" [value]="name.TRFF_GROUP">
+                  {{name.ROOM_NAME}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
+
+<!--            <mat-form-field>-->
+<!--              <mat-label>Select Unit</mat-label>-->
+<!--              <select matNativeControl>-->
+<!--                <option *ngFor="let name of unitExpand" [value]="name.value" [selected]="name.value">{{name.ROOM_NAME}}</option>-->
+<!--              </select>-->
+<!--            </mat-form-field>-->
 
           </div>
         </div>
@@ -45,7 +47,7 @@
       <mat-dialog-actions align="end">
         <button class="modal-blue-btn"
                 (click)="onSubmit()"
-                [mat-dialog-close]="data" cdkFocusInitial
+                [mat-dialog-close]="true" cdkFocusInitial
                 [disabled]="formUnit.invalid"
                 [ngClass]="{'btn-disabled' : formUnit.invalid}"
         >REPORT TARIFF</button>

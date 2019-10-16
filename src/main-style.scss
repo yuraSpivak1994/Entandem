@@ -322,7 +322,7 @@
   border-top: 1px solid rgba(128, 128, 128, 0.35);
 }
 
-.accordeon-container img{
+.accordeon-container img.player{
   max-width: 30px;
   margin-right: 20px;
 }
@@ -385,6 +385,7 @@
 }
 
 .accordeon-container .title-accordion {
+  position: relative;
   color: #3E4254;
   font-family: 'Poppins', sans-serif;
   font-size: 15px;

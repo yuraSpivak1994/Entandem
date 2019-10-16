@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="content" [@simpleFadeAnimation]="'in'">
-  <div *ngIf="false" class="spinner-box">
-    <mat-spinner *ngIf="false"></mat-spinner>
+  <div *ngIf="showSpinner" class="spinner-box">
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
   </div>
   <div class="center-part" [ngClass]="{'hide-part' : coreService.menuOpen | async}">
     <div class="padding-help">
@@ -67,11 +67,93 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div *ngIf="false" class="row">
             <div class="col-md-12">
               <div class="select-block">
                 <div class="description">Select a Tariff to Report</div>
                 <button (click)="openDialogUnit()" class="plus"><img src="assets/image/plus.svg" alt="plus"></button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="true" class="row">
+            <div class="col-md-12">
+              <div class="accordeon-container panel-payed">
+                <div class="title-accordion">Tariff Available
+                  <div class="hover-icon-pencil">
+                    <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
+                  </div>
+                </div>
+                <div class="header-title">
+                  <img src="assets/image/orange-player.svg" alt="music" >
+                 <span class="description-panel no-padding"> Ufjwfih sifosf oisf oiuou</span>
+                </div>
+                <div class="description-panel">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, beatae commodi cum,
+                  dolores eos et laboriosam nesciunt quia quod ullam voluptate voluptatem voluptates.
+                  Earum expedita inventore nesciunt odit quas, tempore?
+                </div>
+                <div class="desc-small">Tariff Unit:</div>
+                <div class="desc-medium">May, 2019 19</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-block">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="some-information-box">
+                <div class="row">
+                  <div class="col">
+                    <div class="descriptions">Event Details</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="event-table">
+            <div class="row">
+              <div class="col-md-2 col-xs-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <mat-label>Select Unit</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let name of [21,2,4,5,6]" [value]="name">
+                        {{name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-12">
+                <div class="field-material">
+                  <mat-form-field>
+                    <mat-label>Select Unit</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let name of [21,2,4,5,6]" [value]="name">
+                        {{name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="line"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="small-title">Please complete your event details below</div>
+              </div>
+              <div class="col-md-6">
+                <div class="receive-block">
+                  <div class="square">
+                    <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox">
+                    <label class="ng-tns-c10-10" for="checkbox-square"></label>
+                  </div>
+                  <label class="receive description-panel" for="checkbox-square">Report as Live Music Only Events (No use of recorded music)</label>
+                </div>
               </div>
             </div>
           </div>

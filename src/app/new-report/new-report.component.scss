@@ -86,9 +86,39 @@
 ::ng-deep .cdk-global-overlay-wrapper {
   justify-content: center!important;
 }
+//
 
 
 .mat-dialog-actions {
   display: flex;
   justify-content: center;
 }
+
+.panel-payed {
+  margin-bottom: 35px;
+}
+
+//Panel event
+.event-table {
+  background-color: #fff;
+  border: 1px solid rgba(128, 128, 128, 0.18);
+  padding: 30px 20px 0 20px;
+}
+
+.event-table .field-material >  * {
+  margin-bottom: 0;
+}
+
+.receive-block {
+  display: flex;
+  align-items: center;
+
+  label {
+    margin-bottom: 0;
+  }
+
+  .receive {
+    padding: 5px 0 0 10px;
+  }
+}
+//

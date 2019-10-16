@@ -628,6 +628,8 @@ header .toggle-language .rectangle {
 .spinner-box {
   width: 100%;
   height: 100vh;
+  top: 0;
+  left: 0;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -730,5 +732,92 @@ header .toggle-language .rectangle {
 .include-container .right .item .mark {
   padding-left: 10px;
   padding-bottom: 5px;
+}
+
+//icon
+.hover-icon-pencil {
+  background: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  border-radius: 100%;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  transform: translate(-50%, -80%);
+  transition: 0.3s;
+  cursor: pointer;
+
+  & img {
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.24);
+  }
+}
+//panel
+.header-title {
+  padding: 10px 10px 10px 20px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid rgba(128, 128, 128, 0.08);
+  border-right: 1px solid rgba(128, 128, 128, 0.09);
+
+  & img {
+    max-width: 40px;
+    margin-right: 10px;
+  }
+}
+
+.description-panel {
+  color: #6F7886;
+  font-family: 'Rubik';
+  font-size: 14px;
+  line-height: 24px;
+  padding: 10px 10px 10px 20px;
+}
+
+.panel-payed .desc-small{
+  padding: 10px 10px 10px 20px;
+}
+
+.panel-payed .desc-medium {
+  padding: 10px 10px 10px 20px;
+}
+
+//description
+
+.no-padding {
+  padding: 0;
+}
+.desc-small {
+  color: #6F7886;
+  font-family: 'Roboto';
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.desc-medium {
+  color: #3E4254;
+  font-family: 'Roboto';
+  font-size: 16px;
+  line-height: 19px
+}
+
+.small-title {
+  color: #4A5669;
+  font-family: 'Lato';
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px
+}
+//
+
+.line {
+  width: 100%;
+  border: 0.5px solid rgba(128, 128, 128, 0.18);
 }
 

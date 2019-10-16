@@ -4,13 +4,8 @@ import { CoreService } from "../core/core.service";
 import { UnitTariff, UserInfo } from "../shared/interfaces/user";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { AddUnit, UnitDialog } from "../assign-tariff/assign-tariff.component";
+import { AddUnit } from "../assign-tariff/assign-tariff.component";
 import { AssignTariffService } from "../assign-tariff/assign-tariff.service";
-
-export interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-new-report',
@@ -21,18 +16,22 @@ export interface Food {
 export class NewReportComponent implements OnInit {
 
   user: UserInfo;
-  confirm: string;
+  createRepModal = false;
+  showSpinner = false;
 
   constructor(public coreService: CoreService,
               public dialog: MatDialog) {
   }
 
   fetchUserInfo() {
+    this.showSpinner = true;
     this.coreService.getUser()
       .subscribe((data) => {
         this.user = data;
+        this.showSpinner = false;
       }, error => {
-        console.log(error)
+        console.log(error);
+        this.showSpinner = false;
       })
   };
 
@@ -43,11 +42,11 @@ export class NewReportComponent implements OnInit {
   openDialogUnit(): void {
     const dialogRef = this.dialog.open(TariffsDialog, {
       width: '550px',
-      data: {name: this.confirm}
+      data: {name: this.createRepModal}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      let res = {unitName: ''};
+      this.createRepModal = result;
     });
   }
 
@@ -59,42 +58,49 @@ export class NewReportComponent implements OnInit {
 })
 
 export class TariffsDialog implements OnInit {
-  formUnit: FormGroup;
   units: UnitTariff;
-  unitExpand: UnitTariff
-  selected = 'option2'
+  unitExpand: UnitTariff;
+  showSpinner = false;
+  selected: number;
+  formUnit: FormGroup;
 
 
   constructor(
-    public formBuilder: FormBuilder,
     private assignTariffService: AssignTariffService,
+    private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<TariffsDialog>,
     @Inject(MAT_DIALOG_DATA) public data: AddUnit) {}
 
+  onSubmit() {
+    console.log(this.formUnit.controls.nameUnit.value);
+  }
+
   initUnitForm() {
     this.formUnit = this.formBuilder.group({
-      unitName: new FormControl(null, [Validators.required])
+      nameUnit: new FormControl(null, [Validators.required])
     });
   }
 
-
-  onSubmit() {}
-
   getAllUnit() {
+    this.showSpinner = true;
     const active = 0;
     this.assignTariffService.getUnit(active)
       .subscribe((data) => {
-        this.initUnitForm();
         this.units = data;
+        this.showSpinner = false;
       }, error => {
         console.log(error);
+        this.showSpinner = false;
       })
   }
 
   chooseUnits(tariff) {
+    this.selected = tariff;
+    this.showSpinner = true;
     this.assignTariffService.getUnitNew(tariff)
       .subscribe((data) => {
         this.unitExpand = data;
+        this.showSpinner = false;
         console.log(this.unitExpand)
       }, error => {
         console.log(error);
@@ -102,8 +108,8 @@ export class TariffsDialog implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initUnitForm();
     this.getAllUnit();
+    this.initUnitForm()
   }
 
 }

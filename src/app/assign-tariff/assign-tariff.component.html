@@ -32,7 +32,7 @@
                 <mat-expansion-panel *ngFor="let unit of units">
                   <mat-expansion-panel-header (click)="expandUnit(unit.TRFF_GROUP)">
                     <mat-panel-title>
-                      <img src="assets/image/orange-player.svg" alt="music">
+                      <img class="player" src="assets/image/orange-player.svg" alt="music">
                       {{unit.TRFF_NAME_ENG}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
@@ -64,7 +64,7 @@
                 <mat-expansion-panel *ngFor="let tariff of tariffs">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                    <img src="assets/image/music-icon-tariff.svg" alt="music">
+                    <img class="player" src="assets/image/music-icon-tariff.svg" alt="music">
                       {{tariff.TRFF_NAME_ENG}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
