@@ -127,6 +127,26 @@ export interface UnitTariff {
     TRFF_NAME_ENG?: string;
 }
 
+export interface Count100 {
+  start?: number;
+  end?: number
+}
+
+export interface Count300 {
+  start?: number;
+  end?: number
+}
+
+export interface Count500 {
+  start?: number;
+  end?: number
+}
+
+export interface CountOver500 {
+  start?: number;
+  end?: number
+}
+
 export class PaymentsHttpDatabase {
   constructor(private _httpClient: HttpClient) {
   }

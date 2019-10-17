@@ -17,6 +17,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [],
@@ -37,7 +38,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCheckboxModule
   ],
   imports: [
     CommonModule

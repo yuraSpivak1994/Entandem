@@ -86,6 +86,24 @@
 ::ng-deep .cdk-global-overlay-wrapper {
   justify-content: center!important;
 }
+//checkbox
+::ng-deep .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+  background: #0a00ff;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #3f51b5;
+}
+
+::ng-deep.margin-checkbox .mat-checkbox-inner-container {
+  margin-bottom: 5px;
+}
+
+::ng-deep.margin-checkbox label {
+  margin-bottom: 0;
+}
 //
 
 
@@ -120,5 +138,81 @@
   .receive {
     padding: 5px 0 0 10px;
   }
+}
+
+.padd-left-5 {
+  padding-left: 10px;
+}
+
+.padd-top-item {
+  padding: 10px 0;
+  min-height: 40px;
+}
+
+.empty-space-20px {
+  height: 10px;
+  width: 100%;
+}
+
+.display-flex {
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep.little-menu.mat-menu-panel {
+  max-width: 222px;
+}
+
+::ng-deep.little-menu .mat-menu-content:not(:empty) {
+  padding: 20px 0;
+}
+
+::ng-deep.little-menu .mat-menu-content {
+  background-color: #fff!important;
+}
+
+::ng-deep.little-menu .mat-menu-item {
+  color: #ffffff;
+  padding: 0 5px!important;
+  height: auto;
+  max-width: 52%;
+  float: left;
+}
+
+::ng-deep.little-menu .mat-menu-item.first-btn {
+  margin-left: 80px!important;
+}
+
+::ng-deep.little-menu .mat-menu-item-highlighted:not([disabled]), .little-menu.mat-menu-item.cdk-keyboard-focused:not([disabled]), .little-menu.mat-menu-item.cdk-program-focused:not([disabled]), .little-menu.mat-menu-item:hover:not([disabled]) {
+  background-color: rgba(21, 0, 255, 0);
+}
+
+::ng-deep .cdk-overlay-transparent-backdrop, .cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing {
+  opacity: initial !important;
+}
+
+::ng-deep .cdk-overlay-backdrop {
+  background-color: rgba(52, 73, 255, 0.47) !important;
+}
+
+.padd-20px {
+  padding: 20px;
+}
+
+.little-menu .field-material > * {
+  margin-bottom: 0;
+}
+
+.btn-link {
+  color: #404DDC;
+  font-family: 'Rubik';
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 15px;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
 }
 //
