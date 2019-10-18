@@ -5,10 +5,12 @@ import { NewReportRouterModule } from "./new-report-router-module";
 import { SharedModule } from "../shared/shared.module";
 import { CoreModule } from "../core/core.module";
 import { FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { ReceptionComponent } from './modal/tariffs/reception/reception.component';
+import { CircusesComponent } from './modal/tariffs/circuses/circuses.component';
 
 
 @NgModule({
-  declarations: [NewReportComponent, TariffsDialog],
+  declarations: [NewReportComponent, TariffsDialog, ReceptionComponent, CircusesComponent],
   imports: [
     CommonModule,
     NewReportRouterModule,
@@ -24,6 +26,6 @@ import { FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
     }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [TariffsDialog]
+  entryComponents: [TariffsDialog, ReceptionComponent, CircusesComponent]
 })
 export class NewReportModule { }

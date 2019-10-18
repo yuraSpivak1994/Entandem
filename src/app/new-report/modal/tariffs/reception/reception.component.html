@@ -1,0 +1,440 @@
+<div  class="row">
+  <div class="col-md-12">
+    <div class="accordeon-container panel-payed">
+      <div class="title-accordion">Tariff Available
+        <div class="hover-icon-pencil">
+          <img src="assets/image/pencil.svg" alt="pen" class="hover-text">
+        </div>
+      </div>
+      <div class="header-title">
+        <img src="assets/image/orange-player.svg" alt="music" >
+        <span class="description-panel no-padding"> Ufjwfih sifosf oisf oiuou</span>
+      </div>
+      <div class="description-panel">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, beatae commodi cum,
+        dolores eos et laboriosam nesciunt quia quod ullam voluptate voluptatem voluptates.
+        Earum expedita inventore nesciunt odit quas, tempore?
+      </div>
+      <div class="desc-small">Tariff Unit:</div>
+      <div class="desc-medium">May, 2019 19</div>
+    </div>
+  </div>
+</div>
+
+<div class="header-block">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="some-information-box">
+        <div class="row">
+          <div class="col">
+            <div class="descriptions">Event Details</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event-table">
+    <div class="row">
+      <div class="col-md-2 col-xs-12">
+        <div class="field-material">
+          <mat-form-field>
+            <mat-label>Year of Reporting</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let name of [21,2,4,5,6]" [value]="name">
+                {{name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <div class="field-material">
+          <mat-form-field>
+            <mat-label>Reporting Quarter</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let name of [21,2,4,5,6]" [value]="name">
+                {{name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="empty-space-20px"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="empty-space-20px"></div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="small-title">Please complete your event details below</div>
+      </div>
+      <div class="col-md-6">
+        <div class="receive-block">
+          <div class="square">
+            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox">
+            <label class="ng-tns-c10-10" for="checkbox-square"></label>
+          </div>
+          <label class="receive description-panel" for="checkbox-square">Report as Live Music Only Events (No use of recorded music)</label>
+        </div>
+      </div>
+    </div>
+    <div class="empty-space-20px"></div>
+    <div class="desc-small padd-left-5">Room Capacity</div>
+    <div class="empty-space-20px"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="empty-space-20px"></div>
+      <div class="col-md-4 display-flex">
+        <mat-checkbox
+          class="desc-medium margin-checkbox"
+          [(ngModel)]="checked">
+          1-100
+        </mat-checkbox>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checked" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checked" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+          {{count100.start}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countStart100"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountStart100(countStart100, count100.start)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checked" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checked" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+          {{count100.end}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countEnd100"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountEnd100(countEnd100, count100.end)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="empty-space-20px"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <!--            item2-->
+    <div class="row">
+      <div class="empty-space-20px"></div>
+      <div class="col-md-4 display-flex">
+        <mat-checkbox
+          class="desc-medium margin-checkbox"
+          [(ngModel)]="checked300">
+          101-301
+        </mat-checkbox>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checked300" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checked300" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+          {{count300.start}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countStart300"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountStart300(countStart300, count300.start)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checked300" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checked300" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+          {{count300.end}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countEnd300"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountEnd300(countEnd300, count300.end)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="empty-space-20px"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <!--            item3-->
+    <div class="row">
+      <div class="empty-space-20px"></div>
+      <div class="col-md-4 display-flex">
+        <mat-checkbox
+          class="desc-medium margin-checkbox"
+          [(ngModel)]="checked500">
+          301-500
+        </mat-checkbox>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checked500" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checked500" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+          {{count500.start}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countStart500"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountStart500(countStart500, count500.start)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checked500" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checked500" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+          {{count500.end}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countEnd500"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountEnd500(countEnd500, count500.end)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="empty-space-20px"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <!--            item4-->
+    <div class="row">
+      <div class="empty-space-20px"></div>
+      <div class="col-md-4 display-flex">
+        <mat-checkbox
+          class="desc-medium margin-checkbox"
+          [(ngModel)]="checkedOver500">
+          Over 500
+        </mat-checkbox>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checkedOver500" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checkedOver500" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+          {{countOver500.start}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countStartOver500"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountStartOver500(countStartOver500, countOver500.start)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-4 display-flex">
+        <div *ngIf="!checkedOver500" class="desc-small padd-top-item">
+          Add # of Events (w/o dancing)
+        </div>
+        <div *ngIf="checkedOver500" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+          {{countOver500.end}}
+          <mat-menu #edit="matMenu" class="little-menu">
+                   <span (click)="$event.stopPropagation()" class="padd-20px">
+                     <mat-form-field>
+                       <input matInput
+                              type="number"
+                              min="0"
+                              [(ngModel)]="countEndOver500"
+                              placeholder="Add # of Events (w/ dancing)">
+                     </mat-form-field>
+                   </span>
+            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+            <span mat-menu-item class="btn-link" (click)="addCountEndOver500(countEndOver500, countOver500.end)">ADD</span>
+            <div class="empty-space-20px"></div>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="empty-space-20px"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="empty-space-20px"></div>
+    <div class="empty-space-20px"></div>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <span class="btn-link" (click)="expandCalculate()">HOW TO CALCULATE <img src="assets/image/arrow-down-violet.svg" alt="arrow"></span>
+      </div>
+    </div>
+    <div class="empty-space-30px"></div>
+    <!--            title-->
+    <div [ngClass]="{'open-expand' : expandCalc}">
+      <div class="row">
+        <div class="col-md-12 display-flex padd-left-115">
+          <div class="desc-small padd-right-5">Fees from:</div>
+          <div class="border-socan">SOCAN</div>
+          <div class="border-sound">Re:Sound</div>
+        </div>
+      </div>
+      <!--            calc-->
+      <div class="empty-space-30px"></div>
+      <div class="empty-space-30px"></div>
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="flex-cont-calc first">
+            <div class="figure-block">
+              <div class="desc-small absolute-title">Room Capacity</div>
+              <span class="desc-medium">1-100</span>
+              <span class="desc-medium">101-301</span>
+              <span class="desc-medium">301-500</span>
+              <span class="desc-medium">Over 500</span>
+            </div>
+            <div class="calculate-block">
+              <div class="desc-small absolute-title">Fee Per # Event(Without Dancing)</div>
+              <div class="border-socan">
+                <span class="plus-after">$34.7</span>
+                <span class="plus-after">$34.7</span>
+                <span class="plus-after">$34.7</span>
+                <span class="plus-after">$34.7</span>
+              </div>
+              <div class="plus"></div>
+              <div class="border-sound">
+                <span>$45.4</span>
+                <span>$45.4</span>
+                <span>$45.4</span>
+                <span>$45.4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="empty-space-50px"></div>
+        <div class="col-md-6 col-xs-12">
+          <div class="flex-cont-calc first">
+            <div class="figure-block none-width">
+              <div class="desc-small absolute-title">Room Capacity</div>
+              <span class="desc-medium">1-100</span>
+              <span class="desc-medium">101-301</span>
+              <span class="desc-medium">301-500</span>
+              <span class="desc-medium">Over 500</span>
+            </div>
+            <div class="calculate-block padd-left-100">
+              <div class="desc-small absolute-title">Fee Per # Event (With Dancing)</div>
+              <div class="border-socan">
+                <span class="plus-after">$34.7</span>
+                <span class="plus-after">$34.7</span>
+                <span class="plus-after">$34.7</span>
+                <span class="plus-after">$34.7</span>
+              </div>
+              <div class="plus"></div>
+              <div class="border-sound">
+                <span>$45.4</span>
+                <span>$45.4</span>
+                <span>$45.4</span>
+                <span>$45.4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="empty-space-30px"></div>
+    </div>
+    <!--            line-->
+  </div>
+  <div class="empty-space-30px"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="total-card">
+        <div class="item-total-little">
+          <span class="desc-small">SOCAN Licensing Fees:</span>
+          <span class="desc-medium">$ 435</span>
+        </div>
+        <div class="item-total-little">
+          <span class="desc-small">Re:Sound Licensing Fees:</span>
+          <span class="desc-medium">$ 435</span>
+        </div>
+        <div class="item-total-little">
+          <span class="desc-small">HST:</span>
+          <span class="desc-medium">$ 435</span>
+        </div>
+        <div class="empty-space-20px"></div>
+        <div class="line"></div>
+        <div class="empty-space-20px"></div>
+        <div class="item-total-little">
+          <span class="total-desc">Total Fees:</span>
+          <span class="count-total">$586.35</span>
+        </div>
+        <div class="empty-space-30px"></div>
+        <div class="btn-box">
+          <button class="continue">Continue to review</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="empty-space-30px"></div>
+</div >
+

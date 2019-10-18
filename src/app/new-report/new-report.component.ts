@@ -6,6 +6,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { AddUnit } from "../assign-tariff/assign-tariff.component";
 import { AssignTariffService } from "../assign-tariff/assign-tariff.service";
+import { ReceptionComponent } from "./modal/tariffs/reception/reception.component";
+import { CircusesComponent } from "./modal/tariffs/circuses/circuses.component";
 
 @Component({
   selector: 'app-new-report',
@@ -18,45 +20,10 @@ export class NewReportComponent implements OnInit {
   user: UserInfo;
   createRepModal = false;
   showSpinner = false;
-  checked = false;
-  checked300 = false;
-  checked500 = false;
-  checkedOver500 = false;
-  count100: Count100;
-  count300: Count300;
-  count500: Count500;
-  countOver500: CountOver500;
-  countEnd100 = 0;
-  countStart100 = 0;
-  countEnd300 = 0;
-  countStart300 = 0;
-  countEnd500 = 0;
-  countStart500 = 0;
-  countEndOver500 = 0;
-  countStartOver500 = 0;
+  dummyComponent;
 
   constructor(public coreService: CoreService,
-              public dialog: MatDialog) {
-   this.count100 = {
-     start: 0,
-     end: 0,
-   };
-
-    this.count300 = {
-      start: 0,
-      end: 0,
-    };
-
-    this.count500 = {
-      start: 0,
-      end: 0,
-    };
-
-    this.countOver500 = {
-      start: 0,
-      end: 0,
-    };
-  }
+              public dialog: MatDialog) {}
 
   fetchUserInfo() {
     this.showSpinner = true;
@@ -82,47 +49,14 @@ export class NewReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.createRepModal = result;
+      this.assignComponent('reception');
     });
   }
 
-  addCountEnd100(count: number, objCount: number) {
-    objCount = count;
-    this.count100.end = objCount;
-  }
-
-  addCountStart100(count: number, objCount: number) {
-    objCount = count;
-    this.count100.start = objCount;
-  }
-
-  addCountEnd300(count: number, objCount: number) {
-    objCount = count;
-    this.count300.end = objCount;
-  }
-
-  addCountStart300(count: number, objCount: number) {
-    objCount = count;
-    this.count300.start = objCount;
-  }
-
-  addCountEnd500(count: number, objCount: number) {
-    objCount = count;
-    this.count500.end = objCount;
-  }
-
-  addCountStart500(count: number, objCount: number) {
-    objCount = count;
-    this.count500.start = objCount;
-  }
-
-  addCountEndOver500(count: number, objCount: number) {
-    objCount = count;
-    this.countOver500.end = objCount;
-  }
-
-  addCountStartOver500(count: number, objCount: number) {
-    objCount = count;
-    this.countOver500.start = objCount;
+  assignComponent(component) {
+    if (component === "reception") this.dummyComponent = ReceptionComponent;
+    else if (component === "circuses") this.dummyComponent = CircusesComponent;
+    // else this.dummyComponent = CatComponent;
   }
 
 }
