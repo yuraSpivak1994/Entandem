@@ -1,4 +1,4 @@
-<div  class="row">
+<div  class="row" *ngIf="unitDetail">
   <div class="col-md-12">
     <div class="accordeon-container panel-payed">
       <div class="title-accordion">Tariff Available
@@ -8,20 +8,19 @@
       </div>
       <div class="header-title">
         <img src="assets/image/orange-player.svg" alt="music" >
-        <span class="description-panel no-padding"> Ufjwfih sifosf oisf oiuou</span>
+        <span class="description-panel no-padding"> {{unitDetail.TRFF_NAME_ENG}}</span>
       </div>
       <div class="description-panel">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, beatae commodi cum,
-        dolores eos et laboriosam nesciunt quia quod ullam voluptate voluptatem voluptates.
-        Earum expedita inventore nesciunt odit quas, tempore?
+        {{unitDetail.TRFF_DESC_ENG}}
       </div>
       <div class="desc-small">Tariff Unit:</div>
-      <div class="desc-medium">May, 2019 19</div>
+      <div class="desc-medium">{{unitDetail.REV_DATE | date}}</div>
     </div>
   </div>
 </div>
 
 <div class="header-block">
+  <form *ngIf="unitDetail" [formGroup]="tariffForm">
   <div class="row">
     <div class="col-md-12">
       <div class="some-information-box">
@@ -33,28 +32,32 @@
       </div>
     </div>
   </div>
-  <div class="event-table">
+  <div class="event-table" >
+
     <div class="row">
-      <div class="col-md-2 col-xs-12">
-        <div class="field-material">
-          <mat-form-field>
-            <mat-label>Year of Reporting</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let name of [21,2,4,5,6]" [value]="name">
-                {{name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <div class="col-md-2 col-xs-12" >
+        <div >
+          <div class="field-material" >
+            <mat-form-field >
+              <mat-label>Year of Reporting</mat-label>
+              <mat-select formControlName="year" placeholder="Year">
+                <mat-option [value]="unitDetail.VALID_YEAR">
+                  {{unitDetail.VALID_YEAR}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
       </div>
       <div class="col-md-3 col-xs-12">
         <div class="field-material">
           <mat-form-field>
             <mat-label>Reporting Quarter</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let name of [21,2,4,5,6]" [value]="name">
-                {{name}}
-              </mat-option>
+            <mat-select formControlName="quarter">
+              <mat-option value="Q1">1st Quarter (Jan to Mar)</mat-option>
+              <mat-option value="Q2">2nd Quarter (Apr to Jun)</mat-option>
+              <mat-option value="Q3">3rd Quarter (Jul to Sept)</mat-option>
+              <mat-option value="Q4">4th Quarter (Oct to Dec)</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -74,7 +77,7 @@
       <div class="col-md-6">
         <div class="receive-block">
           <div class="square">
-            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox">
+            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox" formControlName="liveMusic">
             <label class="ng-tns-c10-10" for="checkbox-square"></label>
           </div>
           <label class="receive description-panel" for="checkbox-square">Report as Live Music Only Events (No use of recorded music)</label>
@@ -90,240 +93,259 @@
       </div>
     </div>
     <div class="row">
-      <div class="empty-space-20px"></div>
-      <div class="col-md-4 display-flex">
-        <mat-checkbox
-          class="desc-medium margin-checkbox"
-          [(ngModel)]="checked">
-          1-100
-        </mat-checkbox>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checked" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
+        <div class="empty-space-20px"></div>
+        <div class="col-md-4 display-flex">
+          <mat-checkbox
+            class="desc-medium margin-checkbox"
+            formControlName="room100"
+            (click)="updateCount100()"
+            [(ngModel)]="checked">
+            1-100
+          </mat-checkbox>
         </div>
-        <div *ngIf="checked" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
-          {{count100.start}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checked" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checked" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+              <input type="text" [value]="count100.start" formControlName="count1" class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
+                              formControlName="count1"
                               type="number"
                               min="0"
                               [(ngModel)]="countStart100"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountStart100(countStart100, count100.start)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountStart100(countStart100, count100.start)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
+          <button (click)="showValue()">show</button>
         </div>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checked" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
-        </div>
-        <div *ngIf="checked" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
-          {{count100.end}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checked" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checked" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+            <input type="text" [value]="count100.end" class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
                               type="number"
+                              formControlName="count2"
                               min="0"
                               [(ngModel)]="countEnd100"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountEnd100(countEnd100, count100.end)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountEnd100(countEnd100, count100.end)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="empty-space-20px"></div>
+          <div class="line"></div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="empty-space-20px"></div>
-        <div class="line"></div>
-      </div>
-    </div>
+
     <!--            item2-->
-    <div class="row">
-      <div class="empty-space-20px"></div>
-      <div class="col-md-4 display-flex">
-        <mat-checkbox
-          class="desc-medium margin-checkbox"
-          [(ngModel)]="checked300">
-          101-301
-        </mat-checkbox>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checked300" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
+      <div class="row">
+        <div class="empty-space-20px"></div>
+        <div class="col-md-4 display-flex">
+          <mat-checkbox
+            class="desc-medium margin-checkbox"
+            (click)="updateCount300()"
+            formControlName="room300"
+            [(ngModel)]="checked300">
+            101-301
+          </mat-checkbox>
         </div>
-        <div *ngIf="checked300" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
-          {{count300.start}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checked300" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checked300" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+            <input type="text" [value]="count300.start" formGroupName="count3" class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
                               type="number"
+                              formControlName="count3"
                               min="0"
                               [(ngModel)]="countStart300"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountStart300(countStart300, count300.start)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountStart300(countStart300, count300.start)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checked300" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
-        </div>
-        <div *ngIf="checked300" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
-          {{count300.end}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checked300" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checked300" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+            <input type="text" [value]="count300.end" formGroupName="count4" class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
-                     <mat-form-field>
+                      <mat-form-field>
                        <input matInput
                               type="number"
+                              formControlName="count4"
                               min="0"
                               [(ngModel)]="countEnd300"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountEnd300(countEnd300, count300.end)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountEnd300(countEnd300, count300.end)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="empty-space-20px"></div>
+          <div class="line"></div>
         </div>
       </div>
-      <div class="col-md-12">
+      <!--            item3-->
+      <div class="row">
         <div class="empty-space-20px"></div>
-        <div class="line"></div>
-      </div>
-    </div>
-    <!--            item3-->
-    <div class="row">
-      <div class="empty-space-20px"></div>
-      <div class="col-md-4 display-flex">
-        <mat-checkbox
-          class="desc-medium margin-checkbox"
-          [(ngModel)]="checked500">
-          301-500
-        </mat-checkbox>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checked500" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
+        <div class="col-md-4 display-flex">
+          <mat-checkbox
+           formControlName="room500"
+            class="desc-medium margin-checkbox"
+           (click)="updateCount500()"
+            [(ngModel)]="checked500">
+            301-500
+          </mat-checkbox>
         </div>
-        <div *ngIf="checked500" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
-          {{count500.start}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checked500" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checked500" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+            <input type="text" [value]="count500.start" formGroupName="count5" class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
                               type="number"
+                              formControlName="count5"
                               min="0"
                               [(ngModel)]="countStart500"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountStart500(countStart500, count500.start)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountStart500(countStart500, count500.start)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checked500" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
-        </div>
-        <div *ngIf="checked500" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
-          {{count500.end}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checked500" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checked500" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+            <input type="text" [value]="count500.end" formGroupName="count6"  class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
+                              formControlName="count6"
                               type="number"
                               min="0"
                               [(ngModel)]="countEnd500"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountEnd500(countEnd500, count500.end)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountEnd500(countEnd500, count500.end)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="empty-space-20px"></div>
+          <div class="line"></div>
         </div>
       </div>
-      <div class="col-md-12">
+      <!--            item4-->
+      <div class="row">
         <div class="empty-space-20px"></div>
-        <div class="line"></div>
-      </div>
-    </div>
-    <!--            item4-->
-    <div class="row">
-      <div class="empty-space-20px"></div>
-      <div class="col-md-4 display-flex">
-        <mat-checkbox
-          class="desc-medium margin-checkbox"
-          [(ngModel)]="checkedOver500">
-          Over 500
-        </mat-checkbox>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checkedOver500" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
+        <div class="col-md-4 display-flex">
+          <mat-checkbox
+            formControlName="roomOver500"
+            class="desc-medium margin-checkbox"
+            (click)="updateCountOver500()"
+            [(ngModel)]="checkedOver500">
+            Over 500
+          </mat-checkbox>
         </div>
-        <div *ngIf="checkedOver500" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
-          {{countOver500.start}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checkedOver500" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checkedOver500" class="desc-medium padd-top-item" [matMenuTriggerFor]="edit">
+            <input type="text" [value]="countOver500.start" formGroupName="count7"  class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
+                              formControlName="count7"
                               type="number"
                               min="0"
                               [(ngModel)]="countStartOver500"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountStartOver500(countStartOver500, countOver500.start)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountStartOver500(countStartOver500, countOver500.start)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 display-flex">
-        <div *ngIf="!checkedOver500" class="desc-small padd-top-item">
-          Add # of Events (w/o dancing)
-        </div>
-        <div *ngIf="checkedOver500" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
-          {{countOver500.end}}
-          <mat-menu #edit="matMenu" class="little-menu">
+        <div class="col-md-4 display-flex">
+          <div *ngIf="!checkedOver500" class="desc-small padd-top-item">
+            Add # of Events (w/o dancing)
+          </div>
+          <div *ngIf="checkedOver500" class="desc-medium padd-top-item"  [matMenuTriggerFor]="edit">
+            <input type="text" [value]="countOver500.end"  formGroupName="count8" class="input-none-click">
+            <mat-menu #edit="matMenu" class="little-menu">
                    <span (click)="$event.stopPropagation()" class="padd-20px">
                      <mat-form-field>
                        <input matInput
+                              formControlName="count8"
                               type="number"
                               min="0"
                               [(ngModel)]="countEndOver500"
                               placeholder="Add # of Events (w/ dancing)">
                      </mat-form-field>
                    </span>
-            <span mat-menu-item class="btn-link first-btn">CANCEL</span>
-            <span mat-menu-item class="btn-link" (click)="addCountEndOver500(countEndOver500, countOver500.end)">ADD</span>
-            <div class="empty-space-20px"></div>
-          </mat-menu>
+              <span mat-menu-item class="btn-link first-btn">CANCEL</span>
+              <span mat-menu-item class="btn-link" (click)="addCountEndOver500(countEndOver500, countOver500.end)">ADD</span>
+              <div class="empty-space-20px"></div>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="empty-space-20px"></div>
+          <div class="line"></div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="empty-space-20px"></div>
-        <div class="line"></div>
-      </div>
-    </div>
+
     <div class="empty-space-20px"></div>
     <div class="empty-space-20px"></div>
     <div class="row">
@@ -357,17 +379,11 @@
             <div class="calculate-block">
               <div class="desc-small absolute-title">Fee Per # Event(Without Dancing)</div>
               <div class="border-socan">
-                <span class="plus-after">$34.7</span>
-                <span class="plus-after">$34.7</span>
-                <span class="plus-after">$34.7</span>
-                <span class="plus-after">$34.7</span>
+                  <span *ngFor="let charge of socanTableWOD" class="plus-after">${{charge.UNIT_CHARGE}}</span>
               </div>
               <div class="plus"></div>
               <div class="border-sound">
-                <span>$45.4</span>
-                <span>$45.4</span>
-                <span>$45.4</span>
-                <span>$45.4</span>
+                <span *ngFor="let charge of resoundTableWOD" >${{charge.UNIT_CHARGE}}</span>
               </div>
             </div>
           </div>
@@ -385,17 +401,11 @@
             <div class="calculate-block padd-left-100">
               <div class="desc-small absolute-title">Fee Per # Event (With Dancing)</div>
               <div class="border-socan">
-                <span class="plus-after">$34.7</span>
-                <span class="plus-after">$34.7</span>
-                <span class="plus-after">$34.7</span>
-                <span class="plus-after">$34.7</span>
+                <span *ngFor="let charge of socanTableWD" class="plus-after">${{charge.UNIT_CHARGE}}</span>
               </div>
               <div class="plus"></div>
               <div class="border-sound">
-                <span>$45.4</span>
-                <span>$45.4</span>
-                <span>$45.4</span>
-                <span>$45.4</span>
+                <span *ngFor="let charge of resoundTableWD">${{charge.UNIT_CHARGE}}</span>
               </div>
             </div>
           </div>
@@ -411,14 +421,14 @@
       <div class="total-card">
         <div class="item-total-little">
           <span class="desc-small">SOCAN Licensing Fees:</span>
-          <span class="desc-medium">$ 435</span>
+          <span class="desc-medium">$ {{totalCard.socanTotal || 0 | number}}</span>
         </div>
         <div class="item-total-little">
           <span class="desc-small">Re:Sound Licensing Fees:</span>
           <span class="desc-medium">$ 435</span>
         </div>
         <div class="item-total-little">
-          <span class="desc-small">HST:</span>
+          <span class="desc-small">{{taxCode}}</span>
           <span class="desc-medium">$ 435</span>
         </div>
         <div class="empty-space-20px"></div>
@@ -430,11 +440,15 @@
         </div>
         <div class="empty-space-30px"></div>
         <div class="btn-box">
-          <button class="continue">Continue to review</button>
+          <button class="continue"
+                  (click)="onSubmit()"
+                  [disabled]="tariffForm.invalid"
+                  [ngClass]="{'btn-disabled' : tariffForm.invalid}">Continue to review</button>
         </div>
       </div>
     </div>
   </div>
   <div class="empty-space-30px"></div>
+  </form>
 </div >
 

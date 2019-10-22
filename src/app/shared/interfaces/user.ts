@@ -125,26 +125,56 @@ export interface UnitTariff {
     TRFF_GROUP?: number;
     ROOM_NAME?: string;
     TRFF_NAME_ENG?: string;
+    TRFF_DESC_ENG?: string;
+    REV_DATE?: string;
+    VALID_YEAR?: number;
 }
 
 export interface Count100 {
-  start?: number;
-  end?: number
+  start?: any;
+  end?: any
 }
 
 export interface Count300 {
-  start?: number;
-  end?: number
+  start?: any;
+  end?: any
 }
 
 export interface Count500 {
-  start?: number;
-  end?: number
+  start?: any;
+  end?: any
 }
 
 export interface CountOver500 {
-  start?: number;
-  end?: number
+  start?: any;
+  end?: any
+}
+
+export interface TariffTax {
+  DATE_CREATED?: string;
+  DATE_END?: any;
+  DATE_START?: string;
+  FLAG_PRORATED?: string;
+  PROVINCE_ID?: string;
+  RATE?: number;
+  TAX_CODE?: string;
+}
+
+export interface TableCalculate {
+  COMPANY?: string;
+  LOWER_BOUND?: number;
+  TARIFF_DETAIL_SEQ_NO?: number;
+  TRFF_GROUP?: number;
+  TRFF_NO?: string;
+  TYPE_OF_UNIT?: string;
+  UNIT_CHARGE?: number;
+  UPPER_BOUND?: number;
+}
+
+export interface TotalCard {
+  resoundTotal?: any;
+  sanTotal?: number;
+  subtotal?: any;
 }
 
 export class PaymentsHttpDatabase {

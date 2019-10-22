@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, forwardRef, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, forwardRef, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewReportComponent, TariffsDialog } from "./new-report.component";
 import { NewReportRouterModule } from "./new-report-router-module";
@@ -25,7 +25,7 @@ import { CircusesComponent } from './modal/tariffs/circuses/circuses.component';
       useExisting: forwardRef(() => NewReportComponent),
     }
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   entryComponents: [TariffsDialog, ReceptionComponent, CircusesComponent]
 })
 export class NewReportModule { }

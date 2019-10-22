@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { fadeInAnimation } from "../shared/animation";
 import { CoreService } from "../core/core.service";
-import { Count100, Count300, Count500, CountOver500, UnitTariff, UserInfo } from "../shared/interfaces/user";
+import { UnitTariff, UserInfo } from "../shared/interfaces/user";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { AddUnit } from "../assign-tariff/assign-tariff.component";
 import { AssignTariffService } from "../assign-tariff/assign-tariff.service";
 import { ReceptionComponent } from "./modal/tariffs/reception/reception.component";
 import { CircusesComponent } from "./modal/tariffs/circuses/circuses.component";
+import { NewReportService } from "./new-report.service";
 
 @Component({
   selector: 'app-new-report',
@@ -23,6 +24,7 @@ export class NewReportComponent implements OnInit {
   dummyComponent;
 
   constructor(public coreService: CoreService,
+              private newReportService: NewReportService,
               public dialog: MatDialog) {}
 
   fetchUserInfo() {
@@ -30,6 +32,7 @@ export class NewReportComponent implements OnInit {
     this.coreService.getUser()
       .subscribe((data) => {
         this.user = data;
+        this.newReportService.takeUserInfo(data);
         this.showSpinner = false;
       }, error => {
         console.log(error);
@@ -37,8 +40,9 @@ export class NewReportComponent implements OnInit {
       })
   };
 
+
   ngOnInit() {
-    this.fetchUserInfo()
+    this.fetchUserInfo();
   }
 
   openDialogUnit(): void {
@@ -110,7 +114,6 @@ export class TariffsDialog implements OnInit {
       .subscribe((data) => {
         this.unitExpand = data;
         this.showSpinner = false;
-        console.log(this.unitExpand)
       }, error => {
         console.log(error);
       })

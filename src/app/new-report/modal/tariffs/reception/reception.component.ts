@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Count100, Count300, Count500, CountOver500 } from "../../../../shared/interfaces/user";
+import {
+  Count100,
+  Count300,
+  Count500,
+  CountOver500, TableCalculate,
+  TariffTax, TotalCard,
+  UnitTariff
+} from "../../../../shared/interfaces/user";
+import { NewReportService } from "../../../new-report.service";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-reception',
@@ -8,6 +17,7 @@ import { Count100, Count300, Count500, CountOver500 } from "../../../../shared/i
 })
 export class ReceptionComponent implements OnInit {
 
+  tariffTax: TariffTax;
   checked = false;
   checked300 = false;
   checked500 = false;
@@ -16,6 +26,7 @@ export class ReceptionComponent implements OnInit {
   count300: Count300;
   count500: Count500;
   countOver500: CountOver500;
+  unitDetail: UnitTariff;
   countEnd100 = 0;
   countStart100 = 0;
   countEnd300 = 0;
@@ -25,8 +36,22 @@ export class ReceptionComponent implements OnInit {
   countEndOver500 = 0;
   countStartOver500 = 0;
   expandCalc = true;
+  tariffForm : FormGroup;
+  gstTaxCode = false;
+  hstTaxCode = false;
+  pstTaxCode = false;
+  taxCode: string;
+  tableCalculate: TableCalculate;
+  socanTableWD: Array<TableCalculate> = [];
+  socanTableWOD: Array<TableCalculate> = [];
+  resoundTableWD: Array<TableCalculate> = [];
+  resoundTableWOD: Array<TableCalculate> = [];
+  totalCard = {
+    socanTotal: 0
+  };
 
-  constructor() {
+  constructor(private newReportService: NewReportService,
+              private fb: FormBuilder) {
     this.count100 = {
       start: 0,
       end: 0,
@@ -48,15 +73,137 @@ export class ReceptionComponent implements OnInit {
     };
   }
 
+  fetchUnitDetail() {
+    this.newReportService.getUnitDetail()
+      .subscribe((data) => {
+        this.unitDetail = data;
+        this.tableCalculate = data.DETAILS.slice(0, 16);
+        this.showFiguresTableWOD(this.tableCalculate);
+      }, error => {
+        console.log(error);
+      })
+  }
+
+  fetchTax(PROVINCE) {
+      this.newReportService.getTax(PROVINCE)
+        .subscribe((data) => {
+          this.tariffTax = data;
+          this.checkTaxCode(data.pop())
+        }, error => {
+          console.log(error);
+        })
+  }
+
+  showFiguresTableWOD(detail) {
+    detail.forEach((item) => {
+      if(item.COMPANY === 'SOCAN' && item.TYPE_OF_UNIT === 'WOD') {
+        this.socanTableWOD.push(item);
+      } if(item.COMPANY === 'SOCAN' && item.TYPE_OF_UNIT === 'WDC') {
+        this.socanTableWD.push(item);
+      } if (item.COMPANY === 'RESOUND' && item.TYPE_OF_UNIT === 'WDC') {
+        this.resoundTableWD.push(item);
+      } if (item.COMPANY === 'RESOUND' && item.TYPE_OF_UNIT === 'WOD') {
+        this.resoundTableWOD.push(item);
+      }
+    })
+  }
+
+  checkTaxCode(tax) {
+    if (tax.TAX_CODE == 'GST') { this.gstTaxCode = true; this.taxCode = tax.TAX_CODE}
+    if (tax.TAX_CODE == 'PST' || tax.TAX_CODE == 'QST') { this.pstTaxCode = true; this.taxCode = tax.TAX_CODE}
+    if (tax.TAX_CODE == 'HST') { this.hstTaxCode = true; this.taxCode = tax.TAX_CODE}
+  }
+
+
+  initTariffForm() {
+      this.tariffForm = this.fb.group({
+        year: new FormControl(null, [Validators.required]),
+        quarter: new FormControl(null, [Validators.required]),
+        liveMusic: new FormControl(false),
+
+        room100: new FormControl( this.validPattern()),
+        room300: new FormControl(false),
+        room500: new FormControl(false),
+        roomOver500: new FormControl(false),
+
+
+        count1: new FormControl(0),
+        count2: new FormControl(0),
+        count3: new FormControl(0),
+        count4: new FormControl(0),
+        count5: new FormControl(0),
+        count6: new FormControl(0),
+        count7: new FormControl(0),
+        count8: new FormControl(0),
+      }
+      );
+  }
+
+
+  updateCount100() {
+    let isTrue = this.tariffForm.get('room100').value;
+    if(isTrue) {
+      this.tariffForm.get('count1').setValue(0);
+      this.tariffForm.get('count2').setValue(0);
+      this.count100.start = 0;
+      this.count100.end = 0;
+    }
+    this.setErr();
+  }
+
+  updateCount300() {
+    let isTrue = this.tariffForm.get('room300').value;
+    if(isTrue) {
+      this.tariffForm.get('count3').setValue(0);
+      this.tariffForm.get('count4').setValue(0);
+      this.count300.start = 0;
+      this.count300.end = 0;
+    }
+  }
+
+  updateCount500() {
+    let isTrue = this.tariffForm.get('room500').value;
+    if(isTrue) {
+      this.tariffForm.get('count5').setValue(0);
+      this.tariffForm.get('count6').setValue(0);
+      this.count500.start = 0;
+      this.count500.end = 0;
+    }
+  }
+
+  updateCountOver500() {
+    let isTrue = this.tariffForm.get('roomOver500').value;
+    if(isTrue) {
+      this.tariffForm.get('count7').setValue(0);
+      this.tariffForm.get('count8').setValue(0);
+      this.countOver500.start = 0;
+      this.countOver500.end = 0;
+    }
+  }
+
+  showValue() {
+    console.log(this.tariffForm.value);
+    this.test2();
+  }
 
   addCountEnd100(count: number, objCount: number) {
     objCount = count;
     this.count100.end = objCount;
+    this.setErr();
   }
 
   addCountStart100(count: number, objCount: number) {
     objCount = count;
     this.count100.start = objCount;
+    this.calcTariff();
+    this.setErr();
+  }
+
+  validPattern():void {
+    if (this.count100.start === 0) {
+      console.log(this.count100.start)
+
+    }
   }
 
   addCountEnd300(count: number, objCount: number) {
@@ -93,10 +240,31 @@ export class ReceptionComponent implements OnInit {
     this.expandCalc = !this.expandCalc
   }
 
+  calcTariff() {
+    this.totalCard.socanTotal = this.count100.start * this.socanTableWOD[0].UNIT_CHARGE;
+  }
+
+  setErr() {
+    if(this.count100.start === 0) {
+      this.tariffForm.controls['room100'].setErrors({'incorrect': true});
+    }
+  }
+
+  test2() {
+    console.log('tololol');
+  }
+
+
 
 
 
   ngOnInit() {
+    this.fetchUnitDetail();
+    this.initTariffForm();
+    this.fetchTax(this.newReportService.getUserProvince().PROVINCE);
   }
 
+  onSubmit() {
+
+  }
 }
