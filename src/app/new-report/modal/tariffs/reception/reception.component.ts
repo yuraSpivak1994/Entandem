@@ -121,7 +121,7 @@ export class ReceptionComponent implements OnInit {
         quarter: new FormControl(null, [Validators.required]),
         liveMusic: new FormControl(false),
 
-        room100: new FormControl( this.validPattern()),
+        room100: new FormControl( false),
         room300: new FormControl(false),
         room500: new FormControl(false),
         roomOver500: new FormControl(false),
@@ -148,7 +148,7 @@ export class ReceptionComponent implements OnInit {
       this.count100.start = 0;
       this.count100.end = 0;
     }
-    this.setErr();
+
   }
 
   updateCount300() {
@@ -183,27 +183,24 @@ export class ReceptionComponent implements OnInit {
 
   showValue() {
     console.log(this.tariffForm.value);
-    this.test2();
+    this.validPattern()
   }
 
   addCountEnd100(count: number, objCount: number) {
     objCount = count;
     this.count100.end = objCount;
-    this.setErr();
   }
 
   addCountStart100(count: number, objCount: number) {
     objCount = count;
     this.count100.start = objCount;
     this.calcTariff();
-    this.setErr();
   }
 
   validPattern():void {
-    if (this.count100.start === 0) {
-      console.log(this.count100.start)
-
-    }
+   if(this.checked && this.checked300 && this.checked500 && this.checkedOver500) {
+     this.tariffForm.setErrors({'incorrect': true});
+   }
   }
 
   addCountEnd300(count: number, objCount: number) {
@@ -243,18 +240,6 @@ export class ReceptionComponent implements OnInit {
   calcTariff() {
     this.totalCard.socanTotal = this.count100.start * this.socanTableWOD[0].UNIT_CHARGE;
   }
-
-  setErr() {
-    if(this.count100.start === 0) {
-      this.tariffForm.controls['room100'].setErrors({'incorrect': true});
-    }
-  }
-
-  test2() {
-    console.log('tololol');
-  }
-
-
 
 
 

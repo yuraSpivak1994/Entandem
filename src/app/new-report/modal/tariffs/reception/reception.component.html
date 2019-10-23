@@ -40,11 +40,14 @@
           <div class="field-material" >
             <mat-form-field >
               <mat-label>Year of Reporting</mat-label>
-              <mat-select formControlName="year" placeholder="Year">
+              <mat-select formControlName="year" placeholder="Year" required>
                 <mat-option [value]="unitDetail.VALID_YEAR">
                   {{unitDetail.VALID_YEAR}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="tariffForm.get('year').hasError('required')">
+                Year is required
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -53,12 +56,15 @@
         <div class="field-material">
           <mat-form-field>
             <mat-label>Reporting Quarter</mat-label>
-            <mat-select formControlName="quarter">
+            <mat-select formControlName="quarter" required>
               <mat-option value="Q1">1st Quarter (Jan to Mar)</mat-option>
               <mat-option value="Q2">2nd Quarter (Apr to Jun)</mat-option>
               <mat-option value="Q3">3rd Quarter (Jul to Sept)</mat-option>
               <mat-option value="Q4">4th Quarter (Oct to Dec)</mat-option>
             </mat-select>
+            <mat-error *ngIf="tariffForm.get('quarter').hasError('required')">
+              Quarter is required
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -442,8 +448,10 @@
         <div class="btn-box">
           <button class="continue"
                   (click)="onSubmit()"
-                  [disabled]="tariffForm.invalid"
-                  [ngClass]="{'btn-disabled' : tariffForm.invalid}">Continue to review</button>
+                  [disabled]="!((this.checked || this.checked300 || this.checked500 || this.checkedOver500) &&
+      (this.tariffForm.controls.year.valid && this.tariffForm.controls.quarter.valid))"
+                  [ngClass]="{'btn-disabled' : !((this.checked || this.checked300 || this.checked500 || this.checkedOver500) &&
+      (this.tariffForm.controls.year.valid && this.tariffForm.controls.quarter.valid))}">Continue to review</button>
         </div>
       </div>
     </div>
