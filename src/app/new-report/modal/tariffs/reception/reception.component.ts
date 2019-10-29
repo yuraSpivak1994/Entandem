@@ -17,7 +17,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 })
 export class ReceptionComponent implements OnInit {
 
-  tariffTax: TariffTax;
+  tariffTax: Array<TariffTax>;
   checked = false;
   checked300 = false;
   checked500 = false;
@@ -35,6 +35,7 @@ export class ReceptionComponent implements OnInit {
   countStart500 = 0;
   countEndOver500 = 0;
   countStartOver500 = 0;
+  liveMusic = false;
   expandCalc = true;
   tariffForm : FormGroup;
   gstTaxCode = false;
@@ -47,7 +48,12 @@ export class ReceptionComponent implements OnInit {
   resoundTableWD: Array<TableCalculate> = [];
   resoundTableWOD: Array<TableCalculate> = [];
   totalCard = {
-    socanTotal: 0
+    socanTotal: 0,
+    resoundTotal: 0,
+    subtotal: 0,
+    rate: 0,
+    totalFees: 0
+
   };
 
   constructor(private newReportService: NewReportService,
@@ -87,8 +93,9 @@ export class ReceptionComponent implements OnInit {
   fetchTax(PROVINCE) {
       this.newReportService.getTax(PROVINCE)
         .subscribe((data) => {
-          this.tariffTax = data;
-          this.checkTaxCode(data.pop())
+          this.tariffTax = [...data];
+          console.log(this.tariffTax);
+          this.checkTaxCode(data.pop());
         }, error => {
           console.log(error);
         })
@@ -119,7 +126,7 @@ export class ReceptionComponent implements OnInit {
       this.tariffForm = this.fb.group({
         year: new FormControl(null, [Validators.required]),
         quarter: new FormControl(null, [Validators.required]),
-        liveMusic: new FormControl(false),
+        liveMusic: new FormControl(true),
 
         room100: new FormControl( false),
         room300: new FormControl(false),
@@ -148,7 +155,7 @@ export class ReceptionComponent implements OnInit {
       this.count100.start = 0;
       this.count100.end = 0;
     }
-
+   this.calcTariff();
   }
 
   updateCount300() {
@@ -159,6 +166,7 @@ export class ReceptionComponent implements OnInit {
       this.count300.start = 0;
       this.count300.end = 0;
     }
+    this.calcTariff();
   }
 
   updateCount500() {
@@ -169,6 +177,7 @@ export class ReceptionComponent implements OnInit {
       this.count500.start = 0;
       this.count500.end = 0;
     }
+    this.calcTariff();
   }
 
   updateCountOver500() {
@@ -179,6 +188,7 @@ export class ReceptionComponent implements OnInit {
       this.countOver500.start = 0;
       this.countOver500.end = 0;
     }
+    this.calcTariff();
   }
 
   showValue() {
@@ -189,6 +199,7 @@ export class ReceptionComponent implements OnInit {
   addCountEnd100(count: number, objCount: number) {
     objCount = count;
     this.count100.end = objCount;
+    this.calcTariff();
   }
 
   addCountStart100(count: number, objCount: number) {
@@ -206,40 +217,80 @@ export class ReceptionComponent implements OnInit {
   addCountEnd300(count: number, objCount: number) {
     objCount = count;
     this.count300.end = objCount;
+    this.calcTariff();
   }
 
   addCountStart300(count: number, objCount: number) {
     objCount = count;
     this.count300.start = objCount;
+    this.calcTariff();
   }
 
   addCountEnd500(count: number, objCount: number) {
     objCount = count;
     this.count500.end = objCount;
+    this.calcTariff();
   }
 
   addCountStart500(count: number, objCount: number) {
     objCount = count;
     this.count500.start = objCount;
+    this.calcTariff();
   }
 
   addCountEndOver500(count: number, objCount: number) {
     objCount = count;
     this.countOver500.end = objCount;
+    this.calcTariff();
   }
 
   addCountStartOver500(count: number, objCount: number) {
     objCount = count;
     this.countOver500.start = objCount;
+    this.calcTariff();
   }
+
 
   expandCalculate() {
     this.expandCalc = !this.expandCalc
   }
 
   calcTariff() {
-    this.totalCard.socanTotal = this.count100.start * this.socanTableWOD[0].UNIT_CHARGE;
+    this.totalCard.socanTotal = this.count100.start * this.socanTableWOD[0].UNIT_CHARGE
+      + this.count300.start * this.socanTableWOD[1].UNIT_CHARGE
+      + this.count500.start * this.socanTableWOD[2].UNIT_CHARGE
+      + this.countOver500.start * this.socanTableWOD[3].UNIT_CHARGE
+      + this.count100.end * this.socanTableWD[0].UNIT_CHARGE
+      + this.count300.end * this.socanTableWD[1].UNIT_CHARGE
+      + this.count500.end * this.socanTableWD[2].UNIT_CHARGE
+      + this.countOver500.end * this.socanTableWD[3].UNIT_CHARGE;
+    this.totalCard.subtotal = this.totalCard.socanTotal + this.totalCard.resoundTotal;
+
+    this.calcTariffResound();
   }
+
+  calcTariffResound() {
+    if (!this.liveMusic) {
+      this.totalCard.resoundTotal = this.count100.start * this.resoundTableWOD[0].UNIT_CHARGE
+        + this.count300.start * this.resoundTableWOD[1].UNIT_CHARGE
+        + this.count500.start * this.resoundTableWOD[2].UNIT_CHARGE
+        + this.countOver500.start * this.resoundTableWOD[3].UNIT_CHARGE
+        + this.count100.end * this.resoundTableWOD[0].UNIT_CHARGE
+        + this.count300.end * this.resoundTableWOD[1].UNIT_CHARGE
+        + this.count500.end * this.resoundTableWOD[2].UNIT_CHARGE
+        + this.countOver500.end * this.resoundTableWOD[3].UNIT_CHARGE;
+      this.totalCard.subtotal = this.totalCard.socanTotal + this.totalCard.resoundTotal;
+      let rate = 0;
+      this.tariffTax.forEach(rating => rate = rating.RATE);
+      this.totalCard.rate = this.totalCard.subtotal * rate;
+      this.totalCard.totalFees = this.totalCard.subtotal + this.totalCard.rate;
+
+    } if (this.liveMusic) {
+      this.totalCard.resoundTotal = 0;
+      this.totalCard.rate = 0;
+    }
+  }
+
 
 
 

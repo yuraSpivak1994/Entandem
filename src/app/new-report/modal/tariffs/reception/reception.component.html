@@ -82,8 +82,8 @@
       </div>
       <div class="col-md-6">
         <div class="receive-block">
-          <div class="square">
-            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox" formControlName="liveMusic">
+          <div class="square" (click)="calcTariffResound()">
+            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox" [(ngModel)]="liveMusic" formControlName="liveMusic">
             <label class="ng-tns-c10-10" for="checkbox-square"></label>
           </div>
           <label class="receive description-panel" for="checkbox-square">Report as Live Music Only Events (No use of recorded music)</label>
@@ -431,18 +431,22 @@
         </div>
         <div class="item-total-little">
           <span class="desc-small">Re:Sound Licensing Fees:</span>
-          <span class="desc-medium">$ 435</span>
+          <span class="desc-medium">$ {{totalCard.resoundTotal || 0 | number}}</span>
+        </div>
+        <div class="item-total-little">
+          <span class="small-title">Subtotal:</span>
+          <span class="small-title">$ {{totalCard.subtotal || 0 | number}}</span>
         </div>
         <div class="item-total-little">
           <span class="desc-small">{{taxCode}}</span>
-          <span class="desc-medium">$ 435</span>
+          <span class="desc-medium">$ {{totalCard.rate | number:'1.1-2'}}</span>
         </div>
         <div class="empty-space-20px"></div>
         <div class="line"></div>
         <div class="empty-space-20px"></div>
         <div class="item-total-little">
           <span class="total-desc">Total Fees:</span>
-          <span class="count-total">$586.35</span>
+          <span class="count-total">${{totalCard.totalFees | number:'1.1-2'}}</span>
         </div>
         <div class="empty-space-30px"></div>
         <div class="btn-box">
