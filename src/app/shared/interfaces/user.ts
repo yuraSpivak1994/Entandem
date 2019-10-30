@@ -177,6 +177,24 @@ export interface TotalCard {
   subtotal?: any;
 }
 
+export interface CalculateRoomTariff {
+  acctTariffId: number;
+  isSave: number;
+  liveOnly: number;
+  quarter: string;
+  reportId: string
+  rooms: Array<Room>
+  year: number
+}
+
+export interface Room {
+  DANCE_EVENTS: string
+  NON_DANCE_EVENTS: string
+  ROOM_CAPACITY: string
+  ROOM_CAPACITY_NAME: string
+  ROOM_CHECKED: boolean;
+}
+
 export class PaymentsHttpDatabase {
   constructor(private _httpClient: HttpClient) {
   }

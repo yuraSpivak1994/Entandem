@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  CalculateRoomTariff,
   Count100,
   Count300,
   Count500,
@@ -42,11 +43,13 @@ export class ReceptionComponent implements OnInit {
   hstTaxCode = false;
   pstTaxCode = false;
   taxCode: string;
+  rate: number;
   tableCalculate: TableCalculate;
   socanTableWD: Array<TableCalculate> = [];
   socanTableWOD: Array<TableCalculate> = [];
   resoundTableWD: Array<TableCalculate> = [];
   resoundTableWOD: Array<TableCalculate> = [];
+  calculateRoomTariff: CalculateRoomTariff;
   totalCard = {
     socanTotal: 0,
     resoundTotal: 0,
@@ -256,14 +259,16 @@ export class ReceptionComponent implements OnInit {
   }
 
   calcTariff() {
-    this.totalCard.socanTotal = this.count100.start * this.socanTableWOD[0].UNIT_CHARGE
+    this.rate = 0;
+    this.tariffTax.forEach(rating => this.rate = rating.RATE);
+    this.totalCard.socanTotal = parseFloat((this.count100.start * this.socanTableWOD[0].UNIT_CHARGE
       + this.count300.start * this.socanTableWOD[1].UNIT_CHARGE
       + this.count500.start * this.socanTableWOD[2].UNIT_CHARGE
       + this.countOver500.start * this.socanTableWOD[3].UNIT_CHARGE
       + this.count100.end * this.socanTableWD[0].UNIT_CHARGE
       + this.count300.end * this.socanTableWD[1].UNIT_CHARGE
       + this.count500.end * this.socanTableWD[2].UNIT_CHARGE
-      + this.countOver500.end * this.socanTableWD[3].UNIT_CHARGE;
+      + this.countOver500.end * this.socanTableWD[3].UNIT_CHARGE).toFixed(2))
     this.totalCard.subtotal = this.totalCard.socanTotal + this.totalCard.resoundTotal;
 
     this.calcTariffResound();
@@ -271,27 +276,30 @@ export class ReceptionComponent implements OnInit {
 
   calcTariffResound() {
     if (!this.liveMusic) {
-      this.totalCard.resoundTotal = this.count100.start * this.resoundTableWOD[0].UNIT_CHARGE
+      this.totalCard.resoundTotal = parseFloat((this.count100.start * this.resoundTableWOD[0].UNIT_CHARGE
         + this.count300.start * this.resoundTableWOD[1].UNIT_CHARGE
         + this.count500.start * this.resoundTableWOD[2].UNIT_CHARGE
         + this.countOver500.start * this.resoundTableWOD[3].UNIT_CHARGE
-        + this.count100.end * this.resoundTableWOD[0].UNIT_CHARGE
-        + this.count300.end * this.resoundTableWOD[1].UNIT_CHARGE
-        + this.count500.end * this.resoundTableWOD[2].UNIT_CHARGE
-        + this.countOver500.end * this.resoundTableWOD[3].UNIT_CHARGE;
+        + this.count100.end * this.resoundTableWD[0].UNIT_CHARGE
+        + this.count300.end * this.resoundTableWD[1].UNIT_CHARGE
+        + this.count500.end * this.resoundTableWD[2].UNIT_CHARGE
+        + this.countOver500.end * this.resoundTableWD[3].UNIT_CHARGE).toFixed(2))
       this.totalCard.subtotal = this.totalCard.socanTotal + this.totalCard.resoundTotal;
-      let rate = 0;
-      this.tariffTax.forEach(rating => rate = rating.RATE);
-      this.totalCard.rate = this.totalCard.subtotal * rate;
-      this.totalCard.totalFees = this.totalCard.subtotal + this.totalCard.rate;
+      let rateSocan = parseFloat((this.totalCard.socanTotal * this.rate).toFixed(2));
+      let rateResound = parseFloat((this.totalCard.resoundTotal * this.rate).toFixed(2))
+      this.totalCard.rate = rateSocan + rateResound;
+      this.totalCard.totalFees = parseFloat((this.totalCard.subtotal + this.totalCard.rate).toFixed(2));
 
     } if (this.liveMusic) {
       this.totalCard.resoundTotal = 0;
-      this.totalCard.rate = 0;
+      this.totalCard.subtotal = this.totalCard.socanTotal + this.totalCard.resoundTotal;
+      let rateSocan = parseFloat((this.totalCard.socanTotal * this.rate).toFixed(2));
+      let rateResound = parseFloat((this.totalCard.resoundTotal * this.rate).toFixed(2))
+      this.totalCard.rate = rateSocan + rateResound;
+      this.totalCard.totalFees =parseFloat((this.totalCard.subtotal + this.totalCard.rate).toFixed(2));
+
     }
   }
-
-
 
 
   ngOnInit() {
@@ -301,6 +309,10 @@ export class ReceptionComponent implements OnInit {
   }
 
   onSubmit() {
-
+      this.calculateRoomTariff.acctTariffId = 19;
+      this.calculateRoomTariff.isSave = 1;
+      this.calculateRoomTariff.quarter = this.tariffForm.controls.quarter.value;
+      this.calculateRoomTariff.reportId = "3099";
+      this.calculateRoomTariff.quarter = this.tariffForm.controls.year.value;
   }
 }

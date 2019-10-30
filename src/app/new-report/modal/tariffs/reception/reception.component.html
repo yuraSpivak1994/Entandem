@@ -82,8 +82,8 @@
       </div>
       <div class="col-md-6">
         <div class="receive-block">
-          <div class="square" (click)="calcTariffResound()">
-            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox" [(ngModel)]="liveMusic" formControlName="liveMusic">
+          <div class="square" (click)="$event.stopPropagation()">
+            <input class="ng-tns-c10-10" id="checkbox-square" type="checkbox" (change)="calcTariff()" [(ngModel)]="liveMusic" formControlName="liveMusic">
             <label class="ng-tns-c10-10" for="checkbox-square"></label>
           </div>
           <label class="receive description-panel" for="checkbox-square">Report as Live Music Only Events (No use of recorded music)</label>

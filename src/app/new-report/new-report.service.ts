@@ -30,6 +30,14 @@ export class NewReportService {
         }), catchError(val => throwError(val)));
   }
 
+  calculateTariff(tariffSeq, tariff) {
+    return this.http.post(environment.apiUrl + '/profile/report/send/' + tariffSeq, tariff)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }), catchError(val => throwError(val)));
+  }
+
   takeUserInfo(user) {
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
